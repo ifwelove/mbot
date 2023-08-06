@@ -40,6 +40,7 @@ class PingCommand extends Command
         $urls = [
             'https://sheltered-wildwood-81509-7319344d0e1b.herokuapp.com/ping',
             'https://mbot-2-6f5c0d4ec2bb.herokuapp.com/ping',
+            'https://mbot-3-ac8b63fd9692.herokuapp.com/ping',
         ];
         foreach ($urls as $url) {
             $curl = curl_init();
