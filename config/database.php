@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
-$redisUrl = parse_url(env('REDIS_URL'));
+//$redisUrl = parse_url(env('REDIS_URL'));
+$redisUrl = parse_url(env('REDIS_TLS_URL'));
 return [
 
     /*
