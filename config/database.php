@@ -126,14 +126,14 @@ return [
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
             'prefix'  => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
-            'ssl'     => ['verify_peer'      => false,
-            ],
         ],
 
         'default' => [
-            //            'scheme' => 'redis',
             'scheme'   => $redisUrl['scheme'],
-            'ssl'      => ['verify_peer' => false],
+            'ssl'     => [
+                'verify_peer'      => false,
+                'verify_peer_name' => false
+            ],
             //            'url' => env('REDIS_URL'),
             'host'     => $redisUrl['host'],
             'password' => $redisUrl['pass'],
@@ -142,9 +142,11 @@ return [
         ],
 
         'cache' => [
-            //            'scheme' => 'redis',
             'scheme'   => $redisUrl['scheme'],
-            'ssl'      => ['verify_peer' => false],
+            'ssl'     => [
+                'verify_peer'      => false,
+                'verify_peer_name' => false
+            ],
             //            'url' => env('REDIS_URL'),
             'host'     => $redisUrl['host'],
             'password' => $redisUrl['pass'],
