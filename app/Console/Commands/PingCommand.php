@@ -2,12 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Games;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class PingCommand extends Command
 {

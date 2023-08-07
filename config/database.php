@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Str;
 
-//$redisUrl = parse_url(env('REDIS_URL'));
-$redisUrl = parse_url(env('REDIS_TLS_URL'));
+$redisUrl = parse_url(env('REDIS_URL'));
+//$redisUrl = parse_url(env('REDIS_TLS_URL'));
 return [
 
     /*
@@ -130,6 +130,7 @@ return [
 
         'default' => [
             'scheme'   => $redisUrl['scheme'],
+            //走tls, 不走都加可以正常跑, 不加入則無法跑tls
             'ssl'     => [
                 'verify_peer'      => false,
                 'verify_peer_name' => false
@@ -143,6 +144,7 @@ return [
 
         'cache' => [
             'scheme'   => $redisUrl['scheme'],
+            //走tls, 不走都加可以正常跑, 不加入則無法跑tls
             'ssl'     => [
                 'verify_peer'      => false,
                 'verify_peer_name' => false
