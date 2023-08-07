@@ -127,8 +127,10 @@ return [
         ],
 
         'default' => [
-//            'scheme' => $redisUrl['scheme'],
-            'url' => env('REDIS_URL'),
+//            'scheme' => 'redis',
+            'scheme' => $redisUrl['scheme'],
+            'ssl' => ['verify_peer' => false],
+//            'url' => env('REDIS_URL'),
             'host' => $redisUrl['host'],
             'password' => $redisUrl['pass'],
             'port' => $redisUrl['port'],
@@ -136,8 +138,10 @@ return [
         ],
 
         'cache' => [
-//            'scheme' => $redisUrl['scheme'],
-            'url' => env('REDIS_URL'),
+//            'scheme' => 'redis',
+            'scheme' => $redisUrl['scheme'],
+            'ssl' => ['verify_peer' => false],
+//            'url' => env('REDIS_URL'),
             'host' => $redisUrl['host'],
             'password' => $redisUrl['pass'],
             'port' => $redisUrl['port'],
