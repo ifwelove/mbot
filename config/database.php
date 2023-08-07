@@ -127,7 +127,7 @@ return [
         ],
 
         'default' => [
-            'scheme' => $redisUrl['scheme'],
+//            'scheme' => $redisUrl['scheme'],
             'url' => env('REDIS_URL'),
             'host' => $redisUrl['host'],
             'password' => $redisUrl['pass'],
@@ -136,7 +136,7 @@ return [
         ],
 
         'cache' => [
-            'scheme' => $redisUrl['scheme'],
+//            'scheme' => $redisUrl['scheme'],
             'url' => env('REDIS_URL'),
             'host' => $redisUrl['host'],
             'password' => $redisUrl['pass'],
