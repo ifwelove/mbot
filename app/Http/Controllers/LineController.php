@@ -203,6 +203,7 @@ class LineController extends Controller
             'C222ac62b8f8826f5d85dd86f25b03e7c' => '2023-09-30',//蝦皮
             'C61881bd8783b3e648bc0d76a0c1de09f' => '2023-10-03',//蝦皮
             'Ce0759f36fcf10a42c5619afefbdf9dad' => '2024-02-01',//蝦皮
+            'Ca4973f2e121de82285600b225959e870' => '2024-03-10',//蝦皮
         ];
         $displayUrl = 'https://reurl.cc/WrMXZx';
         //        $displayUrl = url('/');
