@@ -27,42 +27,6 @@ class LineController extends Controller
 
     public function ping(Request $request)
     {
-        $line = config('line');
-        $tableName = '';
-        $count     = 1;
-        DB::connection('sync')
-            ->table('ItemSell')
-            ->chunkById(1000, function ($items) use (&$count, &$tableName, $line) {
-                $insert = [];
-                foreach ($items as $item) {
-                    $row      = [
-                        'ItemVolume' => $item->ItemVolume,
-                        'ItemCount'  => $item->ItemCount,
-                        'ItemName'   => $item->ItemName,
-                        'ServerID'   => $item->ServerID,
-                        'TradeType'  => $item->TradeType,
-                        'Update_at'  => $item->Update_at,
-                        'ItemColor'  => $item->ItemColor,
-                    ];
-                    $insert[] = $row;
-                }
-                $client    = new Client();
-                $response  = $client->post(sprintf('%s/items/test', $line['sync_url']), [
-                    'json' => [
-                        'items' => $insert
-                    ]
-                ]);
-                $tableName = json_decode($response->getBody()
-                    ->getContents(), true);
-                $count++;
-            }, 'index');
-        $client             = new Client();
-        $response           = $client->post(sprintf('%s/items/test', $line['sync_url']), [
-            'json' => [
-                'table' => $tableName['table']
-            ]
-        ]);
-
         return response('', 200);
     }
 
