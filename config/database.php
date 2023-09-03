@@ -36,6 +36,20 @@ return [
     */
 
     'connections' => [
+        'sync' => [
+            'driver'      => 'mysql',
+            'host'        => env('SYNC_DB_HOST', '127.0.0.1'),
+            'port'        => env('SYNC_DB_PORT', '3306'),
+            'database'    => env('SYNC_DB_DATABASE', 'forge'),
+            'username'    => env('SYNC_DB_USERNAME', 'forge'),
+            'password'    => env('SYNC_DB_PASSWORD', ''),
+            'unix_socket' => '',
+            'charset'     => 'utf8mb4',
+            'collation'   => 'utf8mb4_unicode_ci',
+            'prefix'      => '',
+            'strict'      => true,
+            'engine'      => null,
+        ],
 
         'sqlite' => [
             'driver'                  => 'sqlite',
