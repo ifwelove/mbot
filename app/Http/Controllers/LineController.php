@@ -235,7 +235,6 @@ class LineController extends Controller
             'C614965ecff5d1959f1a999042ace7e10' => '2024-06-01',//蝦皮
             'Cc27f0f72a6b0391d94ed4d506f7e73f9' => '2024-06-01',//蝦皮
             'C8c3a4c4657a790a2592ecf5ea5aacfb8' => '2024-06-01',//蝦皮
-            'Ce5484db98a0d0abc36b845244a8731ca' => '2023-06-01',//蝦皮試用
             'C2f505367be5589295fbd14f11a8c30a8' => '2023-12-31',//蝦皮
             'C91ef86138dc05f4ea7b0aa65ff8473e9' => '2023-12-31',//蝦皮
             'C12ad4e1a13253a67cea424f10f68725f' => '2023-12-31',//蝦皮
@@ -243,6 +242,7 @@ class LineController extends Controller
             'C61881bd8783b3e648bc0d76a0c1de09f' => '2023-10-03',//蝦皮
             'Ce0759f36fcf10a42c5619afefbdf9dad' => '2024-02-01',//蝦皮
             'Ca4973f2e121de82285600b225959e870' => '2024-03-10',//蝦皮
+            'Ca12f38326b7e39abb984e1fef7599865' => '2023-11-06',//試用
         ];
         $displayUrl = 'https://reurl.cc/WrMXZx';
         //        $displayUrl = url('/');
