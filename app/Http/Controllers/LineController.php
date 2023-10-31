@@ -27,6 +27,15 @@ class LineController extends Controller
 
     public function ping(Request $request)
     {
+        ignore_user_abort(true);
+        set_time_limit(0);
+        // Send the response to the client
+        response()->json()->send();
+        // If you're using FastCGI, this will end the request/response cycle
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        }
+
         $line = config('line');
         $tableName = '';
         $count     = 1;
