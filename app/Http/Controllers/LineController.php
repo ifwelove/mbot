@@ -27,15 +27,6 @@ class LineController extends Controller
 
     public function ping(Request $request)
     {
-        ignore_user_abort(true);
-        set_time_limit(0);
-        // Send the response to the client
-        response()->json()->send();
-        // If you're using FastCGI, this will end the request/response cycle
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request();
-        }
-
         $line = config('line');
         $tableName = '';
         $count     = 1;
@@ -195,7 +186,7 @@ class LineController extends Controller
                 switch ($message_type) {
                     case 'text':
                         $text = $event->getText();
-                        $this->getToken($text, $replyToken, $groupId);
+                        $this->getToken($text, $replyToken, $groupId, $request);
                         $this->boss($text, $replyToken, $groupId);
                         break;
                 }
@@ -205,11 +196,12 @@ class LineController extends Controller
     }
 
 
-    private function getToken($text, $replyToken, $groupId)
+    private function getToken($text, $replyToken, $groupId, $request)
     {
         switch (1) {
             case ($text === '群組編號') :
-                $this->bot->replyText($replyToken, $groupId);
+                $this->bot->replyText($replyToken, json_encode($request->all()));
+//                $this->bot->replyText($replyToken, $groupId);
 
                 break;
 
