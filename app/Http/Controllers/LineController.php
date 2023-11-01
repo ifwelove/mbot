@@ -186,7 +186,8 @@ class LineController extends Controller
                 switch ($message_type) {
                     case 'text':
                         $text = $event->getText();
-                        $this->getToken($text, $replyToken, $groupId, $request);
+                        $this->getToken($text, $replyToken, $groupId);
+//                        $this->getToken($text, $replyToken, $groupId, $request);
                         $this->boss($text, $replyToken, $groupId);
                         break;
                 }
@@ -200,8 +201,8 @@ class LineController extends Controller
     {
         switch (1) {
             case ($text === '群組編號') :
-                $this->bot->replyText($replyToken, json_encode($request->all()));
-//                $this->bot->replyText($replyToken, $groupId);
+//                $this->bot->replyText($replyToken, json_encode($request->all()));
+                $this->bot->replyText($replyToken, $groupId);
 
                 break;
 
