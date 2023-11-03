@@ -264,7 +264,7 @@ class LineController extends Controller
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                     $message    = '5/1開始收費, 年卡1800元, 價格為每月150元' . $displayUrl . $this->breakLine;
+                     $message    = '' . $displayUrl . $this->breakLine;
                     $message    .= '沒付費群組即無法使用' . $this->breakLine;
                     $message    .= '歡迎加入賴群討論' . $this->breakLine;
                     $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
@@ -286,7 +286,7 @@ class LineController extends Controller
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                    $message    = '5/1開始收費, 年卡1800元, 價格為每月150元' . $displayUrl . $this->breakLine;
+                    $message    = '' . $displayUrl . $this->breakLine;
                     $message    .= '沒付費群組即無法使用' . $this->breakLine;
                     $message    .= '歡迎加入賴群討論' . $this->breakLine;
                     $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
@@ -314,7 +314,7 @@ class LineController extends Controller
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                     $message    = '5/1開始收費, 年卡1800元, 價格為每月150元' . $displayUrl . $this->breakLine;
+                     $message    = '' . $displayUrl . $this->breakLine;
                     $message    .= '沒付費群組即無法使用' . $this->breakLine;
                     $message    .= '歡迎加入賴群討論' . $this->breakLine;
                     $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
@@ -400,7 +400,7 @@ class LineController extends Controller
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                     $message    = '5/1開始收費, 年卡1800元, 價格為每月150元' . $displayUrl . $this->breakLine;
+                     $message    = '' . $displayUrl . $this->breakLine;
                     $message    .= '沒付費群組即無法使用' . $this->breakLine;
                     $message    .= '歡迎加入賴群討論' . $this->breakLine;
                     $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
@@ -432,7 +432,7 @@ class LineController extends Controller
                                            $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                                            $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                     }else{
-                         $message    = '5/1開始收費, 年卡1800元, 價格為每月150元' . $displayUrl . $this->breakLine;
+                         $message    = '' . $displayUrl . $this->breakLine;
                     $message    .= '沒付費群組即無法使用' . $this->breakLine;
                     $message    .= '歡迎加入賴群討論' . $this->breakLine;
                     $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
