@@ -69,14 +69,14 @@ class LineController extends Controller
 
     public function webhook(Request $request)
     {
-//        ignore_user_abort(true);
-//        set_time_limit(0);
-//        // Send the response to the client
-//        response()->json()->send();
-//        // If you're using FastCGI, this will end the request/response cycle
-//        if (function_exists('fastcgi_finish_request')) {
-//            fastcgi_finish_request();
-//        }
+        ignore_user_abort(true);
+        set_time_limit(0);
+        // Send the response to the client
+        response()->json()->send();
+        // If you're using FastCGI, this will end the request/response cycle
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        }
         // $allowGroupIds = [
         //     'Cbe3b58457b221fbab87a6ea4fc511e62' => '2028-04-25',
         //     //'C1fee20af965f5cf24a9aa357fd06de6d' => '2099-12-31',
@@ -186,8 +186,8 @@ class LineController extends Controller
                 switch ($message_type) {
                     case 'text':
                         $text = $event->getText();
-                        $this->getToken($text, $replyToken, $groupId);
-//                        $this->getToken($text, $replyToken, $groupId, $request);
+//                        $this->getToken($text, $replyToken, $groupId);
+                        $this->getToken($text, $replyToken, $groupId, $request);
                         $this->boss($text, $replyToken, $groupId);
                         break;
                 }
