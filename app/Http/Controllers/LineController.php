@@ -254,7 +254,7 @@ class LineController extends Controller
             'Ca4973f2e121de82285600b225959e870' => '2024-03-10',//蝦皮
             'Ca12f38326b7e39abb984e1fef7599865' => '2023-11-06',//試用
             'C630ae418d1a94d48c1fbd1c0717faec1' => '2023-11-01',//試用
-            'C84742fa351f0d5c5207f00f8716b088d' => '2023-11-11',//試用
+            'C84742fa351f0d5c5207f00f8716b088d' => '2024-05-11',//試用
         ];
         $displayUrl = 'https://reurl.cc/WrMXZx';
         //        $displayUrl = url('/');
