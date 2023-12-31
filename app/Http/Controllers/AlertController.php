@@ -25,8 +25,11 @@ class AlertController extends Controller
             'form_params' => [
                 'message' => $message
             ]];
-        $request = new Request('POST', 'https://notify-api.line.me/api/notify', $headers);
-        $res = $client->sendAsync($request, $options)->wait();
-        echo $res->getBody();
+        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+            'headers' => $headers,
+            'form_params' => $options['form_params']
+        ]);
+
+        return response('ok', 200)->header('Content-Type', 'text/plain');
     }
 }
