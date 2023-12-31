@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\AlertController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,3 +16,5 @@ use App\Http\Controllers\LineController;
 
 Route::post('/callback', [LineController::class, 'webhook']);
 Route::get('/ping', [LineController::class, 'ping']);
+
+Route::post('/alert', [AlertController::class, 'alert']);
