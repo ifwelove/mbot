@@ -27,12 +27,13 @@ class AlertController extends Controller
 
     public function alert(Request $request)
     {
+        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
         $token = $request->post('token');
         $result = $this->checkAllowToken($token);
         if ($result === false) {
             $client = new Client();
             $headers = [
-                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+                'Authorization' => sprintf('Bearer %s', $owen_token),
                 'Content-Type' => 'application/x-www-form-urlencoded'
             ];
             $options = [
@@ -65,7 +66,7 @@ class AlertController extends Controller
         } catch (\Exception $e) {
             $client = new Client();
             $headers = [
-                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+                'Authorization' => sprintf('Bearer %s', $owen_token),
                 'Content-Type' => 'application/x-www-form-urlencoded'
             ];
             $options = [
