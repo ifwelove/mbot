@@ -31,7 +31,7 @@ class AlertController extends Controller
 //        dd($request->all());
         $result = $this->checkAllowToken($token);
         if ($result === false) {
-//            return response('token 未授權', 200)->header('Content-Type', 'text/plain');
+            return response('token 未授權', 200)->header('Content-Type', 'text/plain');
         }
         $message = $request->post('message');
         $client = new Client();
