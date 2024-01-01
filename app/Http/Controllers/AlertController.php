@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class AlertController extends Controller
 {
@@ -55,13 +56,20 @@ class AlertController extends Controller
         $pc_name = $request->post('pc_name');
         $pc_info = $request->post('pc_info');
         $alert_status = $request->post('alert_status');
+        $mac = $request->post('mac');
         $breakLine = "\n";
         $message = $breakLine;
         switch (1) {
             case ($alert_status === 'failed') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
-                $message .= sprintf('大尾狀態 : %s%s', '沒有回應或者沒有執行', $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
+
+                break;
+            case ($alert_status === 'plugin_not_open') :
+                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
 
                 break;
             case ($alert_status === 'successed') :
@@ -87,6 +95,14 @@ class AlertController extends Controller
                 'headers' => $headers,
                 'form_params' => $options['form_params']
             ]);
+
+            $key = "token:$token:mac:$mac";
+            $value = ['pc_name' => $pc_name, 'status' => $alert_status, 'last_updated' => now()->timestamp];
+
+            Redis::hMSet($key, $value);
+            Redis::expire($key, 86400);
+            Redis::sAdd("token:$token:machines", $mac);
+
         } catch (\Exception $e) {
             $client = new Client();
             $headers = [
@@ -105,5 +121,90 @@ class AlertController extends Controller
 
 
         return response('呼叫 line notify 成功', 200)->header('Content-Type', 'text/plain');
+    }
+
+//    public function updateMachineStatus()
+//    {
+//        $keys = Redis::keys("token:*:mac:*");
+//        foreach ($keys as $key) {
+//            $machine = Redis::hGetAll($key);
+//            $lastUpdated = $machine['last_updated'];
+//
+//            // 檢查是否超過一小時未更新
+//            if (now()->timestamp - $lastUpdated > 3600) {
+//                // 更新狀態為 'notopen'
+//                Redis::hSet($key, 'status', 'notopen');
+//            }
+//        }
+//    }
+
+//    public function showMachines($token)
+//    {
+//        $macAddresses = Redis::sMembers("token:$token:machines");
+//        $machines = [];
+//
+//        foreach ($macAddresses as $mac) {
+//            $key = "token:$token:mac:$mac";
+//            $machines[] = [
+//                'mac' => $mac,
+//                'data' => Redis::hGetAll($key)
+//            ];
+//        }
+//
+//        return response()->json(['machines' => $machines]);
+//    }
+
+    public function showMachines($token)
+    {
+        $macAddresses = Redis::sMembers("token:$token:machines");
+        $machines = [];
+        foreach ($macAddresses as $mac) {
+            $key = "token:$token:mac:$mac";
+            $machine = Redis::hGetAll($key);
+            $lastUpdated = $machine['last_updated'] ?? 0;
+
+            if (now()->timestamp - $lastUpdated > 3600) {
+                Redis::hSet($key, 'status', 'pc_not_open');
+                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
+            }
+
+            $machines[] = [
+                'mac' => $mac,
+                'data' => $machine
+            ];
+        }
+
+        return response()->json(['machines' => $machines]);
+    }
+
+
+//    public function deleteSpecificTokenKeys(array $tokens)
+//    {
+//        foreach ($tokens as $token) {
+//            $keysForToken = Redis::keys("token:$token:*");
+//            foreach ($keysForToken as $key) {
+//                Redis::del($key);
+//            }
+//        }
+//
+//        return response()->json(['message' => 'Specified token keys deleted successfully']);
+//    }
+
+    public function deleteTokens(array $tokens)
+    {
+        foreach ($tokens as $token) {
+            // 获取该 token 下所有的 MAC 地址
+            $macAddresses = Redis::sMembers("token:$token:machines");
+
+            foreach ($macAddresses as $mac) {
+                // 删除每个 MAC 地址的具体数据
+                Redis::del("token:$token:mac:$mac");
+            }
+
+            // 删除跟踪该 token 下所有 MAC 地址的集合
+            Redis::del("token:$token:machines");
+        }
+
+        return response()->json(['message' => 'Tokens deleted successfully']);
     }
 }
