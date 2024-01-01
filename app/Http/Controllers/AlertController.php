@@ -41,7 +41,8 @@ class AlertController extends Controller
             $options = [
                 'form_params' => [
                     //                'message' => $message
-                    'message' => json_encode($request->all())
+                    'message' => $request->post('pc_name')
+//                    'message' => json_encode($request->all())
                 ]];
             $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                 'headers' => $headers,
