@@ -18,7 +18,7 @@ class AlertController extends Controller
         $tokens = [
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => '123' //本人
         ];
-        if (in_array($token, $tokens)) {
+        if (isset($tokens[$token])) {
             return true;
         } else {
             return false;
@@ -28,9 +28,10 @@ class AlertController extends Controller
     public function alert(Request $request)
     {
         $token = $request->post('token');
+//        dd($request->all());
         $result = $this->checkAllowToken($token);
         if ($result === false) {
-            return response('token 未授權', 200)->header('Content-Type', 'text/plain');
+//            return response('token 未授權', 200)->header('Content-Type', 'text/plain');
         }
         $message = $request->post('message');
         $client = new Client();
@@ -40,7 +41,8 @@ class AlertController extends Controller
         ];
         $options = [
             'form_params' => [
-                'message' => $message
+//                'message' => $message
+                'message' => json_encode($request->all())
             ]];
         $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
             'headers' => $headers,
