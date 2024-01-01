@@ -51,7 +51,7 @@ class AlertController extends Controller
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
-//        $message = $request->post('message');
+        $pc_message = $request->post('message');
         $pc_name = $request->post('pc_name');
         $pc_info = $request->post('pc_info');
         $alert_status = $request->post('alert_status');
@@ -68,6 +68,9 @@ class AlertController extends Controller
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
+                break;
+            default:
+                $message .= $pc_message;
                 break;
         }
         $client = new Client();
