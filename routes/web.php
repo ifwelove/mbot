@@ -20,4 +20,4 @@ Route::get('/ping', [LineController::class, 'ping']);
 Route::post('/alert', [AlertController::class, 'alert']);
 //Route::get('/alert', [AlertController::class, 'alert']);
 
-Route::get('/machines/{token}', 'MachineController@showMachines');
+Route::get('/machines/{token}', [AlertController::class, 'showMachines']);
