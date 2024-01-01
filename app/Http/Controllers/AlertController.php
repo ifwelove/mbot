@@ -12,9 +12,26 @@ class AlertController extends Controller
     {
     }
 
+    private function checkAllowToken($token)
+    {
+        // todo 幾台 和 日期
+        $tokens = [
+            'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => '123' //本人
+        ];
+        if (in_array($token, $tokens)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function alert(Request $request)
     {
         $token = $request->post('token');
+        $result = $this->checkAllowToken($token);
+        if ($result === false) {
+            return response('token 未授權', 200)->header('Content-Type', 'text/plain');
+        }
         $message = $request->post('message');
         $client = new Client();
         $headers = [
