@@ -72,7 +72,7 @@ class AlertController extends Controller
                 $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
 
                 break;
-            case ($alert_status === 'successed') :
+            case ($alert_status === 'success') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
