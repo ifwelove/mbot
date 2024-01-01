@@ -53,16 +53,20 @@ class AlertController extends Controller
         }
 //        $message = $request->post('message');
         $pc_name = $request->post('pc_name');
+        $pc_info = $request->post('pc_info');
         $alert_status = $request->post('alert_status');
         $breakLine = "\n";
+        $message = $breakLine;
         switch (1) {
             case ($alert_status === 'failed') :
-                $message = sprintf('電腦名稱 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有回應或者沒有執行', $breakLine);
 
                 break;
             case ($alert_status === 'successed') :
-                $message = sprintf('電腦名稱 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
                 break;
         }
