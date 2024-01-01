@@ -17,7 +17,7 @@ class AlertController extends Controller
         // todo 幾台 和 日期
         $tokens = [
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => 'very6', //本人
-            '2eY5Th9W7LXJ3FRl3cJenI71NrR6F1X7GsfJYbot5Pn' => 'test555',
+            'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => 'test555',
             '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => '青蛙'
         ];
         if (isset($tokens[$token])) {
