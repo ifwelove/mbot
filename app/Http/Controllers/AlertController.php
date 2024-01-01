@@ -28,10 +28,24 @@ class AlertController extends Controller
     public function alert(Request $request)
     {
         $token = $request->post('token');
-//        dd($request->all());
         $result = $this->checkAllowToken($token);
         if ($result === false) {
-            return response('token 未授權', 200)->header('Content-Type', 'text/plain');
+            $client = new Client();
+            $headers = [
+                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ];
+            $options = [
+                'form_params' => [
+                    //                'message' => $message
+                    'message' => json_encode($request->all())
+                ]];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers' => $headers,
+                'form_params' => $options['form_params']
+            ]);
+
+            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
         $message = $request->post('message');
         $client = new Client();
@@ -41,14 +55,30 @@ class AlertController extends Controller
         ];
         $options = [
             'form_params' => [
-//                'message' => $message
-                'message' => json_encode($request->all())
+                'message' => $message
             ]];
-        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-            'headers' => $headers,
-            'form_params' => $options['form_params']
-        ]);
+        try {
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers' => $headers,
+                'form_params' => $options['form_params']
+            ]);
+        } catch (\Exception $e) {
+            $client = new Client();
+            $headers = [
+                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ];
+            $options = [
+                'form_params' => [
+                    'message' => json_encode([$request->all(), $e->getMessage()])
+                ]];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers' => $headers,
+                'form_params' => $options['form_params']
+            ]);
+        }
 
-        return response('ok', 200)->header('Content-Type', 'text/plain');
+
+        return response('呼叫 line notify 成功', 200)->header('Content-Type', 'text/plain');
     }
 }
