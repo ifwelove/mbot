@@ -56,6 +56,7 @@ class AlertController extends Controller
         $pc_name = $request->post('pc_name');
         $pc_info = $request->post('pc_info');
         $alert_status = $request->post('alert_status');
+        $alert_type = $request->post('alert_type');
         $mac = $request->post('mac');
         $breakLine = "\n";
         $message = $breakLine;
@@ -91,10 +92,19 @@ class AlertController extends Controller
                 'message' => $message
             ]];
         try {
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers' => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            if ($alert_type === 'all' && $alert_status === 'success') {
+                $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                    'headers' => $headers,
+                    'form_params' => $options['form_params']
+                ]);
+            }
+
+            if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
+                $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                    'headers' => $headers,
+                    'form_params' => $options['form_params']
+                ]);
+            }
 
             $key = "token:$token:mac:$mac";
             $value = ['pc_name' => $pc_name, 'status' => $alert_status, 'last_updated' => now()->timestamp];
