@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Machines Status</title>
+    <style>
+        .status-icon {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .success { background-color: green; }
+        .plugin-not-open { background-color: yellow; }
+        .pc-not-open { background-color: grey; }
+        .failed { background-color: red; }
+    </style>
+</head>
+<body>
+<h1>Machines Status</h1>
+<table>
+    <tr>
+        <th>MAC Address</th>
+        <th>Status</th>
+        <th>Last Updated</th>
+    </tr>
+    @foreach ($machines as $machine)
+        <tr>
+            <td>{{ $machine['mac'] }}</td>
+            <td>
+                <span class="status-icon {{ $machine['data']['status'] }}"></span>
+                {{ $machine['data']['status'] }}
+            </td>
+            <td>{{ $machine['data']['last_updated'] }}</td>
+        </tr>
+    @endforeach
+</table>
+</body>
+</html>
