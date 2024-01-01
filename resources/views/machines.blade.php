@@ -20,9 +20,9 @@
 <h1>Machines Status</h1>
 <table>
     <tr>
-        <th>MAC Address</th>
-        <th>Status</th>
-        <th>Last Updated</th>
+        <th>電腦代號</th>
+        <th>狀態</th>
+        <th>最後更新時間</th>
     </tr>
     @foreach ($machines as $machine)
         <tr>
