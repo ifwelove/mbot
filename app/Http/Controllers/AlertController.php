@@ -179,12 +179,19 @@ class AlertController extends Controller
             }
 
             $machines[] = [
-                'mac' => $mac,
+//                'mac' => $mac,
+                'mac' => $machine['pc_name'],
                 'data' => $machine
             ];
         }
 
-        return response()->json(['machines' => $machines]);
+        foreach ($machines as $index => $machine) {
+            $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+        }
+
+        return view('machines', ['machines' => $machines]);
+
+//        return response()->json(['machines' => $machines]);
     }
 
 
