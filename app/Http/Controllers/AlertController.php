@@ -41,8 +41,8 @@ class AlertController extends Controller
             $options = [
                 'form_params' => [
                     //                'message' => $message
-                    'message' => $request->post('pc_name')
-//                    'message' => json_encode($request->all())
+//                    'message' => $request->post('pc_name')
+                    'message' => json_encode($request->all())
                 ]];
             $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                 'headers' => $headers,
@@ -51,7 +51,21 @@ class AlertController extends Controller
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
-        $message = $request->post('message');
+//        $message = $request->post('message');
+        $pc_name = $request->post('pc_name');
+        $alert_status = $request->post('alert_status');
+        $breakLine = "\n";
+        switch (1) {
+            case ($alert_status === 'failed') :
+                $message = sprintf('電腦名稱 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '沒有回應或者沒有執行', $breakLine);
+
+                break;
+            case ($alert_status === 'successed') :
+                $message = sprintf('電腦名稱 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
+                break;
+        }
         $client = new Client();
         $headers = [
             'Authorization' => sprintf('Bearer %s', $token),
