@@ -14,7 +14,19 @@
         .plugin-not-open { background-color: yellow; }
         .pc-not-open { background-color: grey; }
         .failed { background-color: red; }
+
+        /* 添加表格样式 */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px; /* 调整间隔大小 */
+        }
+        th, td {
+            padding: 10px; /* 单元格内边距 */
+            text-align: left;
+        }
     </style>
+
 </head>
 <body>
 <h1>Machines Status</h1>
