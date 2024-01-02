@@ -21,6 +21,7 @@ class AlertController extends Controller
             'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => 'test555',
             '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => '青蛙',
             'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => '真心不騙',
+            'YUm1968WeN7p4ne8mtupWKQRP1al7uJ088jsbS6mCER' => '什麼啊',
         ];
         if (isset($tokens[$token])) {
             return true;
