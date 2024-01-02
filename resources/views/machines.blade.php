@@ -29,7 +29,10 @@
 
 </head>
 <body>
-<h1>Machines Status</h1>
+<h3>Machines Status</h3>
+<p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次</p>
+<p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
+<p>私人 line token 請勿外流避免被不當使用</p>
 <table>
     <tr>
         <th>電腦代號</th>
