@@ -13,9 +13,8 @@ class AlertController extends Controller
     {
     }
 
-    private function checkAllowToken($token)
+    private function getTokens()
     {
-        // todo 幾台 和 日期
         $tokens = [
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => 'very6', //本人
             'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => 'test555',
@@ -25,6 +24,14 @@ class AlertController extends Controller
             'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6' => '桃聖潔',
             '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo' => '小白',
         ];
+
+        return $tokens;
+    }
+
+    private function checkAllowToken($token)
+    {
+        // todo 幾台 和 日期
+        $tokens = $this->getTokens();
         if (isset($tokens[$token])) {
             return true;
         } else {
@@ -167,6 +174,17 @@ class AlertController extends Controller
 //
 //        return response()->json(['machines' => $machines]);
 //    }
+
+    public function monitor()
+    {
+        $count = 0;
+        $tokens = $this->getTokens();
+        foreach ($tokens as $token) {
+            $macAddresses = Redis::sMembers("token:$token:machines");
+            $count += count($macAddresses);
+        }
+        dd($count);
+    }
 
     public function showMachines($token)
     {
