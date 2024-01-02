@@ -189,6 +189,10 @@ class AlertController extends Controller
             ];
         }
 
+        usort($machines, function ($a, $b) {
+            return strcmp($a['pc_name'], $b['pc_name']);
+        });
+
         foreach ($machines as $index => $machine) {
             $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
         }
