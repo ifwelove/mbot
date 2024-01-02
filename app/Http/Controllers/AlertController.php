@@ -108,19 +108,25 @@ class AlertController extends Controller
             ]
         ];
         try {
-            if ($alert_type === 'all' && $alert_status === 'success') {
-                $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                    'headers'     => $headers,
-                    'form_params' => $options['form_params']
-                ]);
+            $currentDay = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
+            $currentTime = date('H:i'); // 獲取當前時間（24小時制）
+
+            if (!($currentDay == 2 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+                if ($alert_type === 'all' && $alert_status === 'success') {
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params']
+                    ]);
+                }
+
+                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params']
+                    ]);
+                }
             }
 
-            if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
-                $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                    'headers'     => $headers,
-                    'form_params' => $options['form_params']
-                ]);
-            }
             $key   = "token:$token:mac:$mac";
             $value = [
                 'pc_name'          => $pc_name,
