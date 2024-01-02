@@ -193,9 +193,21 @@ class AlertController extends Controller
             $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
         }
 
-        return view('machines', ['machines' => $machines]);
+        return view('machines', ['machines' => $machines, 'token' => $token]);
 
 //        return response()->json(['machines' => $machines]);
+    }
+
+    public function deleteMachine(Request $request)
+    {
+        $token = $request->input('token');
+        $mac = $request->input('mac');
+        $key = "token:$token:mac:$mac";
+
+        Redis::del($key);
+        Redis::sRem("token:$token:machines", $mac);
+
+        return response()->json(['message' => 'Machine deleted successfully']);
     }
 
 

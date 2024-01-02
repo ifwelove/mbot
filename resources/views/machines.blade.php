@@ -38,6 +38,7 @@
         <th>電腦代號</th>
         <th>狀態</th>
         <th>最後更新時間</th>
+        <th></th>
     </tr>
     @foreach ($machines as $machine)
         <tr>
@@ -47,8 +48,40 @@
                 {{ $machine['data']['status'] }}
             </td>
             <td>{{ $machine['data']['last_updated'] }}</td>
+            <td>
+                <!-- 删除按钮 -->
+                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">Delete</button>
+            </td>
         </tr>
     @endforeach
 </table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.delete-btn').click(function() {
+            var token = $(this).data('token');
+            var mac = $(this).data('mac');
+
+            $.ajax({
+                url: '/delete-machine', // 这是处理删除请求的路由
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    token: token,
+                    mac: mac
+                },
+                success: function(response) {
+                    // 处理成功响应
+                    alert(response.message);
+                    location.reload(); // 重新加载页面
+                },
+                error: function(response) {
+                    // 处理错误响应
+                    alert("Error: " + response.responseText);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
