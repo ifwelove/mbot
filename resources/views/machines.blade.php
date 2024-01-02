@@ -11,13 +11,13 @@
             display: inline-block;
         }
         .success { background-color: green; }
-        .plugin-not-open { background-color: yellow; }
-        .pc-not-open { background-color: grey; }
+        .plugin_not_open { background-color: yellow; }
+        .pc_not_open { background-color: grey; }
         .failed { background-color: red; }
 
         /* 添加表格样式 */
         table {
-            width: 100%;
+            width: 50%;
             border-collapse: separate;
             border-spacing: 0 10px; /* 调整间隔大小 */
         }
