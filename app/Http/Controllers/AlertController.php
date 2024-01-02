@@ -174,7 +174,7 @@ class AlertController extends Controller
             $machine = Redis::hGetAll($key);
             $lastUpdated = $machine['last_updated'] ?? 0;
 
-            if (now()->timestamp - $lastUpdated > 3600) {
+            if (now()->timestamp - $lastUpdated > 1800) {
                 Redis::hSet($key, 'status', 'pc_not_open');
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
