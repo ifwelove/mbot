@@ -19,7 +19,8 @@ class AlertController extends Controller
         $tokens = [
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => 'very6', //本人
             'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => 'test555',
-            '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => '青蛙'
+            '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => '青蛙',
+            'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => '真心不騙',
         ];
         if (isset($tokens[$token])) {
             return true;
