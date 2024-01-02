@@ -42,37 +42,38 @@ class AlertController extends Controller
     public function alert(Request $request)
     {
         $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-        $token = $request->post('token');
-        $result = $this->checkAllowToken($token);
+        $token      = $request->post('token');
+        $result     = $this->checkAllowToken($token);
         if ($result === false) {
-            $client = new Client();
-            $headers = [
+            $client   = new Client();
+            $headers  = [
                 'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type' => 'application/x-www-form-urlencoded'
+                'Content-Type'  => 'application/x-www-form-urlencoded'
             ];
-            $options = [
+            $options  = [
                 'form_params' => [
                     //                'message' => $message
-//                    'message' => $request->post('pc_name')
+                    //                    'message' => $request->post('pc_name')
                     'message' => json_encode($request->all())
-                ]];
+                ]
+            ];
             $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers' => $headers,
+                'headers'     => $headers,
                 'form_params' => $options['form_params']
             ]);
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
-        $pc_message = $request->post('message');
-        $pc_name = $request->post('pc_name');
-        $pc_info = $request->post('pc_info');
-        $alert_status = $request->post('alert_status');
-        $alert_type = $request->post('alert_type');
-        $mac = $request->post('mac');
-        $dnplayer = $request->post('dnplayer', 0);
+        $pc_message       = $request->post('message');
+        $pc_name          = $request->post('pc_name');
+        $pc_info          = $request->post('pc_info');
+        $alert_status     = $request->post('alert_status');
+        $alert_type       = $request->post('alert_type');
+        $mac              = $request->post('mac');
+        $dnplayer         = $request->post('dnplayer', 0);
         $dnplayer_running = $request->post('dnplayer_running', 0);
-        $breakLine = "\n";
-        $message = $breakLine;
+        $breakLine        = "\n";
+        $message          = $breakLine;
         switch (1) {
             case ($alert_status === 'failed') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
@@ -96,36 +97,37 @@ class AlertController extends Controller
                 $message .= $pc_message;
                 break;
         }
-        $client = new Client();
+        $client  = new Client();
         $headers = [
             'Authorization' => sprintf('Bearer %s', $token),
-            'Content-Type' => 'application/x-www-form-urlencoded'
+            'Content-Type'  => 'application/x-www-form-urlencoded'
         ];
         $options = [
             'form_params' => [
                 'message' => $message
-            ]];
+            ]
+        ];
         try {
             if ($alert_type === 'all' && $alert_status === 'success') {
                 $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                    'headers' => $headers,
+                    'headers'     => $headers,
                     'form_params' => $options['form_params']
                 ]);
             }
 
             if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
                 $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                    'headers' => $headers,
+                    'headers'     => $headers,
                     'form_params' => $options['form_params']
                 ]);
             }
-            $key = "token:$token:mac:$mac";
+            $key   = "token:$token:mac:$mac";
             $value = [
-                'pc_name' => $pc_name,
-                'status' => $alert_status,
+                'pc_name'          => $pc_name,
+                'status'           => $alert_status,
                 'dnplayer_running' => $dnplayer_running,
-                'dnplayer' => $dnplayer,
-                'last_updated' => now()->timestamp
+                'dnplayer'         => $dnplayer,
+                'last_updated'     => now()->timestamp
             ];
 
             Redis::hMSet($key, $value);
@@ -133,17 +135,18 @@ class AlertController extends Controller
             Redis::sAdd("token:$token:machines", $mac);
 
         } catch (\Exception $e) {
-            $client = new Client();
-            $headers = [
+            $client   = new Client();
+            $headers  = [
                 'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type' => 'application/x-www-form-urlencoded'
+                'Content-Type'  => 'application/x-www-form-urlencoded'
             ];
-            $options = [
+            $options  = [
                 'form_params' => [
                     'message' => json_encode([$request->all(), $e->getMessage()])
-                ]];
+                ]
+            ];
             $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers' => $headers,
+                'headers'     => $headers,
                 'form_params' => $options['form_params']
             ]);
         }
@@ -152,40 +155,40 @@ class AlertController extends Controller
         return response('呼叫 line notify 成功', 200)->header('Content-Type', 'text/plain');
     }
 
-//    public function updateMachineStatus()
-//    {
-//        $keys = Redis::keys("token:*:mac:*");
-//        foreach ($keys as $key) {
-//            $machine = Redis::hGetAll($key);
-//            $lastUpdated = $machine['last_updated'];
-//
-//            // 檢查是否超過一小時未更新
-//            if (now()->timestamp - $lastUpdated > 3600) {
-//                // 更新狀態為 'notopen'
-//                Redis::hSet($key, 'status', 'notopen');
-//            }
-//        }
-//    }
+    //    public function updateMachineStatus()
+    //    {
+    //        $keys = Redis::keys("token:*:mac:*");
+    //        foreach ($keys as $key) {
+    //            $machine = Redis::hGetAll($key);
+    //            $lastUpdated = $machine['last_updated'];
+    //
+    //            // 檢查是否超過一小時未更新
+    //            if (now()->timestamp - $lastUpdated > 3600) {
+    //                // 更新狀態為 'notopen'
+    //                Redis::hSet($key, 'status', 'notopen');
+    //            }
+    //        }
+    //    }
 
-//    public function showMachines($token)
-//    {
-//        $macAddresses = Redis::sMembers("token:$token:machines");
-//        $machines = [];
-//
-//        foreach ($macAddresses as $mac) {
-//            $key = "token:$token:mac:$mac";
-//            $machines[] = [
-//                'mac' => $mac,
-//                'data' => Redis::hGetAll($key)
-//            ];
-//        }
-//
-//        return response()->json(['machines' => $machines]);
-//    }
+    //    public function showMachines($token)
+    //    {
+    //        $macAddresses = Redis::sMembers("token:$token:machines");
+    //        $machines = [];
+    //
+    //        foreach ($macAddresses as $mac) {
+    //            $key = "token:$token:mac:$mac";
+    //            $machines[] = [
+    //                'mac' => $mac,
+    //                'data' => Redis::hGetAll($key)
+    //            ];
+    //        }
+    //
+    //        return response()->json(['machines' => $machines]);
+    //    }
 
     public function monitor()
     {
-        $count = 0;
+        $count  = 0;
         $tokens = $this->getTokens();
         foreach ($tokens as $token => $name) {
             $macAddresses = Redis::sMembers("token:$token:machines");
@@ -198,11 +201,13 @@ class AlertController extends Controller
 
     public function showMachines($token)
     {
-        $macAddresses = Redis::sMembers("token:$token:machines");
-        $machines = [];
+        $dnplayer_running_total = 0;
+        $dnplayer_total         = 0;
+        $macAddresses           = Redis::sMembers("token:$token:machines");
+        $machines               = [];
         foreach ($macAddresses as $mac) {
-            $key = "token:$token:mac:$mac";
-            $machine = Redis::hGetAll($key);
+            $key         = "token:$token:mac:$mac";
+            $machine     = Redis::hGetAll($key);
             $lastUpdated = $machine['last_updated'] ?? 0;
 
             if (now()->timestamp - $lastUpdated > 1800) {
@@ -210,13 +215,17 @@ class AlertController extends Controller
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
 
-            $machines[] = [
-                'mac' => $mac,
-                'pc_name' => $machine['pc_name'],
-                'dnplayer' => isset($machine['dnplayer']) ? $machine['dnplayer'] : 0,
-                'dnplayer_running' => isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0,
-                'data' => $machine
+            $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
+            $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+            $machines[]             = [
+                'mac'              => $mac,
+                'pc_name'          => $machine['pc_name'],
+                'dnplayer'         => $dnplayer,
+                'dnplayer_running' => $dnplayer_running,
+                'data'             => $machine
             ];
+            $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
+            $dnplayer_total         = $dnplayer_total + $dnplayer;
         }
 
         usort($machines, function ($a, $b) {
@@ -227,16 +236,16 @@ class AlertController extends Controller
             $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
         }
 
-        return view('machines', ['machines' => $machines, 'token' => $token]);
+        return view('machines', ['machines' => $machines, 'token' => $token, 'dnplayer_running_total' => $dnplayer_running_total, 'dnplayer_total' => $dnplayer_total]);
 
-//        return response()->json(['machines' => $machines]);
+        //        return response()->json(['machines' => $machines]);
     }
 
     public function deleteMachine(Request $request)
     {
         $token = $request->input('token');
-        $mac = $request->input('mac');
-        $key = "token:$token:mac:$mac";
+        $mac   = $request->input('mac');
+        $key   = "token:$token:mac:$mac";
 
         Redis::del($key);
         Redis::sRem("token:$token:machines", $mac);
@@ -245,17 +254,17 @@ class AlertController extends Controller
     }
 
 
-//    public function deleteSpecificTokenKeys(array $tokens)
-//    {
-//        foreach ($tokens as $token) {
-//            $keysForToken = Redis::keys("token:$token:*");
-//            foreach ($keysForToken as $key) {
-//                Redis::del($key);
-//            }
-//        }
-//
-//        return response()->json(['message' => 'Specified token keys deleted successfully']);
-//    }
+    //    public function deleteSpecificTokenKeys(array $tokens)
+    //    {
+    //        foreach ($tokens as $token) {
+    //            $keysForToken = Redis::keys("token:$token:*");
+    //            foreach ($keysForToken as $key) {
+    //                Redis::del($key);
+    //            }
+    //        }
+    //
+    //        return response()->json(['message' => 'Specified token keys deleted successfully']);
+    //    }
 
     public function deleteTokens(array $tokens)
     {
