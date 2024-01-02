@@ -23,6 +23,7 @@ class AlertController extends Controller
             'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => '真心不騙',
             'YUm1968WeN7p4ne8mtupWKQRP1al7uJ088jsbS6mCER' => '什麼啊',
             'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6' => '桃聖潔',
+            '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo' => '小白',
         ];
         if (isset($tokens[$token])) {
             return true;
