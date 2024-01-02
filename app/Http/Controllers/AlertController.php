@@ -213,8 +213,8 @@ class AlertController extends Controller
             $machines[] = [
                 'mac' => $mac,
                 'pc_name' => $machine['pc_name'],
-                'dnplayer' => $machine['dnplayer'],
-                'dnplayer_running' => $machine['dnplayer_running'],
+                'dnplayer' => isset($machine['dnplayer']) ? $machine['dnplayer'] : 0,
+                'dnplayer_running' => isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0,
                 'data' => $machine
             ];
         }
