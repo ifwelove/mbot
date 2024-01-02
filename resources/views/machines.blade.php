@@ -32,7 +32,7 @@
 <h3>Very6-大尾崩潰監視者</h3>
 <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 私人 line token 請勿外流避免被不當使用</p>
 <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
-<p>共有打幣機正在挖礦中{{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
+<p>共有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
 <table>
     <tr>
         <th>電腦代號</th>
