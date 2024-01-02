@@ -69,6 +69,8 @@ class AlertController extends Controller
         $alert_status = $request->post('alert_status');
         $alert_type = $request->post('alert_type');
         $mac = $request->post('mac');
+        $dnplayer = $request->post('dnplayer', 0);
+        $dnplayer_running = $request->post('dnplayer_running', 0);
         $breakLine = "\n";
         $message = $breakLine;
         switch (1) {
@@ -76,18 +78,19 @@ class AlertController extends Controller
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
-
+                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
                 break;
             case ($alert_status === 'plugin_not_open') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
-
+                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
                 break;
             case ($alert_status === 'success') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
+                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
                 break;
             default:
                 $message .= $pc_message;
@@ -116,9 +119,14 @@ class AlertController extends Controller
                     'form_params' => $options['form_params']
                 ]);
             }
-
             $key = "token:$token:mac:$mac";
-            $value = ['pc_name' => $pc_name, 'status' => $alert_status, 'last_updated' => now()->timestamp];
+            $value = [
+                'pc_name' => $pc_name,
+                'status' => $alert_status,
+                'dnplayer_running' => $dnplayer_running,
+                'dnplayer' => $dnplayer,
+                'last_updated' => now()->timestamp
+            ];
 
             Redis::hMSet($key, $value);
             Redis::expire($key, 86400);
@@ -205,6 +213,8 @@ class AlertController extends Controller
             $machines[] = [
                 'mac' => $mac,
                 'pc_name' => $machine['pc_name'],
+                'dnplayer' => $machine['dnplayer'],
+                'dnplayer_running' => $machine['dnplayer_running'],
                 'data' => $machine
             ];
         }

@@ -36,6 +36,7 @@
     <tr>
         <th>電腦代號</th>
         <th>狀態</th>
+        <th>模擬器數量</th>
         <th>最後更新時間</th>
         <th></th>
     </tr>
@@ -46,6 +47,7 @@
                 <span class="status-icon {{ $machine['data']['status'] }}"></span>
                 {{ $machine['data']['status'] }}
             </td>
+            <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
             <td>{{ $machine['data']['last_updated'] }}</td>
             <td>
                 <!-- 删除按钮 -->
