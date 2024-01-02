@@ -181,7 +181,9 @@ class AlertController extends Controller
         $tokens = $this->getTokens();
         foreach ($tokens as $token) {
             $macAddresses = Redis::sMembers("token:$token:machines");
-            dump(count($macAddresses));
+            foreach ($macAddresses as $mac) {
+                $count++;
+            }
         }
         dd($count);
     }
