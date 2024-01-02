@@ -29,10 +29,9 @@
 
 </head>
 <body>
-<h3>Machines Status</h3>
-<p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次</p>
+<h3>Very6-大尾崩潰監視者</h3>
+<p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 私人 line token 請勿外流避免被不當使用</p>
 <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
-<p>私人 line token 請勿外流避免被不當使用</p>
 <table>
     <tr>
         <th>電腦代號</th>
@@ -50,7 +49,7 @@
             <td>{{ $machine['data']['last_updated'] }}</td>
             <td>
                 <!-- 删除按钮 -->
-                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除錯誤電腦</button>
+                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除設置錯誤電腦</button>
             </td>
         </tr>
     @endforeach
