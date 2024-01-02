@@ -21,7 +21,7 @@ class AlertController extends Controller
             'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => 'test555',
             '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => '青蛙',
             'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => '真心不騙',
-            'YUm1968WeN7p4ne8mtupWKQRP1al7uJ088jsbS6mCER' => '什麼啊',
+            'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K' => '什麼啊',
             'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6' => '桃聖潔',
             '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo' => '小白',
         ];
@@ -183,8 +183,8 @@ class AlertController extends Controller
             }
 
             $machines[] = [
-//                'mac' => $mac,
-                'mac' => $machine['pc_name'],
+                'mac' => $mac,
+                'pc_name' => $machine['pc_name'],
                 'data' => $machine
             ];
         }

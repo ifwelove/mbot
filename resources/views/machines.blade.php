@@ -42,7 +42,7 @@
     </tr>
     @foreach ($machines as $machine)
         <tr>
-            <td>{{ $machine['mac'] }}</td>
+            <td>{{ $machine['pc_name'] }}</td>
             <td>
                 <span class="status-icon {{ $machine['data']['status'] }}"></span>
                 {{ $machine['data']['status'] }}
@@ -50,7 +50,7 @@
             <td>{{ $machine['data']['last_updated'] }}</td>
             <td>
                 <!-- 删除按钮 -->
-                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">Delete</button>
+                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除錯誤電腦</button>
             </td>
         </tr>
     @endforeach
