@@ -238,7 +238,7 @@ class AlertController extends Controller
         usort($machines, function ($a, $b) {
             return strcmp($a['pc_name'], $b['pc_name']);
         });
-dd($machines);
+
         $machines_total = 0;
         foreach ($machines as $index => $machine) {
             if (!isset($machine['data']['last_updated'])) {
