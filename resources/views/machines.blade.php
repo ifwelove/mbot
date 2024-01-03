@@ -32,6 +32,7 @@
 <h3>Very6-大尾崩潰監視者</h3>
 <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
 <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
+<p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
 <p>共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
 <table>
     <tr>
@@ -40,7 +41,7 @@
         <th>模擬器數量</th>
         <th>MAC</th>
         <th>最後更新時間</th>
-        <th>{{ $macCount }}</th>
+        <th></th>
     </tr>
     @foreach ($machines as $machine)
         <tr>
