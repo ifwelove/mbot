@@ -50,7 +50,7 @@
                 {{ $machine['data']['status'] }}
             </td>
             <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
-            <td>{{ $machine['data']['mac'] }}</td>
+            <td>{{ $machine['mac'] }}</td>
             <td>{{ $machine['data']['last_updated'] }}</td>
             <td>
                 <!-- 删除按钮 -->
