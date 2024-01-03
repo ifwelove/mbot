@@ -19,7 +19,7 @@ class AlertController extends Controller
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => [
                 'name' => 'very6',
                 'date' => '2025-01-01',
-                'amount' => '9',
+                'amount' => '10',
             ],
             'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => [
                 'name' => 'test5555',
