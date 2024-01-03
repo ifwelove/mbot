@@ -239,15 +239,17 @@ class AlertController extends Controller
             return strcmp($a['pc_name'], $b['pc_name']);
         });
 
+        $machines_total = 0;
         foreach ($machines as $index => $machine) {
             if (!isset($machine['data']['last_updated'])) {
                 $machines[$index]['data']['last_updated'] = '';
             } else {
                 $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
             }
+            $machines_total++;
         }
 
-        return view('machines', ['machines' => $machines, 'token' => $token, 'dnplayer_running_total' => $dnplayer_running_total, 'dnplayer_total' => $dnplayer_total]);
+        return view('machines', ['machines' => $machines, 'token' => $token, 'dnplayer_running_total' => $dnplayer_running_total, 'dnplayer_total' => $dnplayer_total, 'machines_total' => $machines_total]);
 
         //        return response()->json(['machines' => $machines]);
     }
