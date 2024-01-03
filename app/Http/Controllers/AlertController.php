@@ -19,7 +19,7 @@ class AlertController extends Controller
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => [
                 'name' => 'very6',
                 'date' => '2025-01-01',
-                'amount' => '10',
+                'amount' => '9',
             ],
             'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => [
                 'name' => 'test5555',
@@ -67,6 +67,37 @@ class AlertController extends Controller
         }
     }
 
+    private function getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer)
+    {
+        $breakLine        = "\n";
+        $message          = $breakLine;
+        switch (1) {
+            case ($alert_status === 'failed') :
+                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
+                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
+                break;
+            case ($alert_status === 'plugin_not_open') :
+                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
+                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
+                break;
+            case ($alert_status === 'success') :
+                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
+                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
+                $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
+                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
+                break;
+            default:
+                $message .= $pc_message;
+                break;
+        }
+
+        return $message;
+    }
+
     public function alert(Request $request)
     {
         $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
@@ -100,46 +131,36 @@ class AlertController extends Controller
         $mac              = $request->post('mac');
         $dnplayer         = $request->post('dnplayer', 0);
         $dnplayer_running = $request->post('dnplayer_running', 0);
-        $breakLine        = "\n";
-        $message          = $breakLine;
-        switch (1) {
-            case ($alert_status === 'failed') :
-                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
-                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
-                $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
-                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
-                break;
-            case ($alert_status === 'plugin_not_open') :
-                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
-                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
-                $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
-                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
-                break;
-            case ($alert_status === 'success') :
-                $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
-                $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
-                $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
-                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
-                break;
-            default:
-                $message .= $pc_message;
-                break;
-        }
-        $client  = new Client();
-        $headers = [
-            'Authorization' => sprintf('Bearer %s', $token),
-            'Content-Type'  => 'application/x-www-form-urlencoded'
-        ];
-        $options = [
-            'form_params' => [
-                'message' => $message
-            ]
-        ];
+
+        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer);
+
+
         try {
+            $tokens = $this->getTokens();
+            $maxMacs = $tokens[$token]['amount'];
+            $macSetKey = "token:$token:machines";
+            if (!Redis::sIsMember($macSetKey, $mac)) {
+                $macCount = Redis::scard($macSetKey);
+                if ($macCount >= $maxMacs) {
+                    return response(sprintf('電腦台數限制 %s 已滿請聯繫作者', $maxMacs), 200)->header('Content-Type', 'text/plain');
+                }
+            }
+
             $currentDay = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
             $currentTime = date('H:i'); // 獲取當前時間（24小時制）
 
             if (!($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+                $client  = new Client();
+                $headers = [
+                    'Authorization' => sprintf('Bearer %s', $token),
+                    'Content-Type'  => 'application/x-www-form-urlencoded'
+                ];
+                $options = [
+                    'form_params' => [
+                        'message' => $message
+                    ]
+                ];
+
                 if ($alert_type === 'all' && $alert_status === 'success') {
                     $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                         'headers'     => $headers,
