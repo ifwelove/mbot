@@ -111,7 +111,7 @@ class AlertController extends Controller
             $currentDay = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
             $currentTime = date('H:i'); // 獲取當前時間（24小時制）
 
-            if (!($currentDay == 2 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+            if (!($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
                 if ($alert_type === 'all' && $alert_status === 'success') {
                     $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                         'headers'     => $headers,
