@@ -240,7 +240,11 @@ class AlertController extends Controller
         });
 
         foreach ($machines as $index => $machine) {
-            $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+            if (isset($machine['data']['last_updated'])) {
+                $machines[$index]['data']['last_updated'] = '';
+            } else {
+                $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+            }
         }
 
         return view('machines', ['machines' => $machines, 'token' => $token, 'dnplayer_running_total' => $dnplayer_running_total, 'dnplayer_total' => $dnplayer_total]);
