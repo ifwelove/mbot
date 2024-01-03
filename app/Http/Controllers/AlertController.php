@@ -221,11 +221,12 @@ class AlertController extends Controller
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
 
+            $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
             $machines[]             = [
                 'mac'              => $mac,
-                'pc_name'          => $machine['pc_name'],
+                'pc_name'          => $pc_name,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
                 'data'             => $machine
