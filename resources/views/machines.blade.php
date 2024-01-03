@@ -40,7 +40,7 @@
         <th>模擬器數量</th>
         <th>MAC</th>
         <th>最後更新時間</th>
-        <th></th>
+        <th>{{ $macCount }}</th>
     </tr>
     @foreach ($machines as $machine)
         <tr>

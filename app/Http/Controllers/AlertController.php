@@ -16,13 +16,41 @@ class AlertController extends Controller
     private function getTokens()
     {
         $tokens = [
-            'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => 'very6', //本人
-            'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => 'test555',
-            '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => '青蛙',
-            'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => '真心不騙',
-            'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K' => '什麼啊',
-            'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6' => '桃聖潔',
-            '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo' => '小白',
+            'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => [
+                'name' => 'very6',
+                'date' => '2025-01-01',
+                'amount' => '10',
+            ],
+            'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => [
+                'name' => 'test5555',
+                'date' => '2025-01-01',
+                'amount' => '50',
+            ],
+            '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => [
+                'name' => '井底之蛙',
+                'date' => '2025-01-01',
+                'amount' => '50',
+            ],
+            'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => [
+                'name' => '真心不騙',
+                'date' => '2025-01-01',
+                'amount' => '2',
+            ],
+            'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K' => [
+                'name' => '什麼啊',
+                'date' => '2025-01-01',
+                'amount' => '2',
+            ],
+            'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6' => [
+                'name' => '桃聖潔',
+                'date' => '2025-01-01',
+                'amount' => '15',
+            ],
+            '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo' => [
+                'name' => '小白',
+                'date' => '2025-01-01',
+                'amount' => '15',
+            ],
         ];
 
         return $tokens;
@@ -137,7 +165,7 @@ class AlertController extends Controller
             ];
 
             Redis::hMSet($key, $value);
-            Redis::expire($key, 86400);
+            Redis::expire($key, 86400 * 2);
             Redis::sAdd("token:$token:machines", $mac);
 
         } catch (\Exception $e) {
@@ -207,6 +235,8 @@ class AlertController extends Controller
 
     public function showMachines($token)
     {
+        $macCount = Redis::scard("token:$token:machines");
+
         $dnplayer_running_total = 0;
         $dnplayer_total         = 0;
         $macAddresses           = Redis::sMembers("token:$token:machines");
@@ -249,8 +279,15 @@ class AlertController extends Controller
             $machines_total++;
         }
 
-        return view('machines', ['machines' => $machines, 'token' => $token, 'dnplayer_running_total' => $dnplayer_running_total, 'dnplayer_total' => $dnplayer_total, 'machines_total' => $machines_total]);
-
+        return view('machines',
+            [
+                'macCount' => $macCount,
+                'machines' => $machines,
+                'token' => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total' => $dnplayer_total,
+                'machines_total' => $machines_total
+            ]);
         //        return response()->json(['machines' => $machines]);
     }
 
