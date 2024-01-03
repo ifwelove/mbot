@@ -256,7 +256,18 @@ class AlertController extends Controller
 
     public function showMachines($token)
     {
-        $macCount = Redis::scard("token:$token:machines");
+        $tokens = $this->getTokens();
+        if (!isset($tokens[$token])) {
+            $user = [
+                'name' => '',
+                'date' => '未申請使用',
+                'amount' => '0',
+            ];
+        } else {
+            $user = $tokens[$token];
+        }
+
+//        $macCount = Redis::scard("token:$token:machines");
 
         $dnplayer_running_total = 0;
         $dnplayer_total         = 0;
@@ -302,7 +313,8 @@ class AlertController extends Controller
 
         return view('machines',
             [
-                'macCount' => $macCount,
+//                'macCount' => $macCount,
+                'user' => $user,
                 'machines' => $machines,
                 'token' => $token,
                 'dnplayer_running_total' => $dnplayer_running_total,
