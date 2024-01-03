@@ -240,7 +240,7 @@ class AlertController extends Controller
         });
 
         foreach ($machines as $index => $machine) {
-            if (isset($machine['data']['last_updated'])) {
+            if (!isset($machine['data']['last_updated'])) {
                 $machines[$index]['data']['last_updated'] = '';
             } else {
                 $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
