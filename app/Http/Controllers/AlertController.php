@@ -294,7 +294,7 @@ class AlertController extends Controller
                 'data'             => $machine
             ];
             $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
-            $dnplayer_total         = $dnplayer_total + $dnplayer;
+            $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
         }
 
         usort($machines, function ($a, $b) {
