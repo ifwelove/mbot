@@ -30,6 +30,7 @@
 </head>
 <body>
 <h3>Very6-大尾崩潰監視者</h3>
+<a target="_blank" href="https://very6.tw/大尾崩潰檢測check_status_20240104_v0906.rar">最新下載點</a>
 <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
 <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
 <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
