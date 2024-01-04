@@ -161,7 +161,7 @@ class AlertController extends Controller
                     ]
                 ];
 
-                if ($alert_type === 'all' && $alert_status === 'success') {
+                if ($alert_type === 'all') {
                     $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                         'headers'     => $headers,
                         'form_params' => $options['form_params']
