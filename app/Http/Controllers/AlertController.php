@@ -397,7 +397,7 @@ class AlertController extends Controller
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
-            dd($machine);
+            dump($machine);
             $lastUpdated = $machine['last_updated'] ?? 0;
 
             if (now()->timestamp - $lastUpdated > 1800) {
