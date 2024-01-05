@@ -160,6 +160,7 @@ class AlertController extends Controller
         $pc_message       = $request->post('message');
         $pc_name          = $request->post('pc_name');
         $pc_info          = $request->post('pc_info');
+        $m_info          = $request->post('m_info', []);
         $alert_status     = $request->post('alert_status');
         $alert_type       = $request->post('alert_type');
         $mac              = $request->post('mac');
@@ -216,6 +217,7 @@ class AlertController extends Controller
                 'status'           => $alert_status,
                 'dnplayer_running' => $dnplayer_running,
                 'dnplayer'         => $dnplayer,
+                'm_info'           => $m_info,
                 'last_updated'     => now()->timestamp
             ];
 
@@ -320,11 +322,24 @@ class AlertController extends Controller
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
+            $groupedData = [];
+            foreach ($m_info as $item) {
+                $key = $item[1];
+                $value = (int) $item[0];
+                if (!isset($groupedData[$key])) {
+                    $groupedData[$key] = 0;
+                }
+                $groupedData[$key] += $value;
+            }
+
+
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
+                'm_info'           => $groupedData,
                 'data'             => $machine
             ];
             $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;

@@ -42,6 +42,8 @@
         <th>模擬器數量</th>
         <th>MAC</th>
         <th>最後更新時間</th>
+
+        <th>鑽石</th>
         <th></th>
     </tr>
     @foreach ($machines as $machine)
@@ -54,6 +56,7 @@
             <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
             <td>{{ $machine['mac'] }}</td>
             <td>{{ $machine['data']['last_updated'] }}</td>
+            <td>@foreach ($machine['m_info'] as $service => $value){{ $service }} : {{ $value }}@endforeach</td>
             <td>
                 <!-- 删除按钮 -->
                 <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除設置錯誤電腦</button>
