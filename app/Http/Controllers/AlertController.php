@@ -217,7 +217,7 @@ class AlertController extends Controller
                 'status'           => $alert_status,
                 'dnplayer_running' => $dnplayer_running,
                 'dnplayer'         => $dnplayer,
-                'm_info'           => json_encode($m_info),
+                'm_info'           => $m_info,
                 'last_updated'     => now()->timestamp
             ];
 
