@@ -324,15 +324,15 @@ class AlertController extends Controller
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
             $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
 //            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
-//            $groupedData = [];
-//            foreach ($m_info as $item) {
-//                $key = $item[1];
-//                $value = (int) $item[0];
-//                if (!isset($groupedData[$key])) {
-//                    $groupedData[$key] = 0;
-//                }
-//                $groupedData[$key] += $value;
-//            }
+            $groupedData = [];
+            foreach ($m_info as $item) {
+                $key = $item[1];
+                $value = (int) $item[0];
+                if (!isset($groupedData[$key])) {
+                    $groupedData[$key] = 0;
+                }
+                $groupedData[$key] += $value;
+            }
 
 
             $machines[]             = [
@@ -340,7 +340,7 @@ class AlertController extends Controller
                 'pc_name'          => $pc_name,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
-                'm_info'           => $m_info,
+                'm_info'           => $groupedData,
                 'data'             => $machine
             ];
             $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
