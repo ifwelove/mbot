@@ -323,7 +323,7 @@ class AlertController extends Controller
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
             $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
-            dump($m_info);
+            dump($machine);
 //            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
             $groupedData = [];
             foreach ($m_info as $item) {
