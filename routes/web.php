@@ -22,4 +22,5 @@ Route::post('/alert', [AlertController::class, 'alert']);
 
 Route::get('/machines/{token}', [AlertController::class, 'showMachines']);
 Route::post('/delete-machine', [AlertController::class, 'deleteMachine']);
-Route::get('/monitor/', [AlertController::class, 'monitor']);
+Route::get('/monitor', [AlertController::class, 'monitor']);
+Route::post('/heroku', [AlertController::class, 'heroku']);

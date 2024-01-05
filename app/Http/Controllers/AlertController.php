@@ -108,6 +108,30 @@ class AlertController extends Controller
         return $message;
     }
 
+    public function heroku(Request $request)
+    {
+//        '7173297118557c83de0dffed03fadddce186044ebecce65aa9e1d576e365'
+        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+        $client   = new Client();
+        $headers  = [
+            'Authorization' => sprintf('Bearer %s', $owen_token),
+            'Content-Type'  => 'application/x-www-form-urlencoded'
+        ];
+        $options  = [
+            'form_params' => [
+                //                'message' => $message
+                //                    'message' => $request->post('pc_name')
+                'message' => json_encode($request->all())
+            ]
+        ];
+        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+            'headers'     => $headers,
+            'form_params' => $options['form_params']
+        ]);
+
+        return response();
+    }
+
     public function alert(Request $request)
     {
         $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
