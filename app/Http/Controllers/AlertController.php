@@ -217,7 +217,7 @@ class AlertController extends Controller
                 'status'           => $alert_status,
                 'dnplayer_running' => $dnplayer_running,
                 'dnplayer'         => $dnplayer,
-                'm_info'           => json_decode($m_info),
+                'm_info'           => ($m_info),
                 'last_updated'     => now()->timestamp
             ];
 
@@ -322,9 +322,9 @@ class AlertController extends Controller
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
-//            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
+            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
             dump($machine);
-            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
+//            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
             $groupedData = [];
             foreach ($m_info as $item) {
                 $key = $item[1];
