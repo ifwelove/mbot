@@ -56,7 +56,7 @@
             <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
             <td>{{ $machine['mac'] }}</td>
             <td>{{ $machine['data']['last_updated'] }}</td>
-            <td>{{ $machine['m_info'] }}</td>
+            <td>@foreach ($machine['m_info'] as $service => $value){{ $machine['m_info'] }} : {{ $value }}@endforeach</td>
             <td>
                 <!-- 删除按钮 -->
                 <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除設置錯誤電腦</button>
