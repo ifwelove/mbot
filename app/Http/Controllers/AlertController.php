@@ -217,7 +217,7 @@ class AlertController extends Controller
                 'status'           => $alert_status,
                 'dnplayer_running' => $dnplayer_running,
                 'dnplayer'         => $dnplayer,
-                'm_info'           => ($m_info),
+                'm_info'           => json_encode($m_info),
                 'last_updated'     => now()->timestamp
             ];
 
@@ -322,18 +322,18 @@ class AlertController extends Controller
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
-            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
-            dump($machine);
+//            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
+//            dump($machine);
 //            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
-            $groupedData = [];
-            foreach ($m_info as $item) {
-                $key = $item[1];
-                $value = (int) $item[0];
-                if (!isset($groupedData[$key])) {
-                    $groupedData[$key] = 0;
-                }
-                $groupedData[$key] += $value;
-            }
+//            $groupedData = [];
+//            foreach ($m_info as $item) {
+//                $key = $item[1];
+//                $value = (int) $item[0];
+//                if (!isset($groupedData[$key])) {
+//                    $groupedData[$key] = 0;
+//                }
+//                $groupedData[$key] += $value;
+//            }
 
 
             $machines[]             = [
@@ -341,7 +341,7 @@ class AlertController extends Controller
                 'pc_name'          => $pc_name,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
-                'm_info'           => $groupedData,
+//                'm_info'           => $groupedData,
                 'data'             => $machine
             ];
             $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
@@ -365,6 +365,91 @@ class AlertController extends Controller
         return view('machines',
             [
 //                'macCount' => $macCount,
+                'user' => $user,
+                'machines' => $machines,
+                'token' => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total' => $dnplayer_total,
+                'machines_total' => $machines_total
+            ]);
+        //        return response()->json(['machines' => $machines]);
+    }
+
+    public function showMachines2($token)
+    {
+        $tokens = $this->getTokens();
+        if (!isset($tokens[$token])) {
+            $user = [
+                'name' => '',
+                'date' => '未申請使用',
+                'amount' => '0',
+            ];
+        } else {
+            $user = $tokens[$token];
+        }
+
+        //        $macCount = Redis::scard("token:$token:machines");
+
+        $dnplayer_running_total = 0;
+        $dnplayer_total         = 0;
+        $macAddresses           = Redis::sMembers("token:$token:machines");
+        $machines               = [];
+        foreach ($macAddresses as $mac) {
+            $key         = "token:$token:mac:$mac";
+            $machine     = Redis::hGetAll($key);
+            $lastUpdated = $machine['last_updated'] ?? 0;
+
+            if (now()->timestamp - $lastUpdated > 1800) {
+                Redis::hSet($key, 'status', 'pc_not_open');
+                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
+            }
+
+            $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
+            $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+            //            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
+            //            dump($machine);
+            //            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
+            //            $groupedData = [];
+            //            foreach ($m_info as $item) {
+            //                $key = $item[1];
+            //                $value = (int) $item[0];
+            //                if (!isset($groupedData[$key])) {
+            //                    $groupedData[$key] = 0;
+            //                }
+            //                $groupedData[$key] += $value;
+            //            }
+
+
+            $machines[]             = [
+                'mac'              => $mac,
+                'pc_name'          => $pc_name,
+                'dnplayer'         => $dnplayer,
+                'dnplayer_running' => $dnplayer_running,
+                //                'm_info'           => $groupedData,
+                'data'             => $machine
+            ];
+            $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
+            $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
+        }
+
+        usort($machines, function ($a, $b) {
+            return strcmp($a['pc_name'], $b['pc_name']);
+        });
+
+        $machines_total = 0;
+        foreach ($machines as $index => $machine) {
+            if (!isset($machine['data']['last_updated'])) {
+                $machines[$index]['data']['last_updated'] = '';
+            } else {
+                $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+            }
+            $machines_total++;
+        }
+
+        return view('machines2',
+            [
+                //                'macCount' => $macCount,
                 'user' => $user,
                 'machines' => $machines,
                 'token' => $token,
