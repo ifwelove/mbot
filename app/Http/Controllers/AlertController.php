@@ -16,6 +16,11 @@ class AlertController extends Controller
     private function getTokens()
     {
         $tokens = [
+            'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB1' => [
+                'name' => 'very62',
+                'date' => '2025-01-01',
+                'amount' => '10',
+            ],
             'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => [
                 'name' => 'very6',
                 'date' => '2025-01-01',
@@ -210,7 +215,7 @@ class AlertController extends Controller
                     ]);
                 }
             }
-            $m_info = json_decode(base64_decode($m_info), true);
+//            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
             $value = [
                 'pc_name'          => $pc_name,
