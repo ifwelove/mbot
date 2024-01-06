@@ -18,6 +18,7 @@ Route::post('/callback', [LineController::class, 'webhook']);
 Route::get('/ping', [LineController::class, 'ping']);
 
 Route::post('/alert', [AlertController::class, 'alert']);
+Route::post('/alert2', [AlertController::class, 'alert2']);
 //Route::get('/alert', [AlertController::class, 'alert']);
 
 Route::get('/machines/{token}', [AlertController::class, 'showMachines']);

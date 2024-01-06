@@ -132,6 +132,120 @@ class AlertController extends Controller
         return response();
     }
 
+    public function alert2(Request $request)
+    {
+        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+        $token      = $request->post('token');
+        $result     = $this->checkAllowToken($token);
+        if ($result === false) {
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', $owen_token),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    //                'message' => $message
+                    //                    'message' => $request->post('pc_name')
+                    'message' => json_encode($request->all())
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
+
+            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
+        }
+        $pc_message       = $request->post('message');
+        $pc_name          = $request->post('pc_name');
+        $pc_info          = $request->post('pc_info');
+        $m_info          = $request->post('m_info');
+        $alert_status     = $request->post('alert_status');
+        $alert_type       = $request->post('alert_type');
+        $mac              = $request->post('mac');
+        $dnplayer         = $request->post('dnplayer', 0);
+        $dnplayer_running = $request->post('dnplayer_running', 0);
+
+        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer);
+
+
+        try {
+            $tokens = $this->getTokens();
+            $maxMacs = $tokens[$token]['amount'];
+            $macSetKey = "token:$token:machines";
+            if (!Redis::sIsMember($macSetKey, $mac)) {
+                $macCount = Redis::scard($macSetKey);
+                if ($macCount >= $maxMacs) {
+                    return response(sprintf('電腦台數限制 %s 已滿請聯繫作者', $maxMacs), 200)->header('Content-Type', 'text/plain');
+                }
+            }
+
+            $currentDay = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
+            $currentTime = date('H:i'); // 獲取當前時間（24小時制）
+
+            if (!($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+                $client  = new Client();
+                $headers = [
+                    'Authorization' => sprintf('Bearer %s', $token),
+                    'Content-Type'  => 'application/x-www-form-urlencoded'
+                ];
+                $options = [
+                    'form_params' => [
+                        'message' => $message
+                    ]
+                ];
+
+                if ($alert_type === 'all') {
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params']
+                    ]);
+                }
+
+                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params']
+                    ]);
+                }
+            }
+
+            $key   = "token:$token:mac:$mac";
+            $value = [
+                'pc_name'          => $pc_name,
+                'status'           => $alert_status,
+                'dnplayer_running' => $dnplayer_running,
+                'dnplayer'         => $dnplayer,
+                'm_info'           => $m_info,
+                'last_updated'     => now()->timestamp
+            ];
+
+            Redis::hMSet($key, $value);
+            Redis::expire($key, 86400 * 2);
+            Redis::sAdd("token:$token:machines", $mac);
+
+        } catch (\Exception $e) {
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', $owen_token),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    'message' => json_encode([$e->getMessage(), $request->all()])
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
+        }
+
+
+        return response($value, 200)->header('Content-Type', 'text/plain');
+    }
+
     public function alert(Request $request)
     {
         $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';

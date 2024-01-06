@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/callback',
         'alert',
+        'alert2',
         'delete-machine',
         'heroku'
     ];
