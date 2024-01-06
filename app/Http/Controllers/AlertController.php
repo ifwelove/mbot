@@ -575,7 +575,7 @@ class AlertController extends Controller
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
-                'merge'          => json_encode($merge),
+                'merge'          => ($merge),
                 'card'          => $card,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
