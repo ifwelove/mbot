@@ -514,19 +514,27 @@ class AlertController extends Controller
         $dnplayer_total         = 0;
         $macAddresses           = Redis::sMembers("token:$token:machines");
         $machines               = [];
+        $m_info = [
+            'rows' => [],
+            'card' => '',
+            'merge' => [],
+        ];
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
             $lastUpdated = $machine['last_updated'] ?? 0;
-            dump((($machine)));
+//            dump((($machine)));
             if (now()->timestamp - $lastUpdated > 1800) {
                 Redis::hSet($key, 'status', 'pc_not_open');
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
 
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
-            if ($pc_name == '台北168') {
-                dump((json_decode(base64_decode($machine['m_info']), true)));
+            if ($machine['m_info'] != '') {
+                $m_info = json_decode(base64_decode($machine['m_info']), true);
+                $merge = $m_info['merge'];
+                $card = $m_info['card'];
+                dump($merge);
             }
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
@@ -547,6 +555,8 @@ class AlertController extends Controller
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
+                'merge'          => json_encode($merge),
+                'card'          => $card,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
                 //                'm_info'           => $groupedData,
