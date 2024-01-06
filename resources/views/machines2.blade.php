@@ -43,6 +43,7 @@
         <th>MAC</th>
         <th>最後更新時間</th>
         <th></th>
+        <th></th>
     </tr>
     @foreach ($machines as $machine)
         <tr>
@@ -54,6 +55,7 @@
             <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
             <td>{{ $machine['mac'] }}</td>
             <td>{{ $machine['data']['last_updated'] }}</td>
+            <td>{{ $machine['card'] }}:{{ $machine['merge'] }}</td>
             <td>
                 <!-- 删除按钮 -->
                 <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除設置錯誤電腦</button>
