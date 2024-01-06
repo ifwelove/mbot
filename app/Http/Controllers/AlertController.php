@@ -539,6 +539,8 @@ class AlertController extends Controller
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
 
+            $merge = '';
+            $card = '';
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             if ($machine['m_info'] != '' && !is_null($machine['m_info'])) {
                 $m_info = json_decode(base64_decode($machine['m_info']), true);
