@@ -210,7 +210,7 @@ class AlertController extends Controller
                     ]);
                 }
             }
-
+            $m_info = json_encode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
             $value = [
                 'pc_name'          => $pc_name,
@@ -222,7 +222,7 @@ class AlertController extends Controller
             ];
 
             Redis::hMSet($key, $value);
-            Redis::expire($key, 86400 * 2);
+            Redis::expire($key, 300);
             Redis::sAdd("token:$token:machines", $mac);
 
         } catch (\Exception $e) {
@@ -243,8 +243,8 @@ class AlertController extends Controller
         }
 
 
-        return response($value, 200)->header('Content-Type', 'application/json');
-//        return response($value, 200)->header('Content-Type', 'text/plain');
+//        return response($value, 200)->header('Content-Type', 'application/json');
+        return response($value, 200)->header('Content-Type', 'text/plain');
     }
 
     public function alert(Request $request)
