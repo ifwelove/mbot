@@ -243,7 +243,8 @@ class AlertController extends Controller
         }
 
 
-        return response($value, 200)->header('Content-Type', 'text/plain');
+        return response($value, 200)->header('Content-Type', 'application/json');
+//        return response($value, 200)->header('Content-Type', 'text/plain');
     }
 
     public function alert(Request $request)
