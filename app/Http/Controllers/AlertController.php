@@ -210,7 +210,7 @@ class AlertController extends Controller
                     ]);
                 }
             }
-            $m_info = json_encode(base64_decode($m_info), true);
+            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
             $value = [
                 'pc_name'          => $pc_name,
@@ -512,7 +512,6 @@ class AlertController extends Controller
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
-            dump($machine);
             $lastUpdated = $machine['last_updated'] ?? 0;
 
             if (now()->timestamp - $lastUpdated > 1800) {
@@ -521,6 +520,9 @@ class AlertController extends Controller
             }
 
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            if ($pc_name == '台北168') {
+                dump((($machine['m_info'])));
+            }
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
             //            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
