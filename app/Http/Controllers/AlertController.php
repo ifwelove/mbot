@@ -532,8 +532,13 @@ class AlertController extends Controller
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             if ($machine['m_info'] != '' && !is_null($machine['m_info'])) {
                 $m_info = json_decode(base64_decode($machine['m_info']), true);
-                $merge = $m_info['merge'];
-                $card = $m_info['card'];
+
+                if(isset($m_info['merge'])){
+                    $merge = $m_info['merge'];
+                }
+                if(isset($m_info['card'])){
+                    $card = $m_info['card'];
+                }
                 dump($merge);
             } else {
                 $merge = [];
