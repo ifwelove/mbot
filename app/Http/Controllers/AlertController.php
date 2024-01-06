@@ -539,7 +539,7 @@ class AlertController extends Controller
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
 
-            $merge = json_encode([]);
+            $merge = [];
             $card = '';
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             if (isset($machine['m_info']) && $machine['m_info'] != '' && !is_null($machine['m_info'])) {
@@ -572,7 +572,7 @@ class AlertController extends Controller
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
-                'merge'          => json_decode($merge, true),
+                'merge'          => $merge,
                 'card'          => $card,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
