@@ -490,6 +490,7 @@ class AlertController extends Controller
             'card'  => '',
             'merge' => [],
         ];
+        $merges = [];
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
@@ -514,7 +515,13 @@ class AlertController extends Controller
             $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
 
-
+            foreach ($merge as $merge_sub => $merge_sub_total) {
+                if (!isset($merges[$merge_sub])) {
+                    $merges[$merge_sub] = $merge_sub_total;
+                } else {
+                    $merges[$merge_sub] = $merges[$merge_sub] + $merge_sub_total;
+                }
+            }
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
@@ -550,7 +557,8 @@ class AlertController extends Controller
                 'token'                  => $token,
                 'dnplayer_running_total' => $dnplayer_running_total,
                 'dnplayer_total'         => $dnplayer_total,
-                'machines_total'         => $machines_total
+                'machines_total'         => $machines_total,
+                'merges'         => $merges,
             ]);
         //        return response()->json(['machines' => $machines]);
     }
