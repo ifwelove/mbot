@@ -17,7 +17,7 @@
 
         /* 添加表格样式 */
         table {
-            width: 50%;
+            width: 90%;
             border-collapse: separate;
             border-spacing: 0 10px; /* 调整间隔大小 */
         }
