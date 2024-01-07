@@ -32,7 +32,7 @@ class MonitorCrashCommand extends Command
 
     public function handle()
     {
-        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+        $owen_token = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
         $client   = new Client();
         $headers  = [
             'Authorization' => sprintf('Bearer %s', $owen_token),
