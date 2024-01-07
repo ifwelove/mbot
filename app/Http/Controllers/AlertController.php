@@ -426,7 +426,7 @@ class AlertController extends Controller
                     $message   .= sprintf('自訂代號 : %s%s', $machine['pc_name'], $breakLine);
                     //                    $message .= sprintf('電腦資訊 : %s%s', $machine['pc_info'], $breakLine);
                     $message .= sprintf('大尾狀態 : %s%s', '當機, 半小時無訊號', $breakLine);
-                    $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['$dnplayer']);
+                    $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['dnplayer']);
 
                     $client   = new Client();
                     $headers  = [
