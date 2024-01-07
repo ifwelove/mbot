@@ -32,21 +32,21 @@ class MonitorCrashCommand extends Command
 
     public function handle()
     {
-        $owen_token = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
-        $client   = new Client();
-        $headers  = [
-            'Authorization' => sprintf('Bearer %s', $owen_token),
-            'Content-Type'  => 'application/x-www-form-urlencoded'
-        ];
-        $options  = [
-            'form_params' => [
-                'message' => 'test MonitorCrashCommand'
-            ]
-        ];
-        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-            'headers'     => $headers,
-            'form_params' => $options['form_params']
-        ]);
+//        $owen_token = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
+//        $client   = new Client();
+//        $headers  = [
+//            'Authorization' => sprintf('Bearer %s', $owen_token),
+//            'Content-Type'  => 'application/x-www-form-urlencoded'
+//        ];
+//        $options  = [
+//            'form_params' => [
+//                'message' => 'test MonitorCrashCommand'
+//            ]
+//        ];
+//        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+//            'headers'     => $headers,
+//            'form_params' => $options['form_params']
+//        ]);
 
         $tokens = config('monitor-token');
         try {
@@ -70,8 +70,7 @@ class MonitorCrashCommand extends Command
 
                         $client   = new Client();
                         $headers  = [
-                            //                        'Authorization' => sprintf('Bearer %s', $token),
-                            'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
+                            'Authorization' => sprintf('Bearer %s', $token),
                             'Content-Type'  => 'application/x-www-form-urlencoded'
                         ];
                         $options  = [
@@ -89,7 +88,6 @@ class MonitorCrashCommand extends Command
         } catch (\Exception $exception) {
             $client   = new Client();
             $headers  = [
-                //                        'Authorization' => sprintf('Bearer %s', $token),
                 'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
                 'Content-Type'  => 'application/x-www-form-urlencoded'
             ];
