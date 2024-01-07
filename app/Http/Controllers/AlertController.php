@@ -352,8 +352,9 @@ class AlertController extends Controller
     //        return response()->json(['machines' => $machines]);
     //    }
 
-    public function shareToken($token)
+    public function shareApply(Request $request)
     {
+        $token = $request->post('token');
         $client   = new Client();
         $headers  = [
             'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
@@ -371,6 +372,11 @@ class AlertController extends Controller
         dump($token);
         dump('審核申請中, 通過後可在下方連結看到專屬網頁');
         dump('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/' . $token);
+    }
+
+    public function shareToken()
+    {
+        return view('share');
 
     }
     public function monitor2()

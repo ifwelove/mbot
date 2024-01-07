@@ -30,4 +30,5 @@ Route::get('/monitor2', [AlertController::class, 'monitor2']);
 Route::get('/test', [\App\Http\Controllers\TestController::class, 'ping']);
 Route::post('/heroku', [AlertController::class, 'heroku']);
 
-Route::get('/share/{token}', [AlertController::class, 'shareToken']);
+Route::get('/share', [AlertController::class, 'shareToken']);
+Route::post('/share/apply', [AlertController::class, 'shareApply']);
