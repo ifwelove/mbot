@@ -51,4 +51,10 @@ return [
         'date'   => '2025-01-01',
         'amount' => '100',
     ],
+
+    'KBsXWtbBWiKAy2eVJaKf7QSwvky6MiYUNDDcDcReMHd'  => [
+        'name'   => '懶得整理帳號',
+        'date'   => '2025-01-01',
+        'amount' => '100',
+    ],
 ];
