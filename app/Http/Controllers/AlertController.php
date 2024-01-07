@@ -409,6 +409,43 @@ class AlertController extends Controller
     }
     public function monitor()
     {
+        $tokens = $this->getTokens();
+        foreach ($tokens as $token => $name) {
+            $macAddresses = Redis::sMembers("token:$token:machines");
+            foreach ($macAddresses as $mac) {
+                $key         = "token:$token:mac:$mac";
+                $machine     = Redis::hGetAll($key);
+                dump($machine);
+                $lastUpdated = $machine['last_updated'] ?? 0;
+                if (now()->timestamp - $lastUpdated > 1800 || $machine['status'] == 'pc_not_open') {
+                    if ($machine['status'] != 'pc_not_open') {
+                        Redis::hSet($key, 'status', 'pc_not_open');
+                    }
+                    $breakLine = "\n";
+                    $message   = $breakLine;
+                    $message   .= sprintf('自訂代號 : %s%s', $machine['pc_name'], $breakLine);
+                    //                    $message .= sprintf('電腦資訊 : %s%s', $machine['pc_info'], $breakLine);
+                    $message .= sprintf('大尾狀態 : %s%s', '當機, 半小時無訊號', $breakLine);
+                    $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['$dnplayer']);
+
+                    $client   = new Client();
+                    $headers  = [
+                        //                        'Authorization' => sprintf('Bearer %s', $token),
+                        'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
+                        'Content-Type'  => 'application/x-www-form-urlencoded'
+                    ];
+                    $options  = [
+                        'form_params' => [
+                            'message' => $message
+                        ]
+                    ];
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params']
+                    ]);
+                }
+            }
+        }
         $count  = 0;
         $tokens = $this->getTokens();
         foreach ($tokens as $token => $name) {
