@@ -38,14 +38,12 @@
 <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
 <p>共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
 <select name="server">
-    @foreach ($merges as $group => $servers)
-        <optgroup label="{{ $group }}">
-            @foreach ($servers as $server => $total)
-                @php
-                    $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-                @endphp
-                <option value="{{ $server }}" style="color: {{ $color }}">{{ $server }}: {{ $total }}</option>
-            @endforeach
+    @foreach ($merges as $server => $total)
+        <optgroup label="{{ $server }}">
+            @php
+                $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+            @endphp
+            <option value="{{ $server }}" style="color: {{ $color }}">{{ $server }}: {{ $total }}</option>
         </optgroup>
     @endforeach
 </select>
