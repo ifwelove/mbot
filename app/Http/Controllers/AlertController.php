@@ -413,6 +413,14 @@ class AlertController extends Controller
         foreach ($macAddresses as $mac) {
             $key              = "token:$token:mac:$mac";
             $machine          = Redis::hGetAll($key);
+
+            //@todo 可刪除 搭配 command
+            $lastUpdated = $machine['last_updated'] ?? 0;
+            if (now()->timestamp - $lastUpdated > 1800) {
+                Redis::hSet($key, 'status', 'pc_not_open');
+                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
+            }
+
             $pc_name          = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;

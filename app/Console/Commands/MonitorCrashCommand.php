@@ -57,11 +57,15 @@ class MonitorCrashCommand extends Command
                     $key         = "token:$token:mac:$mac";
                     $machine     = Redis::hGetAll($key);
                     $lastUpdated = $machine['last_updated'] ?? 0;
-                    $status = isset($machine['status']) ? $machine['status'] : '';
-                    if (now()->timestamp - $lastUpdated > 1800 || $status == 'pc_not_open') {
-                        if ($machine['status'] != 'pc_not_open') {
-                            Redis::hSet($key, 'status', 'pc_not_open');
-                        }
+
+                    //@todo 待測試穩定
+//                    $status = isset($machine['status']) ? $machine['status'] : '';
+//                    if (now()->timestamp - $lastUpdated > 1800 || $status == 'pc_not_open') {
+//                        if ($machine['status'] != 'pc_not_open') {
+//                            Redis::hSet($key, 'status', 'pc_not_open');
+//                        }
+
+                    if (now()->timestamp - $lastUpdated > 1800) {
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
