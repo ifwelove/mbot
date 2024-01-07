@@ -15,58 +15,7 @@ class AlertController extends Controller
 
     private function getTokens()
     {
-        $tokens = [
-            'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB1' => [
-                'name' => 'very62',
-                'date' => '2025-01-01',
-                'amount' => '10',
-            ],
-            'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' => [
-                'name' => 'very6',
-                'date' => '2025-01-01',
-                'amount' => '10',
-            ],
-            'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3' => [
-                'name' => 'test5555',
-                'date' => '2025-01-01',
-                'amount' => '50',
-            ],
-            '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu' => [
-                'name' => '井底之蛙',
-                'date' => '2025-01-01',
-                'amount' => '50',
-            ],
-            'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC' => [
-                'name' => '真心不騙',
-                'date' => '2025-01-01',
-                'amount' => '2',
-            ],
-            'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K' => [
-                'name' => '什麼啊',
-                'date' => '2025-01-01',
-                'amount' => '2',
-            ],
-            'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6' => [
-                'name' => '桃聖潔',
-                'date' => '2025-01-01',
-                'amount' => '15',
-            ],
-            '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo' => [
-                'name' => '小白',
-                'date' => '2025-01-01',
-                'amount' => '15',
-            ],
-            'ZdxVsVdWDNJzHFKZTgSNaWg3BhfOCwEJOybvM2Q98R9' => [
-                'name' => '??',
-                'date' => '2025-01-01',
-                'amount' => '100',
-            ],
-            'iMPSeJqEf7WJLgTDPSnSHE3UwMDNHjL02eV0p5S42fM' => [
-                'name' => '??',
-                'date' => '2025-01-01',
-                'amount' => '100',
-            ],
-        ];
+        $tokens = config('monitor-token');
 
         return $tokens;
     }
@@ -480,28 +429,9 @@ class AlertController extends Controller
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
-            $lastUpdated = $machine['last_updated'] ?? 0;
-
-            if (now()->timestamp - $lastUpdated > 1800) {
-                Redis::hSet($key, 'status', 'pc_not_open');
-                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
-            }
-
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
-//            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
-//            dump($machine);
-//            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
-//            $groupedData = [];
-//            foreach ($m_info as $item) {
-//                $key = $item[1];
-//                $value = (int) $item[0];
-//                if (!isset($groupedData[$key])) {
-//                    $groupedData[$key] = 0;
-//                }
-//                $groupedData[$key] += $value;
-//            }
 
 
             $machines[]             = [
@@ -543,8 +473,11 @@ class AlertController extends Controller
         //        return response()->json(['machines' => $machines]);
     }
 
-    public function showMachines2($token)
+    public function showDemo($token)
     {
+        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+            dd('功能尚未開放, 僅供展示');
+        }
         $tokens = $this->getTokens();
         if (!isset($tokens[$token])) {
             $user = [
@@ -556,7 +489,6 @@ class AlertController extends Controller
             $user = $tokens[$token];
         }
 
-        //        $macCount = Redis::scard("token:$token:machines");
 
         $dnplayer_running_total = 0;
         $dnplayer_total         = 0;
@@ -571,7 +503,6 @@ class AlertController extends Controller
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
             $lastUpdated = $machine['last_updated'] ?? 0;
-            dump((($machine)));
             if (now()->timestamp - $lastUpdated > 1800) {
                 Redis::hSet($key, 'status', 'pc_not_open');
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
@@ -582,7 +513,6 @@ class AlertController extends Controller
             $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             if (isset($machine['m_info']) && $machine['m_info'] != '' && !is_null($machine['m_info'])) {
                 $m_info = json_decode(base64_decode($machine['m_info']), true);
-                dump($m_info);
                 if(isset($m_info['merge'])){
                     $merge = $m_info['merge'];
                 }
@@ -590,21 +520,8 @@ class AlertController extends Controller
                     $card = $m_info['card'];
                 }
             }
-            dump($merge);
             $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
-            //            $m_info       = !empty($machine['m_info']) ? ($machine['m_info']) : [];
-            //            dump($machine);
-            //            $m_info       = !empty($machine['m_info']) ? json_decode($machine['m_info']) : [];
-            //            $groupedData = [];
-            //            foreach ($m_info as $item) {
-            //                $key = $item[1];
-            //                $value = (int) $item[0];
-            //                if (!isset($groupedData[$key])) {
-            //                    $groupedData[$key] = 0;
-            //                }
-            //                $groupedData[$key] += $value;
-            //            }
 
 
             $machines[]             = [
