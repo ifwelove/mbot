@@ -57,7 +57,7 @@
             <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
             <td>{{ $machine['mac'] }}</td>
             <td>{{ $machine['data']['last_updated'] }}</td>
-            <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}@endforeach</td>
+            <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>
             <td>{{ $machine['card'] }}</td>
             <td>
                 <!-- 删除按钮 -->
