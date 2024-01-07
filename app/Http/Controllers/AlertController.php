@@ -368,6 +368,8 @@ class AlertController extends Controller
             'headers'     => $headers,
             'form_params' => $options['form_params']
         ]);
+
+        dump($token);
     }
     public function monitor2()
     {
