@@ -334,6 +334,7 @@ class AlertController extends Controller
             $key   = "token:$token:mac:$mac";
             $value = [
                 'pc_name'          => $pc_name,
+                'pc_info'          => $pc_info,
                 'status'           => $alert_status,
                 'dnplayer_running' => $dnplayer_running,
                 'dnplayer'         => $dnplayer,
