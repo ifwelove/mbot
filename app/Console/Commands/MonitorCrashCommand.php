@@ -68,7 +68,8 @@ class MonitorCrashCommand extends Command
 
                     $client   = new Client();
                     $headers  = [
-                        'Authorization' => sprintf('Bearer %s', $token),
+//                        'Authorization' => sprintf('Bearer %s', $token),
+                        'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
                         'Content-Type'  => 'application/x-www-form-urlencoded'
                     ];
                     $options  = [

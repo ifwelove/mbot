@@ -56,7 +56,7 @@
             <td>{{ $machine['data']['last_updated'] }}</td>
             <td>
                 <!-- 删除按钮 -->
-                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除設置錯誤電腦</button>
+                <button class="delete-btn" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置數據-10分鐘後更新</button>
             </td>
         </tr>
     @endforeach
