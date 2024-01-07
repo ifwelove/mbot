@@ -37,7 +37,7 @@
 <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
 <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
 <p>共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
-<select name="server">
+<p>鑽石統計：<select name="server">
     @foreach ($merges as $server => $total)
         <optgroup label="{{ $server }}">
             @php
@@ -47,7 +47,7 @@
         </optgroup>
     @endforeach
 </select>
-
+</p>
 <table>
     <tr>
         <th>電腦代號</th>
