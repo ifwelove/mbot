@@ -354,7 +354,12 @@ class AlertController extends Controller
 
     public function shareApply(Request $request)
     {
+        $tokens = $this->getTokens();
         $token = $request->post('token');
+        if (isset($tokens[$token])) {
+            dump('申請已通過, 通過後可在下方連結看到專屬網頁');
+            dd('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/' . $token);
+        }
         $client   = new Client();
         $headers  = [
             'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
