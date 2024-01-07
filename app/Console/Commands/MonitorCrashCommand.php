@@ -93,7 +93,7 @@ class MonitorCrashCommand extends Command
             ];
             $options  = [
                 'form_params' => [
-                    'message' => $exception->getMessage()
+                    'message' => json_encode(['token'  => $token, 'message' => $exception->getMessage(), 'data' => $machine])
                 ]
             ];
             $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
