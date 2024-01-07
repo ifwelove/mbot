@@ -368,8 +368,10 @@ class AlertController extends Controller
             'headers'     => $headers,
             'form_params' => $options['form_params']
         ]);
-
         dump($token);
+        dump('審核申請中, 通過後可在下方連結看到專屬網頁');
+        dump('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/' . $token);
+
     }
     public function monitor2()
     {
