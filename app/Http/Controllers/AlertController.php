@@ -33,8 +33,8 @@ class AlertController extends Controller
 
     private function getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer)
     {
-        $breakLine        = "\n";
-        $message          = $breakLine;
+        $breakLine = "\n";
+        $message   = $breakLine;
         switch (1) {
             case ($alert_status === 'failed') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
@@ -64,21 +64,21 @@ class AlertController extends Controller
 
     public function heroku(Request $request)
     {
-//        '7173297118557c83de0dffed03fadddce186044ebecce65aa9e1d576e365'
+        //        '7173297118557c83de0dffed03fadddce186044ebecce65aa9e1d576e365'
         $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-        $client   = new Client();
-        $headers  = [
+        $client     = new Client();
+        $headers    = [
             'Authorization' => sprintf('Bearer %s', $owen_token),
             'Content-Type'  => 'application/x-www-form-urlencoded'
         ];
-        $options  = [
+        $options    = [
             'form_params' => [
                 //                'message' => $message
                 //                    'message' => $request->post('pc_name')
                 'message' => json_encode($request->all())
             ]
         ];
-        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+        $response   = $client->request('POST', 'https://notify-api.line.me/api/notify', [
             'headers'     => $headers,
             'form_params' => $options['form_params']
         ]);
@@ -114,7 +114,7 @@ class AlertController extends Controller
         $pc_message       = $request->post('message');
         $pc_name          = $request->post('pc_name');
         $pc_info          = $request->post('pc_info');
-        $m_info          = $request->post('m_info');
+        $m_info           = $request->post('m_info');
         $alert_status     = $request->post('alert_status');
         $alert_type       = $request->post('alert_type');
         $mac              = $request->post('mac');
@@ -125,20 +125,20 @@ class AlertController extends Controller
 
 
         try {
-            $tokens = $this->getTokens();
-            $maxMacs = $tokens[$token]['amount'];
+            $tokens    = $this->getTokens();
+            $maxMacs   = $tokens[$token]['amount'];
             $macSetKey = "token:$token:machines";
-            if (!Redis::sIsMember($macSetKey, $mac)) {
+            if (! Redis::sIsMember($macSetKey, $mac)) {
                 $macCount = Redis::scard($macSetKey);
                 if ($macCount >= $maxMacs) {
                     return response(sprintf('電腦台數限制 %s 已滿請聯繫作者', $maxMacs), 200)->header('Content-Type', 'text/plain');
                 }
             }
 
-            $currentDay = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
+            $currentDay  = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
             $currentTime = date('H:i'); // 獲取當前時間（24小時制）
 
-            if (!($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+            if (! ($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
                 $client  = new Client();
                 $headers = [
                     'Authorization' => sprintf('Bearer %s', $token),
@@ -164,7 +164,7 @@ class AlertController extends Controller
                     ]);
                 }
             }
-//            $m_info = json_decode(base64_decode($m_info), true);
+            //            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
             $value = [
                 'pc_name'          => $pc_name,
@@ -197,7 +197,7 @@ class AlertController extends Controller
         }
 
 
-//        return response($value, 200)->header('Content-Type', 'application/json');
+        //        return response($value, 200)->header('Content-Type', 'application/json');
         return response($value, 200)->header('Content-Type', 'text/plain');
     }
 
@@ -226,10 +226,10 @@ class AlertController extends Controller
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
-        $pc_message       = $request->post('message');
-        $pc_name          = $request->post('pc_name');
-        $pc_info          = $request->post('pc_info');
-//        $m_info          = $request->post('m_info', []);
+        $pc_message = $request->post('message');
+        $pc_name    = $request->post('pc_name');
+        $pc_info    = $request->post('pc_info');
+        //        $m_info          = $request->post('m_info', []);
         $alert_status     = $request->post('alert_status');
         $alert_type       = $request->post('alert_type');
         $mac              = $request->post('mac');
@@ -240,20 +240,20 @@ class AlertController extends Controller
 
 
         try {
-            $tokens = $this->getTokens();
-            $maxMacs = $tokens[$token]['amount'];
+            $tokens    = $this->getTokens();
+            $maxMacs   = $tokens[$token]['amount'];
             $macSetKey = "token:$token:machines";
-            if (!Redis::sIsMember($macSetKey, $mac)) {
+            if (! Redis::sIsMember($macSetKey, $mac)) {
                 $macCount = Redis::scard($macSetKey);
                 if ($macCount >= $maxMacs) {
                     return response(sprintf('電腦台數限制 %s 已滿請聯繫作者', $maxMacs), 200)->header('Content-Type', 'text/plain');
                 }
             }
 
-            $currentDay = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
+            $currentDay  = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
             $currentTime = date('H:i'); // 獲取當前時間（24小時制）
 
-            if (!($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+            if (! ($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
                 $client  = new Client();
                 $headers = [
                     'Authorization' => sprintf('Bearer %s', $token),
@@ -280,23 +280,23 @@ class AlertController extends Controller
                 }
             }
 
-            $key   = "token:$token:mac:$mac";
-//            $value = [
-//                'pc_name'          => $pc_name,
-//                'pc_info'          => $pc_info,
-//                'status'           => $alert_status,
-//                'dnplayer_running' => $dnplayer_running,
-//                'dnplayer'         => $dnplayer,
-////                'm_info'           => $m_info,
-//                'last_updated'     => now()->timestamp
-//            ];
+            $key = "token:$token:mac:$mac";
+            //            $value = [
+            //                'pc_name'          => $pc_name,
+            //                'pc_info'          => $pc_info,
+            //                'status'           => $alert_status,
+            //                'dnplayer_running' => $dnplayer_running,
+            //                'dnplayer'         => $dnplayer,
+            ////                'm_info'           => $m_info,
+            //                'last_updated'     => now()->timestamp
+            //            ];
             Redis::hSet($key, 'pc_name', $pc_name);
             Redis::hSet($key, 'pc_info', $pc_info);
             Redis::hSet($key, 'status', $alert_status);
             Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
             Redis::hSet($key, 'dnplayer', $dnplayer);
             Redis::hSet($key, 'last_updated', now()->timestamp);
-//            Redis::hMSet($key, $value);
+            //            Redis::hMSet($key, $value);
             Redis::expire($key, 86400 * 2);
             Redis::sAdd("token:$token:machines", $mac);
 
@@ -362,6 +362,7 @@ class AlertController extends Controller
         dump(time());
         dd($bb['merge']);
     }
+
     public function monitor()
     {
         $count  = 0;
@@ -375,128 +376,51 @@ class AlertController extends Controller
         dd($count);
     }
 
+    public function showToken($token)
+    {
+        $tokens = $this->getTokens();
+        if (! isset($tokens[$token])) {
+            dd('not found token');
+        }
+
+        $macAddresses           = Redis::sMembers("token:$token:machines");
+        foreach ($macAddresses as $mac) {
+            $key     = "token:$token:mac:$mac";
+            $machine = Redis::hGetAll($key);
+            dump($machine);
+        }
+    }
+
     public function showMachines($token)
     {
         $tokens = $this->getTokens();
-        if (!isset($tokens[$token])) {
+        if (! isset($tokens[$token])) {
             $user = [
-                'name' => '',
-                'date' => '未申請使用',
+                'name'   => '',
+                'date'   => '未申請使用',
                 'amount' => '0',
             ];
         } else {
             $user = $tokens[$token];
         }
 
-//        $macCount = Redis::scard("token:$token:machines");
+        //        $macCount = Redis::scard("token:$token:machines");
 
         $dnplayer_running_total = 0;
         $dnplayer_total         = 0;
         $macAddresses           = Redis::sMembers("token:$token:machines");
         $machines               = [];
         foreach ($macAddresses as $mac) {
-            $key         = "token:$token:mac:$mac";
-            $machine     = Redis::hGetAll($key);
-            $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
-            $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
-            $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+            $key              = "token:$token:mac:$mac";
+            $machine          = Redis::hGetAll($key);
+            $pc_name          = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
+            $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
 
 
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
-                'dnplayer'         => $dnplayer,
-                'dnplayer_running' => $dnplayer_running,
-//                'm_info'           => $groupedData,
-                'data'             => $machine
-            ];
-            $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
-            $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
-        }
-
-        usort($machines, function ($a, $b) {
-            return strcmp($a['pc_name'], $b['pc_name']);
-        });
-
-        $machines_total = 0;
-        foreach ($machines as $index => $machine) {
-            if (!isset($machine['data']['last_updated'])) {
-                $machines[$index]['data']['last_updated'] = '';
-            } else {
-                $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
-            }
-            $machines_total++;
-        }
-
-        return view('machines',
-            [
-//                'macCount' => $macCount,
-                'user' => $user,
-                'machines' => $machines,
-                'token' => $token,
-                'dnplayer_running_total' => $dnplayer_running_total,
-                'dnplayer_total' => $dnplayer_total,
-                'machines_total' => $machines_total
-            ]);
-        //        return response()->json(['machines' => $machines]);
-    }
-
-    public function showDemo($token)
-    {
-        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-            dd('功能尚未開放, 僅供展示');
-        }
-        $tokens = $this->getTokens();
-        if (!isset($tokens[$token])) {
-            $user = [
-                'name' => '',
-                'date' => '未申請使用',
-                'amount' => '0',
-            ];
-        } else {
-            $user = $tokens[$token];
-        }
-
-
-        $dnplayer_running_total = 0;
-        $dnplayer_total         = 0;
-        $macAddresses           = Redis::sMembers("token:$token:machines");
-        $machines               = [];
-        $m_info = [
-            'rows' => [],
-            'card' => '',
-            'merge' => [],
-        ];
-        foreach ($macAddresses as $mac) {
-            $key         = "token:$token:mac:$mac";
-            $machine     = Redis::hGetAll($key);
-            $lastUpdated = $machine['last_updated'] ?? 0;
-            if (now()->timestamp - $lastUpdated > 1800) {
-                Redis::hSet($key, 'status', 'pc_not_open');
-                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
-            }
-
-            $merge = [];
-            $card = '';
-            $pc_name               = isset($machine['pc_name']) ? $machine['pc_name'] : '';
-            if (isset($machine['m_info']) && $machine['m_info'] != '' && !is_null($machine['m_info'])) {
-                $m_info = json_decode(base64_decode($machine['m_info']), true);
-                if(isset($m_info['merge'])){
-                    $merge = $m_info['merge'];
-                }
-                if(isset($m_info['card'])){
-                    $card = $m_info['card'];
-                }
-            }
-            $dnplayer               = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
-            $dnplayer_running       = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
-
-
-            $machines[]             = [
-                'mac'              => $mac,
-                'pc_name'          => $pc_name,
-                'merge'          => $merge,
-                'card'          => $card,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
                 //                'm_info'           => $groupedData,
@@ -512,7 +436,7 @@ class AlertController extends Controller
 
         $machines_total = 0;
         foreach ($machines as $index => $machine) {
-            if (!isset($machine['data']['last_updated'])) {
+            if (! isset($machine['data']['last_updated'])) {
                 $machines[$index]['data']['last_updated'] = '';
             } else {
                 $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
@@ -520,15 +444,105 @@ class AlertController extends Controller
             $machines_total++;
         }
 
-        return view('machines2',
-            [
+        return view('machines', [
                 //                'macCount' => $macCount,
-                'user' => $user,
-                'machines' => $machines,
-                'token' => $token,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
                 'dnplayer_running_total' => $dnplayer_running_total,
-                'dnplayer_total' => $dnplayer_total,
-                'machines_total' => $machines_total
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total
+            ]);
+        //        return response()->json(['machines' => $machines]);
+    }
+
+    public function showDemo($token)
+    {
+        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+            dd('功能尚未開放, 僅供展示');
+        }
+        $tokens = $this->getTokens();
+        if (! isset($tokens[$token])) {
+            $user = [
+                'name'   => '',
+                'date'   => '未申請使用',
+                'amount' => '0',
+            ];
+        } else {
+            $user = $tokens[$token];
+        }
+
+
+        $dnplayer_running_total = 0;
+        $dnplayer_total         = 0;
+        $macAddresses           = Redis::sMembers("token:$token:machines");
+        $machines               = [];
+        $m_info                 = [
+            'rows'  => [],
+            'card'  => '',
+            'merge' => [],
+        ];
+        foreach ($macAddresses as $mac) {
+            $key         = "token:$token:mac:$mac";
+            $machine     = Redis::hGetAll($key);
+            $lastUpdated = $machine['last_updated'] ?? 0;
+            if (now()->timestamp - $lastUpdated > 1800) {
+                Redis::hSet($key, 'status', 'pc_not_open');
+                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
+            }
+
+            $merge   = [];
+            $card    = '';
+            $pc_name = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
+                $m_info = json_decode(base64_decode($machine['m_info']), true);
+                if (isset($m_info['merge'])) {
+                    $merge = $m_info['merge'];
+                }
+                if (isset($m_info['card'])) {
+                    $card = $m_info['card'];
+                }
+            }
+            $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
+            $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+
+
+            $machines[]             = [
+                'mac'              => $mac,
+                'pc_name'          => $pc_name,
+                'merge'            => $merge,
+                'card'             => $card,
+                'dnplayer'         => $dnplayer,
+                'dnplayer_running' => $dnplayer_running,
+                //                'm_info'           => $groupedData,
+                'data'             => $machine
+            ];
+            $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
+            $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
+        }
+
+        usort($machines, function ($a, $b) {
+            return strcmp($a['pc_name'], $b['pc_name']);
+        });
+
+        $machines_total = 0;
+        foreach ($machines as $index => $machine) {
+            if (! isset($machine['data']['last_updated'])) {
+                $machines[$index]['data']['last_updated'] = '';
+            } else {
+                $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+            }
+            $machines_total++;
+        }
+
+        return view('machines2', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total
             ]);
         //        return response()->json(['machines' => $machines]);
     }
