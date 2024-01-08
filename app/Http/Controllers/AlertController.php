@@ -166,11 +166,11 @@ class AlertController extends Controller
             }
             //            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
-//            $value = [
-//                'pc_name'          => $pc_name,
-//                'status'           => $alert_status,
-//                'dnplayer_running' => $dnplayer_running,
-//                'dnplayer'         => $dnplayer,
+            $value = [
+                'pc_name'          => $pc_name,
+                'status'           => $alert_status,
+                'dnplayer_running' => $dnplayer_running,
+                'dnplayer'         => $dnplayer,
 //                'm_info'           => $m_info,
 //                'last_updated'     => now()->timestamp
 //            ];
@@ -205,7 +205,7 @@ class AlertController extends Controller
 
 
         //        return response($value, 200)->header('Content-Type', 'application/json');
-        return response($value, 200)->header('Content-Type', 'text/plain');
+        return response('', 200)->header('Content-Type', 'text/plain');
     }
 
     public function alert(Request $request)
