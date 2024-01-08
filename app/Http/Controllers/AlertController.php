@@ -166,16 +166,22 @@ class AlertController extends Controller
             }
             //            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
-            $value = [
-                'pc_name'          => $pc_name,
-                'status'           => $alert_status,
-                'dnplayer_running' => $dnplayer_running,
-                'dnplayer'         => $dnplayer,
-                'm_info'           => $m_info,
-                'last_updated'     => now()->timestamp
-            ];
+//            $value = [
+//                'pc_name'          => $pc_name,
+//                'status'           => $alert_status,
+//                'dnplayer_running' => $dnplayer_running,
+//                'dnplayer'         => $dnplayer,
+//                'm_info'           => $m_info,
+//                'last_updated'     => now()->timestamp
+//            ];
+            Redis::hSet($key, 'pc_name', $pc_name);
+            Redis::hSet($key, 'pc_info', $pc_info);
+            Redis::hSet($key, 'status', $alert_status);
+            Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
+            Redis::hSet($key, 'dnplayer', $dnplayer);
+            Redis::hSet($key, 'last_updated', now()->timestamp);
 
-            Redis::hMSet($key, $value);
+//            Redis::hMSet($key, $value);
             Redis::expire($key, 300);
             Redis::sAdd("token:$token:machines", $mac);
 
