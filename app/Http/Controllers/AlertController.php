@@ -177,6 +177,7 @@ class AlertController extends Controller
             Redis::hSet($key, 'pc_name', $pc_name);
             Redis::hSet($key, 'pc_info', $pc_info);
             Redis::hSet($key, 'status', $alert_status);
+            Redis::hSet($key, 'm_info', $m_info);
             Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
             Redis::hSet($key, 'dnplayer', $dnplayer);
             Redis::hSet($key, 'last_updated', now()->timestamp);
