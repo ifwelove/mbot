@@ -52,7 +52,7 @@ return [
         'amount' => '100',
     ],
 
-    'KBsXWtbBWiKAy2eVJaKf7QSwvky6MiYUNDDcDcReMHd'  => [
+    'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
         'name'   => '懶得整理帳號',
         'date'   => '2025-01-01',
         'amount' => '100',
