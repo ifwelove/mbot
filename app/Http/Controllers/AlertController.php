@@ -406,7 +406,7 @@ class AlertController extends Controller
         }
         $client   = new Client();
         $headers  = [
-            'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+            'Authorization' => sprintf('Bearer %s', '5hcyGO935sKzRjF522X1UPPNnfL5QqYCMrLnB5M0KhE'),
             'Content-Type'  => 'application/x-www-form-urlencoded'
         ];
         $options  = [
