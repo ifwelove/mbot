@@ -172,8 +172,23 @@ class AlertController extends Controller
                 'dnplayer_running' => $dnplayer_running,
                 'dnplayer'         => $dnplayer,
 //                'm_info'           => $m_info,
-//                'last_updated'     => now()->timestamp
-//            ];
+                'last_updated'     => now()->timestamp
+            ];
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    'message' => ['key' => $key, 'value' => json_encode($value)]
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
+
             Redis::hSet($key, 'pc_name', $pc_name);
             Redis::hSet($key, 'pc_info', $pc_info);
             Redis::hSet($key, 'status', $alert_status);
@@ -183,7 +198,7 @@ class AlertController extends Controller
             Redis::hSet($key, 'last_updated', now()->timestamp);
 
 //            Redis::hMSet($key, $value);
-            Redis::expire($key, 300);
+            Redis::expire($key, 86400 * 2);
             Redis::sAdd("token:$token:machines", $mac);
 
         } catch (\Exception $e) {
