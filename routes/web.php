@@ -34,4 +34,4 @@ Route::get('/share', [AlertController::class, 'shareToken']);
 Route::post('/share/apply', [AlertController::class, 'shareApply']);
 
 Route::match(['get', 'post'],'/notify', [\App\Http\Controllers\LineNotifyController::class, 'index']);
-Route::match(['get', 'post'],'/user', [\App\Http\Controllers\LineNotifyController::class, 'user']);
+Route::match(['get'],'/apply', [\App\Http\Controllers\LineNotifyController::class, 'apply']);

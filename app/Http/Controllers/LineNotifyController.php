@@ -14,6 +14,9 @@ class LineNotifyController extends Controller
     {
     }
 
+    public function apply(Request $request){
+        redirect('https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify&response_mode=form_post&client_id=XW10Vs7FaqpDEnaqf4KUg8&redirect_uri=https://mbot-3-ac8b63fd9692.herokuapp.com/notify&state=f094a459-1d16-42d6-a709-c2b61ec53d60');
+    }
     public function index(Request $request)
     {
         $code = $request->input('code');
