@@ -14,12 +14,6 @@ class LineNotifyController extends Controller
     {
     }
 
-    public function user(Request $request)
-    {
-        dump($request->all());
-        dd('已完成');
-    }
-
     public function index(Request $request)
     {
         $code = $request->input('code');
@@ -68,6 +62,8 @@ class LineNotifyController extends Controller
             response('連動失敗', $status);
         }
 
-        return response('已經連動成功', 200);
+        dump($accessToken);
+
+        return response('已經連動成功, 請保存好你的 token', 200);
     }
 }

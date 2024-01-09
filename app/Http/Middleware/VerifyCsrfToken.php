@@ -18,6 +18,5 @@ class VerifyCsrfToken extends Middleware
         'delete-machine',
         'heroku',
         'notify',
-        'user',
     ];
 }
