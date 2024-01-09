@@ -22,9 +22,6 @@ class LineNotifyController extends Controller
 
     public function index(Request $request)
     {
-        dump($request->all());
-        dd('已完成');
-        // 獲取 code
         $code = $request->input('code');
 
         // 獲取 access_token
@@ -32,7 +29,7 @@ class LineNotifyController extends Controller
             ->post('https://notify-bot.line.me/oauth/token', [
                 'code'          => $code,
                 'grant_type'    => 'authorization_code',
-                'redirect_uri'  => 'https://mbot-3-ac8b63fd9692.herokuapp.com/user',
+                'redirect_uri'  => 'https://mbot-3-ac8b63fd9692.herokuapp.com/notify',
                 'client_id'     => 'XW10Vs7FaqpDEnaqf4KUg8',
                 'client_secret' => 'ifWwCg8edsA3zZZZFd5SFdFwenHM5VwQfmKeOyKoUuQ',
             ])
