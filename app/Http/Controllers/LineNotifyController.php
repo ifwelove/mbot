@@ -22,6 +22,8 @@ class LineNotifyController extends Controller
 
     public function index(Request $request)
     {
+        dump($request->all());
+        dd('已完成');
         // 獲取 code
         $code = $request->input('code');
 
