@@ -31,7 +31,7 @@ class AlertController extends Controller
         }
     }
 
-    private function getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer)
+    private function getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token)
     {
         //@todo $dnplayer_running 一直是0 可以 alert
         $breakLine = "\n";
@@ -41,19 +41,22 @@ class AlertController extends Controller
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
-                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
+                $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
+                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/machines/', $token);
                 break;
             case ($alert_status === 'plugin_not_open') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
-                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
+                $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
+                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/machines/', $token);
                 break;
             case ($alert_status === 'success') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
-                $message .= sprintf('模擬器數量 : %s/%s', $dnplayer_running, $dnplayer);
+                $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
+                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/machines/', $token);
                 break;
             default:
                 $message .= $pc_message;
@@ -122,7 +125,7 @@ class AlertController extends Controller
         $dnplayer         = $request->post('dnplayer', 0);
         $dnplayer_running = $request->post('dnplayer_running', 0);
 
-        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer);
+        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token);
 
 
         try {
@@ -260,7 +263,7 @@ class AlertController extends Controller
         $dnplayer         = $request->post('dnplayer', 0);
         $dnplayer_running = $request->post('dnplayer_running', 0);
 
-        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer);
+        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token);
 
 
         try {
