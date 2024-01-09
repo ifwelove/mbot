@@ -51,10 +51,14 @@ return [
         'date'   => '2025-01-01',
         'amount' => '100',
     ],
-
     'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
         'name'   => '懶得整理帳號',
         'date'   => '2025-01-01',
-        'amount' => '100',
+        'amount' => '10',
+    ],
+    'fyZDjo8TB6aOHXxK0DIXrIVl0QBYXZEJyovVG18uiOh'  => [
+        'name'   => '劉',
+        'date'   => '2025-01-01',
+        'amount' => '10',
     ],
 ];
