@@ -35,12 +35,14 @@ class LineNotifyController extends Controller
         $accessToken = Arr::get($responseData, 'access_token');
 
         // 發送 notify 訊息
+        $message_user = "你的Token為：" . $accessToken . "\n";
+        $message_user .= '你的網址為：' . "https://mbot-3-ac8b63fd9692.herokuapp.com/machines/" . $accessToken;
         $responseData = Http::asForm()
             ->withHeaders([
                 'Authorization' => "Bearer {$accessToken}"
             ])
             ->post('https://notify-api.line.me/api/notify', [
-                'message' => '你好'
+                'message' => $message_user
             ])
             ->json();
 
