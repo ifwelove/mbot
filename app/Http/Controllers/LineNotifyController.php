@@ -62,8 +62,9 @@ class LineNotifyController extends Controller
             response('連動失敗', $status);
         }
 
-        dump($accessToken);
+        dump('你的網址為：' . "https://mbot-3-ac8b63fd9692.herokuapp.com/machines/" . $accessToken);
+        dump("你的Token為：" . $accessToken);
 
-        return response('已經連動成功, 請保存好你的 token', 200);
+        return response('已經連動成功, 請保存好你的 token, 並等待管理者開通', 200);
     }
 }
