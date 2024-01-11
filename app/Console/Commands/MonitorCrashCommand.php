@@ -64,14 +64,20 @@ class MonitorCrashCommand extends Command
 //                        if ($machine['status'] != 'pc_not_open') {
 //                            Redis::hSet($key, 'status', 'pc_not_open');
 //                        }
-
-                    if (now()->timestamp - $lastUpdated > 1800) {
+                    if (isset($machine['crash_alert_total'])) {
+                        $crash_alert_total = (int) $machine['crash_alert_total'] + 1;
+                    } else {
+                        $crash_alert_total = 1;
+                    }
+                    if (now()->timestamp - $lastUpdated > 1800 && $crash_alert_total <= 3) {
+                        Redis::hSet($key, 'crash_alert_total', (string) $crash_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                                             $message .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                         $message .= sprintf('大尾狀態 : %s%s', '當機, 半小時無訊號', $breakLine);
                         $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['dnplayer']);
+                        $message .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
 
                         $client   = new Client();
                         $headers  = [

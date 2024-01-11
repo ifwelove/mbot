@@ -170,28 +170,28 @@ class AlertController extends Controller
             }
             //            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
-            $value = [
-                'pc_name'          => $pc_name,
-                'status'           => $alert_status,
-                'dnplayer_running' => $dnplayer_running,
-                'dnplayer'         => $dnplayer,
-//                'm_info'           => $m_info,
-                'last_updated'     => now()->timestamp
-            ];
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    'message' => json_encode(['key' => $key, 'value' => json_encode($value)])
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+//            $value = [
+//                'pc_name'          => $pc_name,
+//                'status'           => $alert_status,
+//                'dnplayer_running' => $dnplayer_running,
+//                'dnplayer'         => $dnplayer,
+////                'm_info'           => $m_info,
+//                'last_updated'     => now()->timestamp
+//            ];
+//            $client   = new Client();
+//            $headers  = [
+//                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+//                'Content-Type'  => 'application/x-www-form-urlencoded'
+//            ];
+//            $options  = [
+//                'form_params' => [
+//                    'message' => json_encode(['key' => $key, 'value' => json_encode($value)])
+//                ]
+//            ];
+//            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+//                'headers'     => $headers,
+//                'form_params' => $options['form_params']
+//            ]);
 
             Redis::hSet($key, 'pc_name', $pc_name);
             Redis::hSet($key, 'mac', $mac);
@@ -655,6 +655,18 @@ class AlertController extends Controller
         Redis::sRem("token:$token:machines", $mac);
 
         return response()->json(['message' => 'Machine deleted successfully']);
+    }
+
+    public function deleteMachineFromLine(Request $request)
+    {
+        $token = $request->get('token');
+        $mac   = $request->get('mac');
+        $key   = "token:$token:mac:$mac";
+
+        Redis::del($key);
+        Redis::sRem("token:$token:machines", $mac);
+
+        return redirect(sprintf('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/%s', $token));
     }
 
 
