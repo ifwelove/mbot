@@ -308,32 +308,32 @@ class AlertController extends Controller
             }
 
             $key = "token:$token:mac:$mac";
-            $value = [
-                'pc_name'          => $pc_name,
-                'pc_info'          => $pc_info,
-                'status'           => $alert_status,
-                'dnplayer_running' => $dnplayer_running,
-                'dnplayer'         => $dnplayer,
-//                'm_info'           => $m_info,
-                'last_updated'     => now()->timestamp
-            ];
-
-            if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-                $client   = new Client();
-                $headers  = [
-                    'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
-                    'Content-Type'  => 'application/x-www-form-urlencoded'
-                ];
-                $options  = [
-                    'form_params' => [
-                        'message' => json_encode(['key' => $key, 'value' => ($value)])
-                    ]
-                ];
-                $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                    'headers'     => $headers,
-                    'form_params' => $options['form_params']
-                ]);
-            }
+//            $value = [
+//                'pc_name'          => $pc_name,
+//                'pc_info'          => $pc_info,
+//                'status'           => $alert_status,
+//                'dnplayer_running' => $dnplayer_running,
+//                'dnplayer'         => $dnplayer,
+////                'm_info'           => $m_info,
+//                'last_updated'     => now()->timestamp
+//            ];
+//
+//            if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+//                $client   = new Client();
+//                $headers  = [
+//                    'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+//                    'Content-Type'  => 'application/x-www-form-urlencoded'
+//                ];
+//                $options  = [
+//                    'form_params' => [
+//                        'message' => json_encode(['key' => $key, 'value' => ($value)])
+//                    ]
+//                ];
+//                $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+//                    'headers'     => $headers,
+//                    'form_params' => $options['form_params']
+//                ]);
+//            }
 
 
             Redis::hSet($key, 'pc_name', $pc_name);
