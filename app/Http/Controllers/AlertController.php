@@ -545,9 +545,9 @@ class AlertController extends Controller
 
     public function showDemo($token)
     {
-        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-            dd('功能尚未開放, 僅供展示');
-        }
+//        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+//            dd('功能尚未開放, 僅供展示');
+//        }
         $tokens = $this->getTokens();
         if (! isset($tokens[$token])) {
             $user = [
