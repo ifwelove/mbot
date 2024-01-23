@@ -80,7 +80,7 @@ class MonitorCardCommand extends Command
                                 }
                                 // 判斷是否需要發送通知
                                 if ($expirationTime->lte(Carbon::now()
-                                        ->addHours(30)) && $card_alert_total <= 3) {
+                                        ->addHours(3)) && $card_alert_total <= 3) {
                                     //                                    echo "發送通知";
                                     Redis::hSet($key, 'card_alert_total', (string) $card_alert_total);
                                     $breakLine = "\n";
@@ -106,26 +106,6 @@ class MonitorCardCommand extends Command
                                     ]);
                                 } else {
                                     //                                    echo "不需要發送通知";
-                                    $breakLine = "\n";
-                                    $message   = $breakLine;
-                                    $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
-                                    $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
-                                    $message   .= sprintf('大尾狀態 : %s:%s%s', '卡號即將到期剩餘時間', $card, $breakLine);
-
-                                    $client   = new Client();
-                                    $headers  = [
-                                        'Authorization' => sprintf('Bearer %s', $token),
-                                        'Content-Type'  => 'application/x-www-form-urlencoded'
-                                    ];
-                                    $options  = [
-                                        'form_params' => [
-                                            'message' => $message
-                                        ]
-                                    ];
-                                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                                        'headers'     => $headers,
-                                        'form_params' => $options['form_params']
-                                    ]);
                                 }
                             } else {
                                 //@todo 卡號到期 ... etc
