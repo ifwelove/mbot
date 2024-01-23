@@ -451,7 +451,7 @@ class AlertController extends Controller
                         if (isset($m_info['card'])) {
                             $card = str_replace('?', '時', $m_info['card']);
                             dump($card);
-                            if (preg_match('/(\d+)天\s*(\d+)時/', $card, $matches)) {
+                            if (preg_match('/(\d+)天\s*(\d+)小時/', $card, $matches)) {
                                 dump($matches);
                                 // 使用當前時間，加上解析出來的天數和小時數
                                 $days           = $matches[1];
