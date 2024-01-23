@@ -450,6 +450,7 @@ class AlertController extends Controller
                         $m_info = json_decode(base64_decode($machine['m_info']), true);
                         if (isset($m_info['card'])) {
                             $card = str_replace('?', '時', $m_info['card']);
+                            dump($card);
                             if (preg_match('/(\d+)天\s*(\d+)時/', $card, $matches)) {
                                 dump($matches);
                                 // 使用當前時間，加上解析出來的天數和小時數
