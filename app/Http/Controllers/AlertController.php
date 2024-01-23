@@ -589,7 +589,7 @@ class AlertController extends Controller
                     $merge = $m_info['merge'];
                 }
                 if (isset($m_info['card'])) {
-                    $card = $m_info['card'];
+                    $card = str_replace('?', '時', $m_info['card']);
                 }
             }
             $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
