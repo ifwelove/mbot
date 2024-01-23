@@ -445,11 +445,9 @@ class AlertController extends Controller
                 foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
                     $machine     = Redis::hGetAll($key);
-                    dump($machine);
                     if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
 
                         $m_info = json_decode(base64_decode($machine['m_info']), true);
-                        dump($m_info);
                         if (isset($m_info['card'])) {
                             $card = str_replace('?', '時', $m_info['card']);
                             if (preg_match('/(\d+)天\s*(\d+)時/', $card, $matches)) {
