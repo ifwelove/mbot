@@ -458,7 +458,7 @@ class AlertController extends Controller
                                 $expirationTime = Carbon::now()
                                     ->addDays($days)
                                     ->addHours($hours);
-
+                                dump($expirationTime);
                                 if (isset($machine['card_alert_total'])) {
                                     $card_alert_total = (int) $machine['card_alert_total'] + 1;
                                 } else {
