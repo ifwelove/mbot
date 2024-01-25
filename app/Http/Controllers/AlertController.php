@@ -406,7 +406,7 @@ class AlertController extends Controller
         $token = $request->post('token');
         if (isset($tokens[$token])) {
             dump('申請已通過, 通過後可在下方連結看到專屬網頁');
-            dd('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/' . $token);
+            dd('https://mbot-3-ac8b63fd9692.herokuapp.com/pro/' . $token);
         }
         $client   = new Client();
         $headers  = [
@@ -424,7 +424,7 @@ class AlertController extends Controller
         ]);
         dump($token);
         dump('審核申請中, 通過後可在下方連結看到專屬網頁');
-        dump('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/' . $token);
+        dump('https://mbot-3-ac8b63fd9692.herokuapp.com/pro/' . $token);
     }
 
     public function shareToken()
@@ -660,7 +660,7 @@ class AlertController extends Controller
         Redis::del($key);
         Redis::sRem("token:$token:machines", $mac);
 
-        return redirect(sprintf('https://mbot-3-ac8b63fd9692.herokuapp.com/machines/%s', $token));
+        return redirect(sprintf('https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token));
     }
 
 

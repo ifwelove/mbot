@@ -30,7 +30,8 @@
 </head>
 <body>
 <h3>Very6-大尾崩潰監視者</h3>
-<a target="_blank" href="https://very6.tw/大尾崩潰檢測check_status_20240104_v0906.rar">最新下載點</a>
+<a target="_blank" href="https://very6.tw/大尾崩潰檢測check_status_20240104_v0906.rar">一般版下載點</a>
+<a target="_blank" href="https://drive.google.com/file/d/17Fp59HnBjKaTJke7F44qi5xhcTONXElZ/view?usp=sharing">鑽石版下載點</a>
 <a target="_blank" href="https://docs.google.com/document/d/19y_lxsepZpKKQ8x-AjpNptyVy2-QzwYA35n8DoVtwfI/edit">教學文件</a>
 <a target="_blank" href="https://line.me/ti/g2/5gBZGGhG_e3jylabmmkSQbpqW3PamjCxY490YQ">歡迎加入 Line 群討論</a>
 <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
