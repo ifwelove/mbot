@@ -113,7 +113,7 @@ class LineController extends Controller
                 $groupId      = $event->getGroupId();
 
                 //@ 反向, 即可使用
-                if (isset($allowGroupIds[$groupId]) && $now->lt(Carbon::createFromFormat('Y-m-d', $allowGroupIds[$groupId])->startOfDay())) {
+                if (isset($allowGroupIds[$groupId]) && $now->gt(Carbon::createFromFormat('Y-m-d', $allowGroupIds[$groupId])->startOfDay())) {
                     $shopeeURl = '序號已經到期:'  . $allowGroupIds[$groupId] . $this->breakLine;
                     $shopeeURl .= '請私訊作者購買 line id: ifwelove'  . $this->breakLine;
                     $shopeeURl .= '您的群組編號：' . $groupId . $this->breakLine;
