@@ -126,15 +126,14 @@ class LineController extends Controller
                     $this->bot->replyText($replyToken, $shopeeURl);
                     break;
                 } else {
-
-                }
-                switch ($message_type) {
-                    case 'text':
-                        $text = $event->getText();
-//                        $this->getToken($text, $replyToken, $groupId);
-                        $this->getToken($text, $replyToken, $groupId, $request);
-                        $this->boss($text, $replyToken, $groupId);
-                        break;
+                    switch ($message_type) {
+                        case 'text':
+                            $text = $event->getText();
+                            //                        $this->getToken($text, $replyToken, $groupId);
+                            $this->getToken($text, $replyToken, $groupId, $request);
+                            $this->boss($text, $replyToken, $groupId);
+                            break;
+                    }
                 }
             }
         }
