@@ -23,6 +23,7 @@ Route::post('/alert2', [AlertController::class, 'alert2']);
 
 Route::get('/machines/{token}', [AlertController::class, 'showMachines']);
 Route::get('/demo/{token}', [AlertController::class, 'showDemo']);
+Route::get('/test/{token}', [AlertController::class, 'showTest']);
 Route::get('/pro/{token}', [AlertController::class, 'showDemo']);
 Route::get('/show/{token}', [AlertController::class, 'showToken']);
 Route::post('/delete-machine', [AlertController::class, 'deleteMachine']);

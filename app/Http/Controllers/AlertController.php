@@ -477,6 +477,77 @@ class AlertController extends Controller
             $machine = Redis::hGetAll($key);
             dump($machine);
         }
+        $tokens = $this->getTokens();
+        if (! isset($tokens[$token])) {
+            $user = [
+                'name'   => '',
+                'date'   => '未申請使用',
+                'amount' => '0',
+            ];
+        } else {
+            $user = $tokens[$token];
+        }
+        dd(123);
+//dd(123);
+        //        $macCount = Redis::scard("token:$token:machines");
+
+        $dnplayer_running_total = 0;
+        $dnplayer_total         = 0;
+        $macAddresses           = Redis::sMembers("token:$token:machines");
+        $machines               = [];
+        foreach ($macAddresses as $mac) {
+            dump($mac);
+            $key              = "token:$token:mac:$mac";
+            $machine          = Redis::hGetAll($key);
+            dump($machine);
+            //@todo 可刪除 搭配 command
+            $lastUpdated = $machine['last_updated'] ?? 0;
+//            if (now()->timestamp - $lastUpdated > 1800) {
+//                Redis::hSet($key, 'status', 'pc_not_open');
+//                Redis::hSet($key, 'dnplayer', 10000);
+                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
+//            }
+
+            $pc_name          = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
+            $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+
+
+            $machines[]             = [
+                'mac'              => $mac,
+                'pc_name'          => $pc_name,
+                'dnplayer'         => $dnplayer,
+                'dnplayer_running' => $dnplayer_running,
+                //                'm_info'           => $groupedData,
+                'data'             => $machine
+            ];
+            $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
+            $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
+        }
+
+        usort($machines, function ($a, $b) {
+            return strcmp($a['pc_name'], $b['pc_name']);
+        });
+
+        $machines_total = 0;
+        foreach ($machines as $index => $machine) {
+            if (! isset($machine['data']['last_updated'])) {
+                $machines[$index]['data']['last_updated'] = '';
+            } else {
+                $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+            }
+            $machines_total++;
+        }
+
+        return view('machines', [
+            //                'macCount' => $macCount,
+            'user'                   => $user,
+            'machines'               => $machines,
+            'token'                  => $token,
+            'dnplayer_running_total' => $dnplayer_running_total,
+            'dnplayer_total'         => $dnplayer_total,
+            'machines_total'         => $machines_total
+        ]);
     }
 
     public function showMachines($token)
@@ -554,9 +625,9 @@ class AlertController extends Controller
 
     public function showDemo($token)
     {
-//        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-//            dd('功能尚未開放, 僅供展示');
-//        }
+        //        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+        //            dd('功能尚未開放, 僅供展示');
+        //        }
         $tokens = $this->getTokens();
         if (! isset($tokens[$token])) {
             $user = [
@@ -567,11 +638,12 @@ class AlertController extends Controller
         } else {
             $user = $tokens[$token];
         }
-
+        //        dump($user);
 
         $dnplayer_running_total = 0;
         $dnplayer_total         = 0;
         $macAddresses           = Redis::sMembers("token:$token:machines");
+        //        dump($macAddresses);
         $machines               = [];
         $m_info                 = [
             'rows'  => [],
@@ -580,6 +652,12 @@ class AlertController extends Controller
         ];
         $merges = [];
         $money_total = 0;
+        $not_check_role_status = [
+            '',
+            '工具開始',
+            '遊戲執行',
+            '角色死亡',
+        ];
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
@@ -590,6 +668,8 @@ class AlertController extends Controller
             }
 
             $merge   = [];
+            $rows   = [];
+            $rows_status = [];
             $card    = '';
             $pc_name = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
@@ -597,12 +677,25 @@ class AlertController extends Controller
                 if (isset($m_info['merge'])) {
                     $merge = $m_info['merge'];
                 }
+                if (isset($m_info['rows'])) {
+                    $rows = $m_info['rows'];
+                }
                 if (isset($m_info['card'])) {
                     $card = str_replace('?', '時', $m_info['card']);
                 }
             }
             $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
             $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+
+            foreach ($rows as $role) {
+                if(!in_array($role[2], $not_check_role_status)) {
+                    if (!isset($rows_status[$role[2]])) {
+                        $rows_status[$role[2]] = 1;
+                    } else {
+                        $rows_status[$role[2]]++;
+                    }
+                }
+            }
 
             foreach ($merge as $merge_sub => $merge_sub_total) {
                 $money_total = $money_total + $merge_sub_total;
@@ -620,12 +713,12 @@ class AlertController extends Controller
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
                 //                'm_info'           => $groupedData,
-                'data'             => $machine
+                'data'             => $machine,
+                'rows'             => $rows_status
             ];
             $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
             $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
         }
-
         usort($machines, function ($a, $b) {
             return strcmp($a['pc_name'], $b['pc_name']);
         });
@@ -640,17 +733,141 @@ class AlertController extends Controller
             $machines_total++;
         }
 
-        return view('machines2', [
-                //                'macCount' => $macCount,
-                'user'                   => $user,
-                'machines'               => $machines,
-                'token'                  => $token,
-                'dnplayer_running_total' => $dnplayer_running_total,
-                'dnplayer_total'         => $dnplayer_total,
-                'machines_total'         => $machines_total,
-                'merges'         => $merges,
-                'money_total'         => $money_total,
-            ]);
+        return view('machines3', [
+            //                'macCount' => $macCount,
+            'user'                   => $user,
+            'machines'               => $machines,
+            'token'                  => $token,
+            'dnplayer_running_total' => $dnplayer_running_total,
+            'dnplayer_total'         => $dnplayer_total,
+            'machines_total'         => $machines_total,
+            'merges'         => $merges,
+            'money_total'         => $money_total,
+        ]);
+        //        return response()->json(['machines' => $machines]);
+    }
+
+    public function showTest($token)
+    {
+        //        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+        //            dd('功能尚未開放, 僅供展示');
+        //        }
+        $tokens = $this->getTokens();
+        if (! isset($tokens[$token])) {
+            $user = [
+                'name'   => '',
+                'date'   => '未申請使用',
+                'amount' => '0',
+            ];
+        } else {
+            $user = $tokens[$token];
+        }
+//        dump($user);
+
+        $dnplayer_running_total = 0;
+        $dnplayer_total         = 0;
+        $macAddresses           = Redis::sMembers("token:$token:machines");
+//        dump($macAddresses);
+        $machines               = [];
+        $m_info                 = [
+            'rows'  => [],
+            'card'  => '',
+            'merge' => [],
+        ];
+        $merges = [];
+        $money_total = 0;
+        $not_check_role_status = [
+            '',
+            '工具開始',
+            '遊戲執行',
+            '角色死亡',
+        ];
+        foreach ($macAddresses as $mac) {
+            $key         = "token:$token:mac:$mac";
+            $machine     = Redis::hGetAll($key);
+            $lastUpdated = $machine['last_updated'] ?? 0;
+            if (now()->timestamp - $lastUpdated > 1800) {
+                Redis::hSet($key, 'status', 'pc_not_open');
+                $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
+            }
+
+            $merge   = [];
+            $rows   = [];
+            $rows_status = [];
+            $card    = '';
+            $pc_name = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
+                $m_info = json_decode(base64_decode($machine['m_info']), true);
+                if (isset($m_info['merge'])) {
+                    $merge = $m_info['merge'];
+                }
+                if (isset($m_info['rows'])) {
+                    $rows = $m_info['rows'];
+                }
+                if (isset($m_info['card'])) {
+                    $card = str_replace('?', '時', $m_info['card']);
+                }
+            }
+            $dnplayer         = isset($machine['dnplayer']) ? $machine['dnplayer'] : 0;
+            $dnplayer_running = isset($machine['dnplayer_running']) ? $machine['dnplayer_running'] : 0;
+
+            foreach ($rows as $row => $role) {
+                if(!in_array($role[2], $not_check_role_status)) {
+                    if (!isset($rows_status[$role[2]])) {
+                        $rows_status[$role[2]] = 1;
+                    } else {
+                        $rows_status[$role[2]]++;
+                    }
+                }
+            }
+
+            foreach ($merge as $merge_sub => $merge_sub_total) {
+                $money_total = $money_total + $merge_sub_total;
+                if (!isset($merges[$merge_sub])) {
+                    $merges[$merge_sub] = $merge_sub_total;
+                } else {
+                    $merges[$merge_sub] = $merges[$merge_sub] + $merge_sub_total;
+                }
+            }
+            $machines[]             = [
+                'mac'              => $mac,
+                'pc_name'          => $pc_name,
+                'merge'            => $merge,
+                'card'             => $card,
+                'dnplayer'         => $dnplayer,
+                'dnplayer_running' => $dnplayer_running,
+                //                'm_info'           => $groupedData,
+                'data'             => $machine,
+                'rows'             => $rows_status
+            ];
+            $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
+            $dnplayer_total         = $dnplayer_total + (int) $dnplayer;
+        }
+        usort($machines, function ($a, $b) {
+            return strcmp($a['pc_name'], $b['pc_name']);
+        });
+
+        $machines_total = 0;
+        foreach ($machines as $index => $machine) {
+            if (! isset($machine['data']['last_updated'])) {
+                $machines[$index]['data']['last_updated'] = '';
+            } else {
+                $machines[$index]['data']['last_updated'] = date('Y-m-d H:i:s', $machine['data']['last_updated']);
+            }
+            $machines_total++;
+        }
+
+        return view('machines3', [
+            //                'macCount' => $macCount,
+            'user'                   => $user,
+            'machines'               => $machines,
+            'token'                  => $token,
+            'dnplayer_running_total' => $dnplayer_running_total,
+            'dnplayer_total'         => $dnplayer_total,
+            'machines_total'         => $machines_total,
+            'merges'         => $merges,
+            'money_total'         => $money_total,
+        ]);
         //        return response()->json(['machines' => $machines]);
     }
 
