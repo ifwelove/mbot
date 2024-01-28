@@ -438,7 +438,16 @@ class AlertController extends Controller
 
     public function monitor()
     {
-        $count  = 0;
+//        $count  = 0;
+//        $tokens = $this->getTokens();
+//        foreach ($tokens as $token => $name) {
+//            $macAddresses = Redis::sMembers("token:$token:machines");
+//            foreach ($macAddresses as $mac) {
+//                $count++;
+//            }
+//        }
+//        dd($count);
+        $totalCount = 0;
         $tokens = $this->getTokens();
         foreach ($tokens as $token => $name) {
             $macAddresses = Redis::sMembers("token:$token:machines");
