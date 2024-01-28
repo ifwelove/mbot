@@ -449,13 +449,19 @@ class AlertController extends Controller
 //        dd($count);
         $totalCount = 0;
         $tokens = $this->getTokens();
+        $macCounts = [];
+
         foreach ($tokens as $token => $name) {
             $macAddresses = Redis::sMembers("token:$token:machines");
-            foreach ($macAddresses as $mac) {
-                $count++;
-            }
+            $macCount = count($macAddresses);
+            $totalCount += $macCount;
+
+            // 將這個 token 的 macAddresses 數量儲存起來
+            $macCounts[$token] = $macCount;
         }
-        dd($count);
+
+        // 顯示每個 token 的 macAddresses 數量
+        dd($totalCount, $macCounts);
     }
 
     public function showToken($token)
