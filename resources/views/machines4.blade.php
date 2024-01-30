@@ -60,8 +60,6 @@
             @endforeach
         </select>
     </p>
-    <span id="server-data">aaa:bbb</span>
-    <button onclick="copyToClipboard('#server-data')">複製</button>
     <div class="custom-table">
         <table class="table">
             <!-- 表格头部 -->
@@ -92,8 +90,8 @@
 {{--                    <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>--}}
                     <td>
                         @foreach ($machine['merge'] as $server => $total)
-                            <span id="server-data-{{ $machine['mac'] }}-{{ $server }}">{{ $server }}:{{ $total }}</span>
-                            <button onclick="copyToClipboard('#server-data-{{ $machine['mac'] }}-{{ $server }}')">複製</button>
+                            <span id="server-data-{{ $machine['pc_name'] }}-{{ $server }}">{{ $server }}:{{ $total }}</span>
+                            <button onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">複製</button>
                             <br>
                         @endforeach
                     </td>
