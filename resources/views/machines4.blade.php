@@ -89,12 +89,12 @@
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
 {{--                    <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>--}}
                     <td>
-                        @foreach ($machine['merge'] as $server => $total)
-                            {{ $server }}:{{ $total }}<br>
-                        @endforeach
+{{--                        @foreach ($machine['merge'] as $server => $total)--}}
+{{--                            {{ $server }}:{{ $total }}<br>--}}
+{{--                        @endforeach--}}
                         @foreach ($machine['money_rows'] as $server => $items)
                                 {{ $server }}:{{ $items['total'] }}<br>
-                            <span id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{{ $items['rows'] }}</span>
+                            <div id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{!! $items['rows'] !!}</div>
                             <button onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">複製</button>
                             <br>
                         @endforeach
@@ -116,12 +116,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function copyToClipboard(element) {
-        var $temp = $("<input>");
+        var text = $(element).html().replace(/<br\s*[\/]?>/gi, '\n'); // 將 <br> 標籤轉換為換行符
+        var $temp = $("<textarea>"); // 使用 textarea 來保持文本格式
         $("body").append($temp);
-        $temp.val($(element).text()).select();
+        $temp.val(text).select();
         document.execCommand("copy");
         $temp.remove();
-        alert("已複製: " + $(element).text());
+        alert("已複製");
     }
 </script>
 
