@@ -755,7 +755,7 @@ class AlertController extends Controller
             $machines_total++;
         }
 
-        return view('machines4', [
+        return view('machines3', [
             //                'macCount' => $macCount,
             'user'                   => $user,
             'machines'               => $machines,
