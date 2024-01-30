@@ -60,6 +60,8 @@
             @endforeach
         </select>
     </p>
+    <span id="server-data">aaa:bbb</span>
+    <button onclick="copyToClipboard('#server-data')">複製</button>
     <div class="custom-table">
         <table class="table">
             <!-- 表格头部 -->
