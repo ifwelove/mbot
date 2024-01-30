@@ -711,6 +711,8 @@ class AlertController extends Controller
                     $money_rows[$temp_name]['total'] =  (int) $role[3];
                     $money_rows[$temp_name]['rows'] = $role[3]. '<br>';
                 } else {
+                    $temp_name = str_replace('(', '', $role[4]);
+                    $temp_name = str_replace(')', '-', $temp_name);
                     $money_rows[$temp_name]['total'] = (int) $money_rows[$role[4]]['total'] +  (int) $role[3];
                     $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
                 }
