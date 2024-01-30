@@ -679,6 +679,7 @@ class AlertController extends Controller
             $merge   = [];
             $rows   = [];
             $rows_status = [];
+            $money_rows = [];
             $card    = '';
             $pc_name = isset($machine['pc_name']) ? $machine['pc_name'] : '';
             if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
@@ -704,6 +705,13 @@ class AlertController extends Controller
                         $rows_status[$role[2]]++;
                     }
                 }
+                if (!isset($money_rows[$role[4]])) {
+                    $money_rows[$role[4]]['total'] =  (int) $role[3];
+                    $money_rows[$role[4]]['rows'] = $role[3]. '<br>';
+                } else {
+                    $money_rows[$role[4]]['total'] = (int) $money_rows[$role[4]]['total'] +  (int) $role[3];
+                    $money_rows[$role[4]]['rows'] .= $role[3] . '<br>';
+                }
             }
 
             foreach ($merge as $merge_sub => $merge_sub_total) {
@@ -723,6 +731,7 @@ class AlertController extends Controller
                 'dnplayer_running' => $dnplayer_running,
                 //                'm_info'           => $groupedData,
                 'data'             => $machine,
+                'money_rows'       => $money_rows,
                 'rows'             => $rows_status
             ];
             $dnplayer_running_total = $dnplayer_running_total + $dnplayer_running;
