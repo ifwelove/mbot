@@ -87,7 +87,15 @@
                     </td>
                     <td>@foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach</td>
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
-                    <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>
+{{--                    <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>--}}
+                    <td>
+                        @foreach ($machine['merge'] as $server => $total)
+                            <span id="server-data-{{ $machine['mac'] }}-{{ $server }}">{{ $server }}:{{ $total }}</span>
+                            <button onclick="copyToClipboard('#server-data-{{ $machine['mac'] }}-{{ $server }}')">複製</button>
+                            <br>
+                        @endforeach
+                    </td>
+
                     <td>{{ $machine['card'] }}</td>
                     <td>
                         <!-- 删除按钮 -->
@@ -102,6 +110,17 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+        // alert("已複製: " + $(element).text());
+    }
+</script>
+
 <script>
     $(document).ready(function() {
         $('.delete-btn').click(function() {
