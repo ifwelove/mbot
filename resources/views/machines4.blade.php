@@ -90,10 +90,11 @@
 {{--                    <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>--}}
                     <td>
                         @foreach ($machine['merge'] as $server => $total)
-                            {{ $server }}:{{ $total }}
+                            {{ $server }}:{{ $total }}<br>
                         @endforeach
-                        @foreach ($machine['money_rows'] as $server => $money)
-                            <span id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{{ $money }}</span>
+                        @foreach ($machine['money_rows'] as $server => $items)
+                                {{ $server }}:{{ $items['total'] }}<br>
+                            <span id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{{ $items['rows'] }}</span>
                             <button onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">複製</button>
                             <br>
                         @endforeach
