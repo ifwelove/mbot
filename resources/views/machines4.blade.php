@@ -117,7 +117,7 @@
         $temp.val($(element).text()).select();
         document.execCommand("copy");
         $temp.remove();
-        // alert("已複製: " + $(element).text());
+        alert("已複製: " + $(element).text());
     }
 </script>
 
