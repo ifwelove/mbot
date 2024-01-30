@@ -69,6 +69,7 @@ class MonitorCrashCommand extends Command
                     } else {
                         $crash_alert_total = 1;
                     }
+                    //crash_alert_total 三次了不會再通知, 但沒有點選清除, 但後續電腦正常後, 晚上又當機了但因為沒有清除所以不會通知, 所以要有一個機制當電腦正常後 crash_alert_total 要 reset
                     if (now()->timestamp - $lastUpdated > 1800 && $crash_alert_total <= 3) {
                         Redis::hSet($key, 'crash_alert_total', (string) $crash_alert_total);
                         $breakLine = "\n";
@@ -93,6 +94,8 @@ class MonitorCrashCommand extends Command
                             'headers'     => $headers,
                             'form_params' => $options['form_params']
                         ]);
+                    } else {
+                        Redis::hSet($key, 'crash_alert_total', '1');
                     }
                 }
             }
