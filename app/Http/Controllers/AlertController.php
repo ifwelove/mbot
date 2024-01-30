@@ -707,12 +707,14 @@ class AlertController extends Controller
                 }
                 $temp_name = str_replace('(', '', $role[4]);
                 $temp_name = str_replace(')', '-', $temp_name);
-                if (!isset($money_rows[$temp_name])) {
-                    $money_rows[$temp_name]['total'] =  (int) $role[3];
-                    $money_rows[$temp_name]['rows'] = $role[3]. '<br>';
-                } else {
-                    $money_rows[$temp_name]['total'] = (int) $money_rows[$temp_name]['total'] +  (int) $role[3];
-                    $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
+                if ($temp_name !== '') {
+                    if (!isset($money_rows[$temp_name])) {
+                        $money_rows[$temp_name]['total'] =  (int) $role[3];
+                        $money_rows[$temp_name]['rows'] = $role[3]. '<br>';
+                    } else {
+                        $money_rows[$temp_name]['total'] = (int) $money_rows[$temp_name]['total'] +  (int) $role[3];
+                        $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
+                    }
                 }
             }
 
@@ -842,12 +844,14 @@ class AlertController extends Controller
                 }
                 $temp_name = str_replace('(', '', $role[4]);
                 $temp_name = str_replace(')', '-', $temp_name);
-                if (!isset($money_rows[$temp_name])) {
-                    $money_rows[$temp_name]['total'] =  (int) $role[3];
-                    $money_rows[$temp_name]['rows'] = $role[3]. '<br>';
-                } else {
-                    $money_rows[$temp_name]['total'] = (int) $money_rows[$temp_name]['total'] +  (int) $role[3];
-                    $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
+                if ($temp_name !== '') {
+                    if (!isset($money_rows[$temp_name])) {
+                        $money_rows[$temp_name]['total'] =  (int) $role[3];
+                        $money_rows[$temp_name]['rows'] = $role[3]. '<br>';
+                    } else {
+                        $money_rows[$temp_name]['total'] = (int) $money_rows[$temp_name]['total'] +  (int) $role[3];
+                        $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
+                    }
                 }
             }
 

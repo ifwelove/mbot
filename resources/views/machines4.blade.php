@@ -69,7 +69,7 @@
                 <th scope="col">狀態</th>
                 <th scope="col">帳號狀態</th>
                 <th scope="col">模擬器數量</th>
-                <th scope="col">鑽石</th>
+                <th scope="col">鑽石(點選可複製)</th>
                 <th scope="col">卡號到期</th>
                 <th scope="col"></th>
 {{--                <th scope="col">MAC</th>--}}
@@ -93,9 +93,9 @@
 {{--                            {{ $server }}:{{ $total }}<br>--}}
 {{--                        @endforeach--}}
                         @foreach ($machine['money_rows'] as $server => $items)
-                                {{ $server }}:{{ $items['total'] }}<br>
+                            <button class="btn btn-info" onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">{{ $server }}:{{ $items['total'] }}</button><br>
                             <div id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{!! $items['rows'] !!}</div>
-                            <button onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">複製</button>
+{{--                            <button onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">複製</button>--}}
                             <br>
                         @endforeach
                     </td>
