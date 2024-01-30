@@ -49,7 +49,7 @@
     <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
     <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
     <p>共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
-    <p>全伺服器統計：{{ $money_total }}, 平均帳號打鑽數：{{ $money_total / $dnplayer_total }}, 各伺服器鑽石統計：<select name="server" class="custom-select">
+    <p>全伺服器統計：{{ $money_total }}, 平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}, 各伺服器鑽石統計：<select name="server" class="custom-select">
             @foreach ($merges as $server => $total)
                 <optgroup label="{{ $server }}">
                     @php
@@ -69,11 +69,11 @@
                 <th scope="col">狀態</th>
                 <th scope="col">帳號狀態</th>
                 <th scope="col">模擬器數量</th>
-                <th scope="col">MAC</th>
-                <th scope="col">最後更新時間</th>
                 <th scope="col">鑽石</th>
                 <th scope="col">卡號到期</th>
                 <th scope="col"></th>
+{{--                <th scope="col">MAC</th>--}}
+                <th scope="col">最後更新時間</th>
             </tr>
             </thead>
             <!-- 表格主体 -->
@@ -87,14 +87,14 @@
                     </td>
                     <td>@foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach</td>
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
-                    <td>{{ $machine['mac'] }}</td>
-                    <td>{{ $machine['data']['last_updated'] }}</td>
                     <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>
                     <td>{{ $machine['card'] }}</td>
                     <td>
                         <!-- 删除按钮 -->
-                        <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">清除設置錯誤電腦</button>
+                        <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置訊號</button>
                     </td>
+{{--                    <td>{{ $machine['mac'] }}</td>--}}
+                    <td>{{ $machine['data']['last_updated'] }}</td>
                 </tr>
             @endforeach
             </tbody>
