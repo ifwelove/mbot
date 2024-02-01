@@ -80,7 +80,7 @@ class MonitorCardCommand extends Command
                                 }
                                 // 判斷是否需要發送通知
                                 if ($expirationTime->lte(Carbon::now()
-                                        ->addHours(3)) && $card_alert_total <= 3) {
+                                        ->addHours(3)) && $card_alert_total <= 1) {
                                     //                                    echo "發送通知";
                                     Redis::hSet($key, 'card_alert_total', (string) $card_alert_total);
                                     $breakLine = "\n";
