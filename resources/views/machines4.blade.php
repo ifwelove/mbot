@@ -162,7 +162,6 @@
             @foreach ($machines as $index => $machine)
                 <tr>
                     <td>
-{{--                        {{ $machine['pc_name'] }}--}}
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailModal{{ $index }}">
                             {{ $machine['pc_name'] }}
                         </button>
@@ -173,15 +172,10 @@
                     </td>
                     <td>@foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach</td>
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
-{{--                    <td>@foreach ($machine['merge'] as $server => $total){{ $server }}:{{ $total }}<br>@endforeach</td>--}}
                     <td>
-{{--                        @foreach ($machine['merge'] as $server => $total)--}}
-{{--                            {{ $server }}:{{ $total }}<br>--}}
-{{--                        @endforeach--}}
                         @foreach ($machine['money_rows'] as $server => $items)
-                            <button class="btn btn-info" onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">{{ $server }}:{{ $items['total'] }}</button><br>
+                            <button class="btn btn-warning" onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">{{ $server }}:{{ $items['total'] }}</button><br>
                             <div id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{!! $items['rows'] !!}</div>
-{{--                            <button onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">複製</button>--}}
                             <br>
                         @endforeach
                     </td>
