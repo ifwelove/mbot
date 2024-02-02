@@ -735,6 +735,7 @@ class AlertController extends Controller
                 'dnplayer_running' => $dnplayer_running,
                 //                'm_info'           => $groupedData,
                 'data'             => $machine,
+                'role_list'        => $rows,
                 'money_rows'       => $money_rows,
                 'rows'             => $rows_status
             ];
@@ -892,6 +893,7 @@ class AlertController extends Controller
                 'dnplayer_running' => $dnplayer_running,
                 //                'm_info'           => $groupedData,
                 'data'             => $machine,
+                'role_list'        => $rows,
                 'money_rows'       => $money_rows,
                 'rows'             => $rows_status
             ];

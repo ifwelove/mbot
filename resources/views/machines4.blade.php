@@ -32,6 +32,15 @@
             vertical-align: top;
             border-top: 1px solid #dee2e6;
         }
+
+        .modal-table .table {
+            margin-bottom: 0; /* 移除表格底部間距 */
+        }
+        .modal-table .table td,
+        .modal-table .table th {
+            padding: .3rem; /* 減少單元格的內邊距 */
+            font-size: .875rem; /* 縮小字體大小 */
+        }
     </style>
 </head>
 <body>
@@ -90,6 +99,48 @@
             </div>
         </div>
     </div>
+    @foreach ($machines as $index => $machine)
+        <div class="modal fade" id="detailModal{{ $index }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel{{ $index }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document"> <!-- 可以調整 modal-lg 為 modal-sm 來進一步控制模態框的大小 -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel{{ $index }}">詳細資訊 - {{ $machine['pc_name'] }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-table"> <!-- 使用 modal-table 類來應用自定義樣式 -->
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>伺服器</th>
+                                <th>狀態</th>
+                                <th>鑽石數</th>
+                                <th>格子數量</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($machine['role_list'] as $detailIndex => $detail)
+                                <tr>
+                                    <td>{{ $detailIndex + 1 }}</td>
+                                    <td>{{ $detail[2] }}</td>
+                                    <td>{{ $detail[4] }}</td>
+                                    <td>{{ $detail[3] }}</td>
+                                    <td>{{ $detail[5] }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     <div class="custom-table">
         <table class="table">
             <!-- 表格头部 -->
@@ -108,9 +159,14 @@
             </thead>
             <!-- 表格主体 -->
             <tbody>
-            @foreach ($machines as $machine)
+            @foreach ($machines as $index => $machine)
                 <tr>
-                    <td>{{ $machine['pc_name'] }}</td>
+                    <td>
+{{--                        {{ $machine['pc_name'] }}--}}
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailModal{{ $index }}">
+                            {{ $machine['pc_name'] }}
+                        </button>
+                    </td>
                     <td>
                         <span class="status-icon {{ $machine['data']['status'] }}"></span>
                         {{ $machine['data']['status'] }}
@@ -160,15 +216,15 @@
 
 <script>
     // 設定計時器每秒更新
-    var seconds = 60; // 60秒後重新整理
-    function updateTimer() {
-        seconds--;
-        $('#countdown').text(seconds);
-        if (seconds <= 0) {
-            window.location.reload(); // 到達0秒時重新整理頁面
-        }
-    }
-    setInterval(updateTimer, 1000);
+    // var seconds = 60; // 60秒後重新整理
+    // function updateTimer() {
+    //     seconds--;
+    //     $('#countdown').text(seconds);
+    //     if (seconds <= 0) {
+    //         window.location.reload(); // 到達0秒時重新整理頁面
+    //     }
+    // }
+    // setInterval(updateTimer, 1000);
 
     $(document).ready(function() {
         $('.delete-btn').click(function() {
