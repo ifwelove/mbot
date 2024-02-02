@@ -783,7 +783,7 @@ class AlertController extends Controller
             'dnplayer_running_total' => $dnplayer_running_total,
             'dnplayer_total'         => $dnplayer_total,
             'machines_total'         => $machines_total,
-            'merges'         => $merges,
+            'merges'         => $currentData,
             'money_total'         => $money_total,
         ]);
         //        return response()->json(['machines' => $machines]);
@@ -940,7 +940,7 @@ class AlertController extends Controller
             'dnplayer_running_total' => $dnplayer_running_total,
             'dnplayer_total'         => $dnplayer_total,
             'machines_total'         => $machines_total,
-            'merges'         => $merges,
+            'merges'         => $currentData,
             'money_total'         => $money_total,
         ]);
         //        return response()->json(['machines' => $machines]);
