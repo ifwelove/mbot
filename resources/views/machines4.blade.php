@@ -48,7 +48,7 @@
     <h3 class="mt-3">Very6-大尾崩潰監視者</h3>
     <div class="row mb-3">
         <div class="col">
-            <a href="javascript:void(0)" class="btn btn-light">重新整理於: <span id="countdown">60</span> 秒</a>
+            <a href="javascript:void(0)" class="btn btn-light">重新整理於: <span id="countdown">120</span> 秒</a>
             <a target="_blank" href="https://very6.tw/大尾崩潰檢測check_status_20240104_v0906.rar" class="btn btn-primary">一般版下載點</a>
             <a target="_blank" href="https://drive.google.com/file/d/17OAEMUqbV8p5rdG-TsXxQRoTdWRwD19J/view?usp=sharing" class="btn btn-secondary">鑽石版下載點</a>
             <a target="_blank" href="https://docs.google.com/document/d/19y_lxsepZpKKQ8x-AjpNptyVy2-QzwYA35n8DoVtwfI/edit" class="btn btn-info">教學文件</a>
@@ -210,7 +210,7 @@
 
 <script>
     // 設定計時器每秒更新
-    var seconds = 60; // 60秒後重新整理
+    var seconds = 120; // 60秒後重新整理
     function updateTimer() {
         seconds--;
         $('#countdown').text(seconds);
