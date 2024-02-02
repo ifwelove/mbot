@@ -50,7 +50,13 @@
     <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
     <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
     <p>共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
-    <p>全伺服器統計：{{ $money_total }}, 平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}, 各伺服器鑽石統計：<select name="server" class="custom-select">
+    <p>全伺服器統計：{{ $money_total }}, 平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}, 各伺服器鑽石統計：
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            顯示資料
+        </button>
+    </p>
+    <p>
+        <select name="server" class="custom-select">
             @foreach ($merges as $server => $total)
                 <optgroup label="{{ $server }}">
                     @php
@@ -61,6 +67,29 @@
             @endforeach
         </select>
     </p>
+
+    <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataModalLabel">資料列表</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        @foreach ($merges as $key => $value)
+                            <li>{{ $key }}: {{ $value }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="custom-table">
         <table class="table">
             <!-- 表格头部 -->
@@ -115,6 +144,8 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.9/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function copyToClipboard(element) {
         var text = $(element).html().replace(/<br\s*[\/]?>/gi, '\n'); // 將 <br> 標籤轉換為換行符
