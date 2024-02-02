@@ -863,6 +863,7 @@ class AlertController extends Controller
                         $rows_status[$role[2]]++;
                     }
                 }
+                // 鑽石 csv 複製用
                 $temp_name = str_replace('(', '', $role[4]);
                 $temp_name = str_replace(')', '-', $temp_name);
                 if ($temp_name !== '') {
