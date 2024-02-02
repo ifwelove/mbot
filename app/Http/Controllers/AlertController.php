@@ -755,6 +755,26 @@ class AlertController extends Controller
             $machines_total++;
         }
 
+        $originalArray = config('gods');
+        $currentData = $merges;
+        // 建立名稱和WorldNo的映射
+        $nameToWorldNo = [];
+        foreach ($originalArray as $item) {
+            $nameToWorldNo[$item['Name']] = $item['WorldNo'];
+        }
+
+        // 將當前資料按照WorldNo排序
+        uksort($currentData, function($a, $b) use ($nameToWorldNo) {
+            // 處理名稱中的特殊前綴
+            //            $aName = str_replace(["(重生)", "(經典)"], "", $a);
+            //            $bName = str_replace(["(重生)", "(經典)"], "", $b);
+
+            $aWorldNo = $nameToWorldNo[$a] ?? PHP_INT_MAX; // 如果找不到，則放到最後
+            $bWorldNo = $nameToWorldNo[$b] ?? PHP_INT_MAX;
+
+            return $aWorldNo <=> $bWorldNo;
+        });
+
         return view('machines4', [
             //                'macCount' => $macCount,
             'user'                   => $user,
@@ -893,7 +913,6 @@ class AlertController extends Controller
         }
 
         $originalArray = config('gods');
-//        dump($merges);
         $currentData = $merges;
         // 建立名稱和WorldNo的映射
         $nameToWorldNo = [];
@@ -912,7 +931,7 @@ class AlertController extends Controller
 
             return $aWorldNo <=> $bWorldNo;
         });
-//        dd($currentData);
+
         return view('machines4', [
             //                'macCount' => $macCount,
             'user'                   => $user,
