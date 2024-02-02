@@ -58,9 +58,9 @@ class MonitorCardCommand extends Command
                 '角色死亡',
             ];
             foreach ($tokens as $token => $name) {
-                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-                    continue;
-                }
+//                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+//                    continue;
+//                }
                 $macAddresses = Redis::sMembers("token:$token:machines");
                 foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
@@ -85,8 +85,10 @@ class MonitorCardCommand extends Command
                                     $card_alert_total = 1;
                                 }
                                 // 判斷是否需要發送通知
+
                                 if ($expirationTime->lte(Carbon::now()
                                         ->addHours(1)) && $card_alert_total <= 3) {
+//                                    dump($card_alert_total);
                                     //                                    echo "發送通知";
                                     Redis::hSet($key, 'card_alert_total', (string) $card_alert_total);
                                     $breakLine = "\n";
@@ -145,7 +147,7 @@ class MonitorCardCommand extends Command
                         $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                         $message   .= sprintf('大尾狀態 : %s:%s', '發生工具結束, 死亡工具結束', $breakLine);
                         $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
-
+                        dump($message);
                         $client   = new Client();
                         $headers  = [
                             'Authorization' => sprintf('Bearer %s', $token),

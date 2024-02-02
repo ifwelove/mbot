@@ -1,11 +1,6 @@
 <?php
 
 return [
-    'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB1' => [
-        'name'   => 'very62',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
     'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'  => [
         'name'   => 'very6',
         'date'   => '2025-01-01',
