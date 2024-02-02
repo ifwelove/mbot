@@ -216,15 +216,15 @@
 
 <script>
     // 設定計時器每秒更新
-    // var seconds = 60; // 60秒後重新整理
-    // function updateTimer() {
-    //     seconds--;
-    //     $('#countdown').text(seconds);
-    //     if (seconds <= 0) {
-    //         window.location.reload(); // 到達0秒時重新整理頁面
-    //     }
-    // }
-    // setInterval(updateTimer, 1000);
+    var seconds = 60; // 60秒後重新整理
+    function updateTimer() {
+        seconds--;
+        $('#countdown').text(seconds);
+        if (seconds <= 0) {
+            window.location.reload(); // 到達0秒時重新整理頁面
+        }
+    }
+    setInterval(updateTimer, 1000);
 
     $(document).ready(function() {
         $('.delete-btn').click(function() {
