@@ -213,7 +213,7 @@ class AlertController extends Controller
             Redis::hSet($key, 'last_updated', now()->timestamp);
 
 //            Redis::hMSet($key, $value);
-            Redis::expire($key, 86400 * 2);
+            Redis::expire($key, 86400 * 7);
             Redis::sAdd("token:$token:machines", $mac);
 
         } catch (\Exception $e) {

@@ -96,7 +96,8 @@ class MonitorCardCommand extends Command
                                     $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                                     $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                                     $message   .= sprintf('大尾狀態 : %s:%s%s', '卡號即將到期剩餘時間', $card, $breakLine);
-                                    $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
+                                    $message .= sprintf('如已經處理請至網頁點選重置訊號 : https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token);
+//                                    $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
 
                                     $client   = new Client();
                                     $headers  = [
@@ -146,7 +147,8 @@ class MonitorCardCommand extends Command
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                         $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                         $message   .= sprintf('大尾狀態 : %s:%s', '發生工具結束, 死亡工具結束', $breakLine);
-                        $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
+                        $message .= sprintf('如已經處理請至網頁點選重置訊號 : https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token);
+//                        $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
                         dump($message);
                         $client   = new Client();
                         $headers  = [
