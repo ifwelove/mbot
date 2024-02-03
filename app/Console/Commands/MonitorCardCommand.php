@@ -144,12 +144,16 @@ class MonitorCardCommand extends Command
                     // 死亡結束工具, 結束工具
                     if ($role_gg === 1 && $card_alert_total <= 3) {
                         Redis::hSet($key, 'role_gg_alert_total', (string) $role_gg_alert_total);
+                        // 將每個元素用方括號包圍
+                        $wrappedItems = array_map(function($item) {
+                            return sprintf('[%s]', $item);
+                        }, $role_gg_items);
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                         $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                         $message   .= sprintf('大尾狀態 : %s:%s', '發生工具結束, 死亡工具結束', $breakLine);
-                        $message   .= sprintf('編號 : %s:%s', implode(',', $role_gg_items), $breakLine);
+                        $message   .= sprintf('編號 : %s%s', implode('', $wrappedItems), $breakLine);
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token);
 //                        $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
 //                        dump($message);
