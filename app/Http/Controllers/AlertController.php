@@ -202,7 +202,25 @@ class AlertController extends Controller
 //                'headers'     => $headers,
 //                'form_params' => $options['form_params']
 //            ]);
-
+            if (! is_null($m_info)) {
+                $machine     = Redis::hGetAll($key);
+                $rows_old = [];
+                if (!empty($machine['m_info'])) {
+                    $m_info_old = json_decode(base64_decode($machine['m_info']), true);
+                    if (isset($m_info_old['rows'])) {
+                        $rows_old = $m_info_old['rows'];
+                    }
+                }
+                $m_info = json_decode(base64_decode($m_info), true);
+                if (isset($m_info['rows'])) {
+                    foreach ($m_info['rows'] as $index => &$row) {
+                        if (isset($rows_old[$index][4]) && $row[4] === '') {
+                            $row[4] = $rows_old[$index][4]; // 使用旧数据
+                        }
+                    }
+                    $m_info = base64_encode(json_encode($m_info));
+                }
+            }
             Redis::hSet($key, 'pc_name', $pc_name);
             Redis::hSet($key, 'mac', $mac);
             Redis::hSet($key, 'pc_info', $pc_info);
