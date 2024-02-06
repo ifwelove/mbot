@@ -136,13 +136,11 @@ class MonitorCardCommand extends Command
                             $role_gg = 1;
                             $role_gg_items[] = $role[1];
                         }
-                        if($role[5] !== '' and (int) $role[5] <= 0) {
-//                            dump($role);
+                        if($role[2] !== '遊戲執行' and $role[5] !== '' and (int) $role[5] <= 0) {
                             $bag_gg = 1;
                             $bag_gg_items[] = $role[1];
                         }
                     }
-//                    dd(123);
                     if (isset($machine['role_gg_alert_total'])) {
                         $role_gg_alert_total = (int) $machine['role_gg_alert_total'] + 1;
                     } else {
