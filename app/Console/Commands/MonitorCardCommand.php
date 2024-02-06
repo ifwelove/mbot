@@ -193,7 +193,7 @@ class MonitorCardCommand extends Command
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
                             return sprintf('[%s]', $item);
-                        }, $role_gg_items);
+                        }, $bag_gg_items);
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
