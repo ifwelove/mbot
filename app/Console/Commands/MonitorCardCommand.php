@@ -213,10 +213,10 @@ class MonitorCardCommand extends Command
                                 'message' => $message
                             ]
                         ];
-                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                            'headers'     => $headers,
-                            'form_params' => $options['form_params']
-                        ]);
+//                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+//                            'headers'     => $headers,
+//                            'form_params' => $options['form_params']
+//                        ]);
                     } else {
                         Redis::hSet($key, 'bag_gg_alert_total', '1');
                     }
