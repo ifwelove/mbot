@@ -162,7 +162,7 @@
             @foreach ($machines as $index => $machine)
                 <tr>
                     <td>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailModal{{ $index }}">
+                        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#detailModal{{ $index }}">
                             {{ $machine['pc_name'] }}
                         </button>
                     </td>
