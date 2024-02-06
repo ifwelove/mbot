@@ -136,11 +136,13 @@ class MonitorCardCommand extends Command
                             $role_gg = 1;
                             $role_gg_items[] = $role[1];
                         }
-                        if((int) $role[5] <= 0) {
+                        if($role[5] !== '' and (int) $role[5] <= 0) {
+//                            dump($role);
                             $bag_gg = 1;
                             $bag_gg_items[] = $role[1];
                         }
                     }
+//                    dd(123);
                     if (isset($machine['role_gg_alert_total'])) {
                         $role_gg_alert_total = (int) $machine['role_gg_alert_total'] + 1;
                     } else {
@@ -213,10 +215,10 @@ class MonitorCardCommand extends Command
                                 'message' => $message
                             ]
                         ];
-//                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-//                            'headers'     => $headers,
-//                            'form_params' => $options['form_params']
-//                        ]);
+                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                            'headers'     => $headers,
+                            'form_params' => $options['form_params']
+                        ]);
                     } else {
                         Redis::hSet($key, 'bag_gg_alert_total', '1');
                     }
