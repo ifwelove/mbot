@@ -155,7 +155,7 @@ class MonitorCardCommand extends Command
 
 //                    角色死亡,
                     // 死亡結束工具, 結束工具
-                    if ($role_gg === 1 && $role_gg_alert_total <= 3) {
+                    if (isset($machine['gg_alert']) && $machine['gg_alert'] === 'yes' && $role_gg === 1 && $role_gg_alert_total <= 3) {
                         Redis::hSet($key, 'role_gg_alert_total', (string) $role_gg_alert_total);
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
@@ -188,7 +188,7 @@ class MonitorCardCommand extends Command
                         Redis::hSet($key, 'role_gg_alert_total', '1');
                     }
 
-                    if ($bag_gg === 1 && $bag_gg_alert_total <= 3) {
+                    if (isset($machine['bag_alert']) && $machine['bag_alert'] === 'yes' && $bag_gg === 1 && $bag_gg_alert_total <= 3) {
                         Redis::hSet($key, 'bag_gg_alert_total', (string) $bag_gg_alert_total);
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
