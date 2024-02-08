@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         '/callback',
         'alert',
         'alert2',
+        'check/token',
         'delete-machine',
         'heroku',
         'notify',
