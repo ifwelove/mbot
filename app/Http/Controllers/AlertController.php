@@ -91,6 +91,35 @@ class AlertController extends Controller
         return response();
     }
 
+    public function checkToken(Request $request)
+    {
+        $token      = $request->post('token');
+        $result     = $this->checkAllowToken($token);
+        if ($result === false) {
+            $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', $owen_token),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    //                'message' => $message
+                    //                    'message' => $request->post('pc_name')
+                    'message' => json_encode($request->all())
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
+
+            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
+        } else {
+            return response('token 授權成功 開始檢查大尾更新流程', 200)->header('Content-Type', 'text/plain');
+        }
+    }
+
     public function alert2(Request $request)
     {
         ignore_user_abort(true);
