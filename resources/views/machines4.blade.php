@@ -51,6 +51,7 @@
             <a href="javascript:void(0)" class="btn btn-light">重新整理於: <span id="countdown">120</span> 秒</a>
             <a target="_blank" href="https://very6.tw/大尾崩潰檢測check_status_20240104_v0906.rar" class="btn btn-primary">一般版下載點</a>
             <a target="_blank" href="https://drive.google.com/file/d/17OAEMUqbV8p5rdG-TsXxQRoTdWRwD19J/view?usp=sharing" class="btn btn-secondary">鑽石版下載點</a>
+            <a target="_blank" href="https://drive.google.com/file/d/1AEUdL05FVYh4nHdmV30gsPGMd5r89Iqv/view?usp=sharing" class="btn btn-secondary">介面版+工作室自動更新大尾版下載點</a>
             <a target="_blank" href="https://docs.google.com/document/d/19y_lxsepZpKKQ8x-AjpNptyVy2-QzwYA35n8DoVtwfI/edit" class="btn btn-info">教學文件</a>
             <a target="_blank" href="https://line.me/ti/g2/5gBZGGhG_e3jylabmmkSQbpqW3PamjCxY490YQ" class="btn btn-success">歡迎加入 Line 群討論</a>
         </div>
