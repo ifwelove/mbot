@@ -114,7 +114,7 @@ class AlertController extends Controller
                 'form_params' => $options['form_params']
             ]);
 
-            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
+            return response('token 未授權 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
         } else {
             return response('token 授權成功 開始檢查大尾更新流程', 200)->header('Content-Type', 'text/plain');
         }
