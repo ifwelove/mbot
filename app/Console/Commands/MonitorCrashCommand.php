@@ -52,6 +52,9 @@ class MonitorCrashCommand extends Command
         try {
 
             foreach ($tokens as $token => $name) {
+//                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+//                    continue;
+//                }
                 $macAddresses = Redis::sMembers("token:$token:machines");
                 foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
