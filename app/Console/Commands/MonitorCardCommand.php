@@ -65,6 +65,10 @@ class MonitorCardCommand extends Command
                 foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
                     $machine     = Redis::hGetAll($key);
+//                    if ($machine['pc_name'] === '台北1') {
+//                        dump($machine['pro_version']);
+//                    }
+
                     $rows   = [];
                     $role_gg   = 0;
                     $bag_gg   = 0;
