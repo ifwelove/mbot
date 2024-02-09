@@ -166,6 +166,7 @@
                         <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#detailModal{{ $index }}">
                             {{ $machine['pc_name'] }}
                         </button>
+                        <p>{{ $machine['data']['pro_version'] }}</p>
                     </td>
                     <td>
                         <span class="status-icon {{ $machine['data']['status'] }}"></span>
