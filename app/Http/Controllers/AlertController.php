@@ -735,6 +735,7 @@ class AlertController extends Controller
             $money_rows = [];
             $card    = '';
             $pc_name = isset($machine['pc_name']) ? $machine['pc_name'] : '';
+            $machine['pro_version'] = isset($machine['pro_version']) ? $machine['pro_version'] : '';
             if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
                 $m_info = json_decode(base64_decode($machine['m_info']), true);
                 if (isset($m_info['merge'])) {
