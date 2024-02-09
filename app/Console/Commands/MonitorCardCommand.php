@@ -242,24 +242,24 @@ class MonitorCardCommand extends Command
                 }
             }
         } catch (\Exception $exception) {
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    'message' => json_encode([
-                        'token'   => $token,
-                        'message' => $exception->getMessage(),
-                        'data'    => $machine
-                    ])
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+//            $client   = new Client();
+//            $headers  = [
+//                'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
+//                'Content-Type'  => 'application/x-www-form-urlencoded'
+//            ];
+//            $options  = [
+//                'form_params' => [
+//                    'message' => json_encode([
+//                        'token'   => $token,
+//                        'message' => $exception->getMessage(),
+//                        'data'    => $machine
+//                    ])
+//                ]
+//            ];
+//            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+//                'headers'     => $headers,
+//                'form_params' => $options['form_params']
+//            ]);
         }
     }
 }
