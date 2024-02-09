@@ -137,8 +137,23 @@ class MonitorCardCommand extends Command
                             $role_gg_items[] = $role[1];
                         }
                         if($role[2] !== '遊戲執行' and $role[5] !== '' and (int) $role[5] <= 0) {
-                            $bag_gg = 1;
-                            $bag_gg_items[] = $role[1];
+//                            $bag_gg = 1;
+//                            $bag_gg_items[] = $role[1];
+                            $counterKey = "token:$token:mac:{$mac}:role:{$role[1]}:count";
+                            $currentCount = (int)Redis::get($counterKey);
+                            // 如果当前计数小于 2，则增加计数，否则执行通知逻辑
+                            if ($currentCount < 2) {
+                                // 增加计数并设置过期时间为 2 天
+                                Redis::setex($counterKey, 172800, $currentCount + 1); // 使用 setex 来同时设置值和 TTL
+                            } else {
+//                                dump($role);
+                                // 执行通知逻辑
+                                $bag_gg = 1;
+                                $bag_gg_items[] = $role[1];
+
+                                // 重置计数器并设置过期时间
+                                Redis::setex($counterKey, 172800, 0);
+                            }
                         }
                     }
                     if (isset($machine['role_gg_alert_total'])) {
