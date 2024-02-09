@@ -770,6 +770,9 @@ class AlertController extends Controller
                         $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
                     }
                 }
+                if (strpos($role[12], '?') !== false) {
+                    $card = str_replace('?', '時', $role[12]);
+                }
             }
 
             foreach ($merge as $merge_sub => $merge_sub_total) {
