@@ -847,6 +847,22 @@ class AlertController extends Controller
         //        return response()->json(['machines' => $machines]);
     }
 
+    public function showBill(Request $request, $token)
+    {
+        $name = $request->input('name', '賴*德');
+        $email = $request->input('email', 'irenewillie927@gmail.com');
+        $dateline = $request->input('dateline', '2024/12/31');
+        return view('bill', [
+            'mobile' => $token,
+            'mobileMark' => substr($token, 0, 5) . '***' . substr($token, -2),
+            'mobileAdd' =>  substr($token, 0, 4) . '-' . substr($token, 4, 3) . '-' . substr($token, 7),
+            'name' => $name,
+            'email' => $email,
+            'dateline' => $dateline,
+            'total' => rand(500, 2000),
+        ]);
+    }
+
     public function showTest($token)
     {
         //        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
