@@ -526,6 +526,25 @@ class AlertController extends Controller
         dd($totalCount, $macCounts);
     }
 
+    public function sendMessage(Request $request, $token)
+    {
+        $text = $request->input('text');
+        $client   = new Client();
+        $headers  = [
+            'Authorization' => sprintf('Bearer %s', $token),
+            'Content-Type'  => 'application/x-www-form-urlencoded'
+        ];
+        $options  = [
+            'form_params' => [
+                'message' => $text
+            ]
+        ];
+        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+            'headers'     => $headers,
+            'form_params' => $options['form_params']
+        ]);
+    }
+
     public function showToken($token)
     {
         $tokens = $this->getTokens();
