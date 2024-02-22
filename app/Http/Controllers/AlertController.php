@@ -94,6 +94,25 @@ class AlertController extends Controller
     public function checkToken(Request $request)
     {
         $token      = $request->post('token');
+        if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    'message' => $token . ' 使用自動更新'
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
+        }
+
+
+
         $result     = $this->checkAllowToken($token);
         if ($result === false) {
             $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
