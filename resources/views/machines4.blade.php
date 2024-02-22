@@ -78,7 +78,7 @@
         </select>
     </p>
     <p>
-        <select name="server" class="custom-select">
+        <select name="pc_status" class="custom-select">
             @foreach ($machines as $index => $machine)
                 @if ($machine['data']['status'] !== 'success')
                 <optgroup label="{{ $machine['pc_name'] }}">
