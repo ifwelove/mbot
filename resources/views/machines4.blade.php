@@ -60,7 +60,7 @@
     <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
     <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
     <p>共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}</p>
-    <p>全伺服器統計：{{ $money_total }}, 平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}, 各伺服器鑽石統計：
+    <p>全伺服器統計：{{ $money_total }}@if ($money_total!=0 && $dnplayer_total!=0), 平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}@endif, 各伺服器鑽石統計：
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
             顯示資料
         </button>
