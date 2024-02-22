@@ -77,6 +77,20 @@
             @endforeach
         </select>
     </p>
+    <p>
+        <select name="server" class="custom-select">
+            @foreach ($machines as $index => $machine)
+                @if ($machine['data']['status'] !== 'success')
+                <optgroup label="{{ $machine['pc_name'] }}">
+                    @php
+                        $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+                    @endphp
+                    <option value="{{ $machine['pc_name'] }}" style="color: {{ $color }}">{{ $machine['pc_name'] }}</option>
+                </optgroup>
+                @endif
+            @endforeach
+        </select>
+    </p>
 
     <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
         <div class="modal-dialog">
