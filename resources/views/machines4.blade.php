@@ -81,11 +81,11 @@
         <select name="pc_status" class="custom-select">
             @foreach ($machines as $index => $machine)
                 @if ($machine['data']['status'] !== 'success')
-                <optgroup label="{{ $machine['pc_name'] }}-{{ $machine['data']['status'] }}">
+                <optgroup label="{{ $machine['pc_name'] }}">
                     @php
                         $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
                     @endphp
-                    <option value="{{ $machine['pc_name'] }}" style="color: {{ $color }}">{{ $machine['pc_name'] }}</option>
+                    <option value="{{ $machine['pc_name'] }}" style="color: {{ $color }}">{{ $machine['pc_name'] }}-{{ $machine['data']['status'] }}</option>
                 </optgroup>
                 @endif
             @endforeach
