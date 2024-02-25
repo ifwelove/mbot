@@ -56,6 +56,14 @@ class MonitorCardCommand extends Command
                 '工具開始',
                 '遊戲執行',
                 '角色死亡',
+                '死亡工具結束',
+            ];
+            $not_check_dead_status = [
+                '',
+                '工具開始',
+                '遊戲執行',
+                '角色死亡',
+                '工具結束',
             ];
             foreach ($tokens as $token => $name) {
 //                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
@@ -71,8 +79,10 @@ class MonitorCardCommand extends Command
 
                     $rows   = [];
                     $role_gg   = 0;
+                    $dead_gg   = 0;
                     $bag_gg   = 0;
                     $role_gg_items   = [];
+                    $dead_gg_items   = [];
                     $bag_gg_items   = [];
                     if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
                         $m_info = json_decode(base64_decode($machine['m_info']), true);
@@ -140,15 +150,19 @@ class MonitorCardCommand extends Command
                             $role_gg = 1;
                             $role_gg_items[] = $role[1];
                         }
+                        if(!in_array($role[2], $not_check_dead_status)) {
+                            $dead_gg = 1;
+                            $dead_gg_items[] = $role[1];
+                        }
                         if($role[2] !== '遊戲執行' and $role[5] !== '' and (int) $role[5] <= 0) {
 //                            $bag_gg = 1;
 //                            $bag_gg_items[] = $role[1];
                             $counterKey = "token:$token:mac:{$mac}:role:{$role[1]}:count";
                             $currentCount = (int)Redis::get($counterKey);
                             // 如果当前计数小于 2，则增加计数，否则执行通知逻辑
-                            if ($currentCount < 2) {
+                            if ($currentCount < 4) {
                                 // 增加计数并设置过期时间为 2 天
-                                Redis::setex($counterKey, 172800, $currentCount + 1); // 使用 setex 来同时设置值和 TTL
+                                Redis::setex($counterKey, 86400, $currentCount + 1); // 使用 setex 来同时设置值和 TTL
                             } else {
 //                                dump($role);
                                 // 执行通知逻辑
@@ -156,7 +170,7 @@ class MonitorCardCommand extends Command
                                 $bag_gg_items[] = $role[1];
 
                                 // 重置计数器并设置过期时间
-                                Redis::setex($counterKey, 172800, 0);
+                                Redis::setex($counterKey, 86400, 0);
                             }
                         }
                     }
@@ -166,6 +180,12 @@ class MonitorCardCommand extends Command
                         $role_gg_alert_total = 1;
                     }
 
+                    if (isset($machine['dead_gg_alert_total'])) {
+                        $dead_gg_alert_total = (int) $machine['dead_gg_alert_total'] + 1;
+                    } else {
+                        $dead_gg_alert_total = 1;
+                    }
+
                     if (isset($machine['bag_gg_alert_total'])) {
                         $bag_gg_alert_total = (int) $machine['bag_gg_alert_total'] + 1;
                     } else {
@@ -173,8 +193,8 @@ class MonitorCardCommand extends Command
                     }
 
 //                    角色死亡,
-                    // 死亡結束工具, 結束工具
-                    if (isset($machine['gg_alert']) && $machine['gg_alert'] === 'yes' && $role_gg === 1 && $role_gg_alert_total <= 3) {
+                    // 結束工具
+                    if (isset($machine['role_gg_alert']) && $machine['role_gg_alert'] === 'yes' && $role_gg === 1 && $role_gg_alert_total <= 3) {
                         Redis::hSet($key, 'role_gg_alert_total', (string) $role_gg_alert_total);
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
@@ -184,7 +204,7 @@ class MonitorCardCommand extends Command
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                         $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
-                        $message   .= sprintf('大尾狀態 : %s:%s', '發生工具結束, 死亡工具結束', $breakLine);
+                        $message   .= sprintf('大尾狀態 : %s:%s', '發生工具結束', $breakLine);
                         $message   .= sprintf('編號 : %s%s', implode('', $wrappedItems), $breakLine);
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token);
 //                        $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
@@ -205,6 +225,39 @@ class MonitorCardCommand extends Command
                         ]);
                     } else {
                         Redis::hSet($key, 'role_gg_alert_total', '1');
+                    }
+
+                    if (isset($machine['dead_gg_alert']) && $machine['dead_gg_alert'] === 'yes' && $dead_gg === 1 && $dead_gg_alert_total <= 3) {
+                        Redis::hSet($key, 'dead_gg_alert_total', (string) $dead_gg_alert_total);
+                        // 將每個元素用方括號包圍
+                        $wrappedItems = array_map(function($item) {
+                            return sprintf('[%s]', $item);
+                        }, $dead_gg_items);
+                        $breakLine = "\n";
+                        $message   = $breakLine;
+                        $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
+                        $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
+                        $message   .= sprintf('大尾狀態 : %s:%s', '死亡工具結束', $breakLine);
+                        $message   .= sprintf('編號 : %s%s', implode('', $wrappedItems), $breakLine);
+                        $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token);
+                        //                        $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
+                        //                        dump($message);
+                        $client   = new Client();
+                        $headers  = [
+                            'Authorization' => sprintf('Bearer %s', $token),
+                            'Content-Type'  => 'application/x-www-form-urlencoded'
+                        ];
+                        $options  = [
+                            'form_params' => [
+                                'message' => $message
+                            ]
+                        ];
+                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                            'headers'     => $headers,
+                            'form_params' => $options['form_params']
+                        ]);
+                    } else {
+                        Redis::hSet($key, 'dead_gg_alert_total', '1');
                     }
 
                     if (isset($machine['bag_alert']) && $machine['bag_alert'] === 'yes' && $bag_gg === 1 && $bag_gg_alert_total <= 3) {

@@ -184,7 +184,8 @@ class AlertController extends Controller
         $dnplayer_running = $request->post('dnplayer_running', 0);
         $pro_version = $request->post('pro_version', '');
         $bag_alert = $request->post('bag_alert', 'yes');
-        $gg_alert = $request->post('gg_alert', 'yes');
+        $role_gg_alert = $request->post('role_gg_alert', 'yes');
+        $dead_gg_alert = $request->post('dead_gg_alert', 'yes');
 
         $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token);
 
@@ -280,7 +281,8 @@ class AlertController extends Controller
             Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
             Redis::hSet($key, 'dnplayer', $dnplayer);
             Redis::hSet($key, 'bag_alert', $bag_alert);
-            Redis::hSet($key, 'gg_alert', $gg_alert);
+            Redis::hSet($key, 'role_gg_alert', $role_gg_alert);
+            Redis::hSet($key, 'dead_gg_alert', $dead_gg_alert);
             Redis::hSet($key, 'pro_version', $pro_version);
             Redis::hSet($key, 'last_updated', now()->timestamp);
 
