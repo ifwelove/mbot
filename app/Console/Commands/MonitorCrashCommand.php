@@ -67,15 +67,15 @@ class MonitorCrashCommand extends Command
 //                        if ($machine['status'] != 'pc_not_open') {
 //                            Redis::hSet($key, 'status', 'pc_not_open');
 //                        }
-                    dump($machine['pc_name']);
-                    dump($machine['crash_alert_total']);
+//                    dump($machine['pc_name']);
+//                    dump($machine['crash_alert_total']);
                     if (isset($machine['crash_alert_total'])) {
                         $crash_alert_total = (int) $machine['crash_alert_total'] + 1;
                     } else {
                         $crash_alert_total = 1;
                     }
 
-                    dump($crash_alert_total);
+//                    dump($crash_alert_total);
                     //crash_alert_total 三次了不會再通知, 但沒有點選清除, 但後續電腦正常後, 晚上又當機了但因為沒有清除所以不會通知, 所以要有一個機制當電腦正常後 crash_alert_total 要 reset
                     if (now()->timestamp - $lastUpdated > 1800 && $crash_alert_total <= 3) {
                         Redis::hSet($key, 'crash_alert_total', (string) $crash_alert_total);
@@ -108,20 +108,22 @@ class MonitorCrashCommand extends Command
                 }
             }
         } catch (\Exception $exception) {
-//            $client   = new Client();
-//            $headers  = [
-//                'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
-//                'Content-Type'  => 'application/x-www-form-urlencoded'
-//            ];
-//            $options  = [
-//                'form_params' => [
+//            dump($exception->getMessage());
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    'message' => json_encode(['token'  => $token, 'message' => $exception->getMessage()])
 //                    'message' => json_encode(['token'  => $token, 'message' => $exception->getMessage(), 'data' => $machine])
-//                ]
-//            ];
-//            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-//                'headers'     => $headers,
-//                'form_params' => $options['form_params']
-//            ]);
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
         }
     }
 }
