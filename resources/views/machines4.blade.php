@@ -58,6 +58,7 @@
     <div class="row mb-3">
         <div class="col">
             <a href="javascript:void(0)" class="btn btn-light">重新整理於: <span id="countdown">120</span> 秒</a>
+            <a href="javascript:void(0)" id="pauseButton" class="btn btn-danger">暫停倒數</a>
             <a target="_blank" href="https://very6.tw/大尾崩潰檢測check_status_20240104_v0906.rar" class="btn btn-primary">一般版下載點</a>
             <a target="_blank" href="https://drive.google.com/file/d/17OAEMUqbV8p5rdG-TsXxQRoTdWRwD19J/view?usp=sharing" class="btn btn-secondary">鑽石版下載點</a>
             <a target="_blank" href="https://drive.google.com/file/d/1AEUdL05FVYh4nHdmV30gsPGMd5r89Iqv/view?usp=sharing" class="btn btn-secondary">介面版+工作室自動更新大尾版下載點</a>
@@ -236,16 +237,25 @@
 <script>
     // 設定計時器每秒更新
     var seconds = 120; // 60秒後重新整理
+    var isPaused = false; // 控制暫停的變量
+
     function updateTimer() {
-        seconds--;
-        $('#countdown').text(seconds);
-        if (seconds <= 0) {
-            window.location.reload(); // 到達0秒時重新整理頁面
+        if (!isPaused) { // 如果不是暫停狀態，則繼續倒數
+            seconds--;
+            $('#countdown').text(seconds);
+            if (seconds <= 0) {
+                window.location.reload(); // 到達0秒時重新整理頁面
+            }
         }
     }
     setInterval(updateTimer, 1000);
 
     $(document).ready(function() {
+        $('#pauseButton').click(function() { // 暫停/恢復按鈕的點擊事件
+            isPaused = !isPaused; // 切換暫停狀態
+            $(this).text(isPaused ? '恢復倒數' : '暫停倒數'); // 更新按鈕文本
+        });
+
         $('.delete-btn').click(function() {
             var token = $(this).data('token');
             var mac = $(this).data('mac');
