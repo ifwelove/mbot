@@ -27,6 +27,7 @@ class ProxyController extends Controller
             }
         });
 
-        return response()->json(['latestFileName' => $latestFileName]);
+//        return response()->json(['latestFileName' => $latestFileName]);
+        return response($latestFileName, 200)->header('Content-Type', 'text/plain');
     }
 }
