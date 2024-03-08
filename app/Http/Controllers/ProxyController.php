@@ -14,7 +14,7 @@ class ProxyController extends Controller
     public function getLatestFileName(Request $request)
     {
         // 从 Redis 缓存中获取最新文件名，如果不存在或已过期则执行回调
-        $latestFileName = Cache::remember('latest_file_name', 1, function () {
+        $latestFileName = Cache::remember('latest_file_name', 600, function () {
             // 向文件服务器发送请求获取最新文件名
             $response = Http::get($this->latestFilename);
 
