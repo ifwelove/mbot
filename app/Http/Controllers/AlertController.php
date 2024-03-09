@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\FileService;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -135,7 +136,10 @@ class AlertController extends Controller
 
             return response('token 未授權 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
         } else {
-            return response('token 授權成功 開始檢查大尾更新流程', 200)->header('Content-Type', 'text/plain');
+            $fileService = resolve(FileService::class);
+            $name = $fileService->getLatestFileName();
+
+            return response(sprintf('token 授權成功 開始檢查大尾更新流程 最前雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
         }
     }
 
