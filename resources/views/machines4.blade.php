@@ -59,7 +59,7 @@
         <div class="col">
             <a href="javascript:void(0)" class="btn btn-light">重新整理於: <span id="countdown">120</span> 秒</a>
             <a href="javascript:void(0)" id="pauseButton" class="btn btn-danger">暫停倒數</a>
-            <a target="_blank" href="https://drive.google.com/file/d/16_P4wDh1V4DnsLJQATwYnGaoKewKxUqE/view?usp=sharing" class="btn btn-secondary">介面版+工作室自動更新大尾版下載點</a>
+            <a target="_blank" href="https://drive.google.com/file/d/176RpEz7EvaN-iPVFYEz3Tr2zR7qyOruK/view?usp=sharing" class="btn btn-secondary">介面版+工作室自動更新大尾版下載點</a>
             <a target="_blank" href="https://docs.google.com/document/d/19y_lxsepZpKKQ8x-AjpNptyVy2-QzwYA35n8DoVtwfI/edit" class="btn btn-info">教學文件</a>
             <a target="_blank" href="https://line.me/ti/g2/5gBZGGhG_e3jylabmmkSQbpqW3PamjCxY490YQ" class="btn btn-success">歡迎加入 Line 群討論</a>
         </div>
