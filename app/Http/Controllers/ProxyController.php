@@ -14,13 +14,13 @@ class ProxyController extends Controller
     public function getLatestFileName(Request $request)
     {
         // 从 Redis 缓存中获取最新文件名，如果不存在或已过期则执行回调
-        $latestFileName = Cache::remember('latest_file_name', 60, function () {
+        $latestFileName = Cache::remember('latest_file_name2', 60, function () {
             // 向文件服务器发送请求获取最新文件名
             $response = Http::get($this->latestFilename);
 
             // 确认响应成功并获取文件名，否则返回默认值
             if ($response->successful() && $response->json('latestFileName')) {
-                return $response->json('latestFileName');
+                return $response->json('latestFileName2');
             } else {
                 // 根据需要处理错误或返回默认值
                 return 'No file found';
