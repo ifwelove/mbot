@@ -20,7 +20,7 @@ class ProxyController extends Controller
 
             // 确认响应成功并获取文件名，否则返回默认值
             if ($response->successful() && $response->json('latestFileName')) {
-                return $response->json('latestFileName2');
+                return $response->json('latestFileName');
             } else {
                 // 根据需要处理错误或返回默认值
                 return 'No file found';
