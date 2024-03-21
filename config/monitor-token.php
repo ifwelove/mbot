@@ -251,4 +251,9 @@ return [
         'date'   => '2025-01-01',
         'amount' => '20',
     ],
+    'B1YRmU404uOJsy0D6CgfRZ3Z1d868SAlS3bM94BVz7K'  => [
+        'name'   => '',
+        'date'   => '2025-01-01',
+        'amount' => '10',
+    ],
 ];
