@@ -28,6 +28,7 @@ Route::get('/test/{token}', [AlertController::class, 'showTest']);
 Route::get('/pro/{token}', [AlertController::class, 'showDemo']);
 Route::get('/show/{token}', [AlertController::class, 'showToken']);
 Route::post('/check/token', [AlertController::class, 'checkToken']);
+Route::post('/check/olin/token', [AlertController::class, 'checkOlinToken']);
 Route::post('/delete-machine', [AlertController::class, 'deleteMachine']);
 Route::get('/delete-machine', [AlertController::class, 'deleteMachineFromLine']);
 Route::get('/monitor', [AlertController::class, 'monitor']);
