@@ -13,6 +13,10 @@ use App\Http\Controllers\AlertController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\IconController;
+
+Route::get('/icons', [IconController::class, 'index'])->name('icons.index');
+
 
 Route::post('/callback', [LineController::class, 'webhook']);
 Route::get('/ping', [LineController::class, 'ping']);
