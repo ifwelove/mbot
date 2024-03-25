@@ -7,31 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Icon List</title>
     <style>
-        .icon-list {
-            display: flex; /* 使用Flexbox */
-            flex-wrap: wrap; /* 允許項目換行 */
-            list-style: none; /* 移除列表標記 */
-            padding: 0; /* 移除預設的padding */
+        .icons-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 16px; /* 调整图标之间的间隙 */
         }
-        .icon-list li {
-            margin: 10px; /* 在圖標之間增加一些空間 */
-            text-align: center; /* 讓文本在圖標下方居中 */
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px; /* 调整图标宽度 */
         }
-        .icon-list img {
-            max-width: 100px; /* 限制圖標大小，視你的需求而定 */
-            height: auto; /* 保持圖標的比例 */
+        .icon img {
+            width: 100%; /* 图片宽度占满容器 */
+            height: auto; /* 保持图片比例 */
         }
     </style>
 </head>
 <body>
 <h1>Icon List</h1>
-<ul class="icon-list">
+<div class="icons-container">
     @foreach ($files as $file)
-        <li>
-            <img src="{{ Storage::disk('local')->url($file) }}" alt="{{ basename($file) }}">
+        <div class="icon">
+            <img src="{{ asset('storage/tools/' . basename($file)) }}" alt="{{ basename($file) }}">
             <p>{{ basename($file) }}</p>
-        </li>
+        </div>
     @endforeach
-</ul>
+</div>
 </body>
 </html>
