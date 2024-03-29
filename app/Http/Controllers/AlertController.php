@@ -92,7 +92,7 @@ class AlertController extends Controller
         return response();
     }
 
-    public function checkOlinTap(Request $request)
+    public function execOlinTap(Request $request)
     {
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
