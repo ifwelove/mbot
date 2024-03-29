@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         'alert2',
         'check/token',
         'olin/check/token',
+        'olin/tap',
         'delete-machine',
         'heroku',
         'notify',
