@@ -29,16 +29,13 @@
 <body>
 <h1>Icon List</h1>
 @foreach ($imageCounts as $series => $count)
-    <div class="series">
-        <h2>Series {{ $series + 1 }}</h2>
-        <div class="icons-container">
-            @for ($i = 1; $i <= $count; $i++)
-                <div class="icon">
-                    <img src="https://very6.tw/tools/{{ $series + 1 }}_{{ $i }}.png" alt="Series {{ $series + 1 }} Image {{ $i }}">
-                    <p>{{ $series + 1 }}_{{ $i }}.png</p>
-                </div>
-            @endfor
-        </div>
+    <div style="display: flex; flex-wrap: wrap;">
+        @for ($i = 1; $i <= $count; $i++)
+            <div style="margin: 10px; text-align: center;">
+                <img src="https://very6.tw/tools/{{ $series + 1 }}_{{ $i }}.png" alt="" style="max-width: 100px;">
+                <p>{{ $series + 1 }}_{{ $i }}</p>
+            </div>
+        @endfor
     </div>
 @endforeach
 </body>
