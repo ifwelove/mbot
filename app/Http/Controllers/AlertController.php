@@ -92,6 +92,28 @@ class AlertController extends Controller
         return response();
     }
 
+    public function checkOlinTap(Request $request)
+    {
+        $token      = $request->post('token');
+        $result     = $this->checkAllowToken($token);
+        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+        $client   = new Client();
+        $headers  = [
+            'Authorization' => sprintf('Bearer %s', $owen_token),
+            'Content-Type'  => 'application/x-www-form-urlencoded'
+        ];
+        $options  = [
+            'form_params' => [
+                'message' => 'checkOlinTap:' . $token
+            ]
+        ];
+        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+            'headers'     => $headers,
+            'form_params' => $options['form_params']
+        ]);
+
+        return response('ok', 200)->header('Content-Type', 'text/plain');
+    }
     public function checkOlinToken(Request $request)
     {
         $token      = $request->post('token');
