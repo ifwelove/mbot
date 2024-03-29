@@ -12,7 +12,10 @@
     <div class="series">
         <h2>Series {{ $series + 1 }}</h2>
         @for ($i = 1; $i <= $count; $i++)
-            <img src="https://very6.tw/tools/{{ $series + 1 }}_{{ $i }}.png" alt="Series {{ $series + 1 }} Image {{ $i }}">
+            <div class="icon">
+                <img src="https://very6.tw/tools/{{ $series + 1 }}_{{ $i }}.png" alt="Series {{ $series + 1 }} Image {{ $i }}">
+                <p>{{ $series + 1 }}_{{ $i }}.png</p> <!-- Display the file name here -->
+            </div>
         @endfor
     </div>
 @endforeach
