@@ -59,11 +59,18 @@
         <div class="col">
             <a href="javascript:void(0)" class="btn btn-light">重新整理於: <span id="countdown">120</span> 秒</a>
             <a href="javascript:void(0)" id="pauseButton" class="btn btn-danger">暫停倒數</a>
-            <a target="_blank" href="https://drive.google.com/file/d/176RpEz7EvaN-iPVFYEz3Tr2zR7qyOruK/view?usp=sharing" class="btn btn-secondary">介面版+工作室自動更新大尾版下載點</a>
+            <a target="_blank" href="https://drive.google.com/file/d/1GacTNkbOTu5XlvrQzmXx5715GrrviFS_/view?usp=sharing" class="btn btn-secondary">介面版+工作室自動更新大尾版下載點</a>
             <a target="_blank" href="https://docs.google.com/document/d/19y_lxsepZpKKQ8x-AjpNptyVy2-QzwYA35n8DoVtwfI/edit" class="btn btn-info">教學文件</a>
             <a target="_blank" href="https://line.me/ti/g2/5gBZGGhG_e3jylabmmkSQbpqW3PamjCxY490YQ" class="btn btn-success">歡迎加入 Line 群討論</a>
         </div>
     </div>
+    <p>大尾監控小程式 2024/05/01 正式收費, 即日起 2024/04/01~2024/04/10
+        購買每台電腦每月50元等於每天不到兩元, 半年300, 一年600, 買一年送一個月, 購買請洽 Line id: ifwelove
+
+        未來陸續開發更多功能也能跟作者建議：
+        1.天堂Ｍ apk 檔案自動更新
+        2.中控替換腳本執行
+        3.中控網頁或電腦操作其餘電腦</p>
     <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
     <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
     <p>使用期限：{{ $user['date'] }}, 可使用台數：{{ $user['amount'] }}</p>
