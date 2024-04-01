@@ -332,4 +332,9 @@ return [
         'date'   => '2025-01-01',
         'amount' => '1',
     ],
+    'NdvCQQ0TAZjUyJDB5sLtbnyOU4qflKFuA3XaxQUZTbS'  => [
+        'name'   => '',
+        'date'   => '2025-01-01',
+        'amount' => '1',
+    ],
 ];
