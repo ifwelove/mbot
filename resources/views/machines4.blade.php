@@ -81,6 +81,20 @@
         </button>
     </p>
     <p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            一件重開機
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            一件開大尾
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            一件關大尾
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            一件更新大尾
+        </button>
+    </p>
+    <p>
         <select name="server" class="custom-select">
             @foreach ($merges as $server => $total)
                 <optgroup label="{{ $server }}">
@@ -215,6 +229,12 @@
                     <td>
                         <!-- 删除按钮 -->
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置訊號</button>
+                        <button class="btn btn-danger">關閉大尾</button>
+                        <button class="btn btn-danger">開啟大尾</button>
+                        <button class="btn btn-danger">重開大尾</button>
+                        <button class="btn btn-danger">更新大尾</button>
+                        <button class="btn btn-danger">重新開機</button>
+                        <button class="btn btn-danger">更新大尾</button>
                     </td>
 {{--                    <td>{{ $machine['mac'] }}</td>--}}
                     <td>{{ $machine['data']['last_updated'] }}</td>
