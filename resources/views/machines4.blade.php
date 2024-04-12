@@ -93,6 +93,12 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
             一件更新大尾
         </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            一件關閉自動更新
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
+            一件關閉監視器
+        </button>
     </p>
     <p>
         <select name="server" class="custom-select">
@@ -190,8 +196,7 @@
             <!-- 表格头部 -->
             <thead>
             <tr>
-                <th scope="col">電腦代號</th>
-                <th scope="col">狀態</th>
+                <th scope="col">主機&狀態</th>
                 <th scope="col">帳號狀態</th>
                 <th scope="col">模擬器數量</th>
                 <th scope="col">鑽石(點選可複製)</th>
@@ -199,6 +204,7 @@
                 <th scope="col"></th>
 {{--                <th scope="col">MAC</th>--}}
                 <th scope="col">最後更新時間</th>
+                <th scope="col">遠端控制</th>
             </tr>
             </thead>
             <!-- 表格主体 -->
@@ -210,10 +216,11 @@
                             {{ $machine['pc_name'] }}
                         </button>
                         <p>{{ $machine['data']['pro_version'] }}</p>
-                    </td>
-                    <td>
                         <span class="status-icon {{ $machine['data']['status'] }}"></span>
                         {{ $machine['data']['status'] }}
+                    </td>
+                    <td>
+
                     </td>
                     <td>@foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach</td>
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
@@ -229,14 +236,16 @@
                     <td>
                         <!-- 删除按钮 -->
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置訊號</button>
+                    </td>
+{{--                    <td>{{ $machine['mac'] }}</td>--}}
+                    <td>{{ $machine['data']['last_updated'] }}</td>
+                    <td>
                         <button class="command-btn close-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_mpro">關閉大尾</button>
                         <button class="command-btn open-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_mpro">開啟大尾</button>
                         <button class="command-btn reopen-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_mpro">重開大尾</button>
                         <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>
                         <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reboot_pc">重新開機</button>
                     </td>
-{{--                    <td>{{ $machine['mac'] }}</td>--}}
-                    <td>{{ $machine['data']['last_updated'] }}</td>
                 </tr>
             @endforeach
             </tbody>
