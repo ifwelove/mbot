@@ -53,17 +53,18 @@ class CommandController extends Controller
         // 使用 SET 命令存储命令，并设置过期时间
         Redis::set($redisKey, $command, 'EX', 86400 / 24 / 60); // 这里我们设置了 24 小时的过期时间
 
-        return response()->json(['message' => 'Command stored successfully']);
+        return response()->json(['message' => '發送命令成功, 等待命令執行, 如60秒內未執行會放棄該命令, 請再重新點選命令']);
     }
 
     public function getAndClearCommand(Request $request)
     {
-        $validated['token'] = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
-        $validated['mac'] = '22:35:4D:08:03:29';
-//        $validated = $request->validate([
-//            'token' => 'required|string',
-//            'mac'   => 'required|string',
-//        ]);
+//        $validated['token'] = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
+//        $validated['mac'] = '22:35:4D:08:03:29';
+
+        $validated = $request->validate([
+            'token' => 'required|string',
+            'mac'   => 'required|string',
+        ]);
 
 
         $token = $validated['token'];
@@ -81,7 +82,7 @@ class CommandController extends Controller
             return response()->json(['command' => $command]);
         } else {
             // 命令不存在
-            return response()->json(['message' => 'No command available']);
+            return response()->json(['message' => 'no_command']);
         }
     }
 
