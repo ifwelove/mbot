@@ -229,11 +229,11 @@
                     <td>
                         <!-- 删除按钮 -->
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置訊號</button>
-                        <button class="command-btn close-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">關閉大尾</button>
-                        <button class="command-btn open-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">開啟大尾</button>
-                        <button class="command-btn reopen-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重開大尾</button>
-                        <button class="command-btn update-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">更新大尾</button>
-                        <button class="command-btn reboot-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重新開機</button>
+                        <button class="command-btn close-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">關閉大尾</button>
+                        <button class="command-btn open-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">開啟大尾</button>
+                        <button class="command-btn reopen-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重開大尾</button>
+                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">更新大尾</button>
+                        <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重新開機</button>
                     </td>
 {{--                    <td>{{ $machine['mac'] }}</td>--}}
                     <td>{{ $machine['data']['last_updated'] }}</td>
