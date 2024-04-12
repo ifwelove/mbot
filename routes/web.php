@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineController;
 use App\Http\Controllers\AlertController;
+use App\Http\Controllers\CommandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,3 +49,10 @@ Route::match(['get', 'post'],'/notify', [\App\Http\Controllers\LineNotifyControl
 Route::match(['get'],'/apply', [\App\Http\Controllers\LineNotifyController::class, 'apply']);
 
 Route::get('/send/message/{token}', [AlertController::class, 'sendMessage']);
+
+
+// 存储命令
+Route::post('/store-command', [CommandController::class, 'storeCommand']);
+// 获取并清除命令
+Route::post('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
+Route::get('/get-clear-command', [CommandController::class, 'getAndClearCommand']);

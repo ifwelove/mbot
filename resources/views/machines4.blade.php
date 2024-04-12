@@ -229,12 +229,11 @@
                     <td>
                         <!-- 删除按钮 -->
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置訊號</button>
-                        <button class="btn btn-danger">關閉大尾</button>
-                        <button class="btn btn-danger">開啟大尾</button>
-                        <button class="btn btn-danger">重開大尾</button>
-                        <button class="btn btn-danger">更新大尾</button>
-                        <button class="btn btn-danger">重新開機</button>
-                        <button class="btn btn-danger">更新大尾</button>
+                        <button class="command-btn close-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">關閉大尾</button>
+                        <button class="command-btn open-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">開啟大尾</button>
+                        <button class="command-btn reopen-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重開大尾</button>
+                        <button class="command-btn update-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">更新大尾</button>
+                        <button class="command-btn reboot-btn btn btn-danger data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重新開機</button>
                     </td>
 {{--                    <td>{{ $machine['mac'] }}</td>--}}
                     <td>{{ $machine['data']['last_updated'] }}</td>
@@ -279,6 +278,32 @@
         $('#pauseButton').click(function() { // 暫停/恢復按鈕的點擊事件
             isPaused = !isPaused; // 切換暫停狀態
             $(this).text(isPaused ? '恢復倒數' : '暫停倒數'); // 更新按鈕文本
+        });
+
+        $('.command-btn').click(function() {
+            var token = $(this).data('token');
+            var mac = $(this).data('mac');
+            var command = $(this).data('command');
+
+            $.ajax({
+                url: '/store-command',
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    token: token,
+                    mac: mac,
+                    command: command,
+                },
+                success: function(response) {
+                    // 处理成功响应
+                    alert(response.message);
+                    location.reload(); // 重新加载页面
+                },
+                error: function(response) {
+                    // 处理错误响应
+                    alert("Error: " + response.responseText);
+                }
+            });
         });
 
         $('.delete-btn').click(function() {
