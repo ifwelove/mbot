@@ -59,7 +59,7 @@ class CommandController extends Controller
     public function getAndClearCommand(Request $request)
     {
         $validated['token'] = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
-        $validated['mac'] = '';
+        $validated['mac'] = '22:35:4D:08:03:29';
 //        $validated = $request->validate([
 //            'token' => 'required|string',
 //            'mac'   => 'required|string',
