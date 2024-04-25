@@ -10,11 +10,13 @@ return [
         'name'   => 'test5555',
         'date'   => '2025-01-01',
         'amount' => '50',
+        'pay'    => true
     ],
     '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu'  => [
         'name'   => '井底之蛙',
         'date'   => '2025-01-01',
         'amount' => '50',
+        'pay'    => true
     ],
     'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC'  => [
         'name'   => '真心不騙',
@@ -181,6 +183,7 @@ return [
         'name'   => '黃士杰',
         'date'   => '2025-05-01',
         'amount' => '1',
+        'pay'    => true
     ],
     'HNzFFc72IEeKD8bKecP8JuH0If1I9BWjXnjCI8VZdKU'  => [
         'name'   => '',
@@ -395,6 +398,11 @@ return [
     ],
     'xwCPx4EQwewZW7RMpmZcOfxLnAc4QhJeBTsOFzg0X7W'  => [
         'name'   => '',
+        'date'   => '2025-01-01',
+        'amount' => '2',
+    ],
+    'LLYAQJCu7xAAauzQj9ne9FArdtyOcys8e1i4cypDd3h'  => [
+        'name'   => '咖啡',
         'date'   => '2025-01-01',
         'amount' => '2',
     ],
