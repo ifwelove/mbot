@@ -402,6 +402,11 @@ return [
         'amount' => '2',
     ],
     'LLYAQJCu7xAAauzQj9ne9FArdtyOcys8e1i4cypDd3h'  => [
+        'name'   => '',
+        'date'   => '2025-01-01',
+        'amount' => '2',
+    ],
+    'xwCPx4EQwewZW7RMpmZcOfxLnAc4QhJeBTsOFzg0X7W'  => [
         'name'   => '咖啡',
         'date'   => '2025-01-01',
         'amount' => '2',
