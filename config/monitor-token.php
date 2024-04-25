@@ -406,7 +406,7 @@ return [
         'date'   => '2025-01-01',
         'amount' => '2',
     ],
-    'xwCPx4EQwewZW7RMpmZcOfxLnAc4QhJeBTsOFzg0X7W'  => [
+    'v3slJXSdNsSXUlsgPkFvJ3VXZNjIB5f3IRFpdNfVZ98'  => [
         'name'   => '咖啡',
         'date'   => '2025-01-01',
         'amount' => '2',
