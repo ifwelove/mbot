@@ -55,4 +55,4 @@ Route::get('/send/message/{token}', [AlertController::class, 'sendMessage']);
 Route::post('/store-command', [CommandController::class, 'storeCommand']);
 // 获取并清除命令
 Route::post('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
-Route::get('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
+//Route::get('/get-clear-command', [CommandController::class, 'getAndClearCommand']);

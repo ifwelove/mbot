@@ -44,7 +44,7 @@ class CommandController extends Controller
         $token   = $validated['token'];
         $mac     = $validated['mac'];
         $command = $validated['command'];
-        $commands = ['close_mpor', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc'];
+        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc'];
         if (!in_array($command, $commands)) {
             return response()->json(['message' => 'Command stored failed']);
         }
