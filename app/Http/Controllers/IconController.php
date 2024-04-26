@@ -32,7 +32,7 @@ class IconController extends Controller
 
     public function index()
     {
-        $imageCounts = [7, 35, 28, 27, 41];
+        $imageCounts = [7, 35, 28, 30, 42];
 
         return view('icons.index', compact('imageCounts'));
     }
