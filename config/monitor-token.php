@@ -407,13 +407,18 @@ return [
         'amount' => '2',
     ],
     'v3slJXSdNsSXUlsgPkFvJ3VXZNjIB5f3IRFpdNfVZ98'  => [
-        'name'   => '咖啡',
+        'name'   => '',
         'date'   => '2025-01-01',
-        'amount' => '2',
+        'amount' => '1',
     ],
     'Ttm8FPO1iYuLZsjnJJ2PZDp0L7HcdxrNTQXOuv6Vpnk'  => [
         'name'   => '',
         'date'   => '2025-01-01',
         'amount' => '1',
+    ],
+    'UvqXb4vxJP4mjLf0A18AJoNOCbb890vfHEsHFAlGIG8'  => [
+        'name'   => '',
+        'date'   => '2025-01-01',
+        'amount' => '10',
     ],
 ];
