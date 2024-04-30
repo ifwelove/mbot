@@ -91,14 +91,17 @@
             一件關大尾
         </button>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件更新大尾
+            一件排列模擬器
         </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件關閉自動更新
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件關閉監視器
-        </button>
+{{--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">--}}
+{{--            一件更新大尾--}}
+{{--        </button>--}}
+{{--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">--}}
+{{--            一件關閉自動更新--}}
+{{--        </button>--}}
+{{--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">--}}
+{{--            一件關閉監視器--}}
+{{--        </button>--}}
     </p>
     <p>
         <select name="server" class="custom-select">
@@ -243,8 +246,9 @@
                         <button class="command-btn close-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_mpro">關閉大尾</button>
                         <button class="command-btn open-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_mpro">開啟大尾</button>
                         <button class="command-btn reopen-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_mpro">重開大尾</button>
-                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>
+{{--                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>--}}
                         <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reboot_pc">重新開機</button>
+                        <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="sort_player">排列模擬器</button>
                     </td>
                 </tr>
             @endforeach

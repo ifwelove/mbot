@@ -44,16 +44,16 @@ class CommandController extends Controller
         $token   = $validated['token'];
         $mac     = $validated['mac'];
         $command = $validated['command'];
-        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc'];
+        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player'];
         if (!in_array($command, $commands)) {
             return response()->json(['message' => 'Command stored failed']);
         }
         $redisKey = "token:{$token}:mac:{$mac}:command";
 
         // 使用 SET 命令存储命令，并设置过期时间
-        Redis::set($redisKey, $command, 'EX', 86400 / 24 / 60); // 这里我们设置了 24 小时的过期时间
+        Redis::set($redisKey, $command, 'EX', 86400 / 24 / 120); // 这里我们设置了 24 小时的过期时间
 
-        return response()->json(['message' => '發送命令成功, 等待命令執行, 如60秒內未執行會放棄該命令, 請再重新點選命令']);
+        return response()->json(['message' => '發送命令成功, 等待命令執行, 如120秒內未執行會放棄該命令, 請再重新點選命令']);
     }
 
     public function getAndClearCommand(Request $request)
