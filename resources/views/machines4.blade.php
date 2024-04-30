@@ -81,12 +81,12 @@
         </button>
     </p>
     <p>
-        <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">關閉大尾</button>
-        <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">開啟大尾</button>
-        <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">重開大尾</button>
+        <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一件關閉大尾</button>
+        <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一件開啟大尾</button>
+        <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一件重開大尾</button>
         {{--                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>--}}
-        <button class="command-btn-all-mac reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">重新開機</button>
-        <button class="command-btn-all-mac sort_player-btn btn btn-danger" data-token="{{ $token }}" data-command="sort_player">排列模擬器</button>
+        <button class="command-btn-all-mac reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">一件重新開機</button>
+        <button class="command-btn-all-mac sort_player-btn btn btn-danger" data-token="{{ $token }}" data-command="sort_player">一件排列模擬器</button>
 {{--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">--}}
 {{--            一件更新大尾--}}
 {{--        </button>--}}
@@ -315,7 +315,7 @@
             var command = $(this).data('command');
 
             $.ajax({
-                url: '/store-command',
+                url: '/store-command-all-mac',
                 method: 'POST',
                 data: {
                     _token: "{{ csrf_token() }}",
