@@ -315,7 +315,7 @@
             var command = $(this).data('command');
 
             $.ajax({
-                url: '/store-command-all-mac',
+                url: '/store-all-mac-command',
                 method: 'POST',
                 data: {
                     _token: "{{ csrf_token() }}",
