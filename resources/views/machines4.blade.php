@@ -54,10 +54,12 @@
         .command-container {
             display: flex;
             justify-content: space-between;
+            margin: 16px;
         }
 
         .command-btn-all-mac {
             flex: 1; /* 確保按鈕平均分佈 */
+            margin: 16px;
         }
     </style>
 </head>
