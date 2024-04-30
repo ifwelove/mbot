@@ -81,18 +81,12 @@
         </button>
     </p>
     <p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件重開機
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件開大尾
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件關大尾
-        </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            一件排列模擬器
-        </button>
+        <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">關閉大尾</button>
+        <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">開啟大尾</button>
+        <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">重開大尾</button>
+        {{--                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>--}}
+        <button class="command-btn-all-mac reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">重新開機</button>
+        <button class="command-btn-all-mac sort_player-btn btn btn-danger" data-token="{{ $token }}" data-command="sort_player">排列模擬器</button>
 {{--        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataModal">--}}
 {{--            一件更新大尾--}}
 {{--        </button>--}}
@@ -239,12 +233,12 @@
 {{--                    <td>{{ $machine['mac'] }}</td>--}}
                     <td>{{ $machine['data']['last_updated'] }}</td>
                     <td>
-                        <button class="command-btn close-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_mpro">關閉大尾</button>
-                        <button class="command-btn open-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_mpro">開啟大尾</button>
-                        <button class="command-btn reopen-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_mpro">重開大尾</button>
+                        <button class="command-btn close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_mpro">關閉大尾</button>
+                        <button class="command-btn open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_mpro">開啟大尾</button>
+                        <button class="command-btn reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_mpro">重開大尾</button>
 {{--                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>--}}
-                        <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reboot_pc">重新開機</button>
-                        <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="sort_player">排列模擬器</button>
+                        <button class="command-btn reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reboot_pc">重新開機</button>
+                        <button class="command-btn sort_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="sort_player">排列模擬器</button>
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置網頁資料</button>
                     </td>
                 </tr>
@@ -302,6 +296,30 @@
                     _token: "{{ csrf_token() }}",
                     token: token,
                     mac: mac,
+                    command: command,
+                },
+                success: function(response) {
+                    // 处理成功响应
+                    alert(response.message);
+                    location.reload(); // 重新加载页面
+                },
+                error: function(response) {
+                    // 处理错误响应
+                    alert("Error: " + response.responseText);
+                }
+            });
+        });
+
+        $('.command-btn-all-mac').click(function() {
+            var token = $(this).data('token');
+            var command = $(this).data('command');
+
+            $.ajax({
+                url: '/store-command',
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    token: token,
                     command: command,
                 },
                 success: function(response) {

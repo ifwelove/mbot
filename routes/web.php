@@ -53,6 +53,7 @@ Route::get('/send/message/{token}', [AlertController::class, 'sendMessage']);
 
 // 存储命令
 Route::post('/store-command', [CommandController::class, 'storeCommand']);
+Route::post('/store-all-mac-command', [CommandController::class, 'storeAllMacCommand']);
 // 获取并清除命令
 Route::post('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
 //Route::get('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
