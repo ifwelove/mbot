@@ -236,10 +236,6 @@
                     </td>
 
                     <td>{{ $machine['card'] }}</td>
-                    <td>
-                        <!-- 删除按钮 -->
-                        <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置訊號</button>
-                    </td>
 {{--                    <td>{{ $machine['mac'] }}</td>--}}
                     <td>{{ $machine['data']['last_updated'] }}</td>
                     <td>
@@ -249,6 +245,7 @@
 {{--                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>--}}
                         <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reboot_pc">重新開機</button>
                         <button class="command-btn reboot-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="sort_player">排列模擬器</button>
+                        <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置網頁資料</button>
                     </td>
                 </tr>
             @endforeach
