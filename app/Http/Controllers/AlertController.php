@@ -927,18 +927,32 @@ class AlertController extends Controller
 
             return $aWorldNo <=> $bWorldNo;
         });
+        if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+            return view('demo', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total,
+                'merges'         => $currentData,
+                'money_total'         => $money_total,
+            ]);
+        } else {
+            return view('machines4', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total,
+                'merges'         => $currentData,
+                'money_total'         => $money_total,
+            ]);
+        }
 
-        return view('machines4', [
-            //                'macCount' => $macCount,
-            'user'                   => $user,
-            'machines'               => $machines,
-            'token'                  => $token,
-            'dnplayer_running_total' => $dnplayer_running_total,
-            'dnplayer_total'         => $dnplayer_total,
-            'machines_total'         => $machines_total,
-            'merges'         => $currentData,
-            'money_total'         => $money_total,
-        ]);
         //        return response()->json(['machines' => $machines]);
     }
 
@@ -1103,17 +1117,32 @@ class AlertController extends Controller
             return $aWorldNo <=> $bWorldNo;
         });
 
-        return view('machines4', [
-            //                'macCount' => $macCount,
-            'user'                   => $user,
-            'machines'               => $machines,
-            'token'                  => $token,
-            'dnplayer_running_total' => $dnplayer_running_total,
-            'dnplayer_total'         => $dnplayer_total,
-            'machines_total'         => $machines_total,
-            'merges'         => $currentData,
-            'money_total'         => $money_total,
-        ]);
+        if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+            return view('demo', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total,
+                'merges'         => $currentData,
+                'money_total'         => $money_total,
+            ]);
+        } else {
+            return view('machines4', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total,
+                'merges'         => $currentData,
+                'money_total'         => $money_total,
+            ]);
+        }
+
         //        return response()->json(['machines' => $machines]);
     }
 
