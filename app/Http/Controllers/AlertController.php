@@ -594,6 +594,9 @@ class AlertController extends Controller
         foreach ($tokens as $token => $name) {
             $macAddresses = Redis::sMembers("token:$token:machines");
             $macCount = count($macAddresses);
+            if ($macCount <= 0) {
+                continue;
+            }
             $totalCount += $macCount;
 
             // 將這個 token 的 macAddresses 數量儲存起來
