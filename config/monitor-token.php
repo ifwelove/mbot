@@ -5,6 +5,7 @@ return [
         'name'   => 'very6',
         'date'   => '2025-01-01',
         'amount' => '20',
+        'pay'    => true
     ],
     'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3'  => [
         'name'   => 'test5555',
@@ -22,6 +23,7 @@ return [
         'name'   => '真心不騙',
         'date'   => '2025-01-01',
         'amount' => '2',
+        'pay'    => true
     ],
     'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K'  => [
         'name'   => '什麼啊',

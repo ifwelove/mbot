@@ -213,6 +213,9 @@
                             {{ $machine['pc_name'] }}
                         </button>
                         <p>{{ $machine['data']['pro_version'] }}</p>
+                        @if(isset($machine['data']['version']))
+                            <p>{{ $machine['data']['version'] }}</p>
+                        @endif
                         <span class="status-icon {{ $machine['data']['status'] }}"></span>
                         {{ $machine['data']['status'] }}
                     </td>

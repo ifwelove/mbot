@@ -235,6 +235,7 @@ class AlertController extends Controller
         $alert_status     = $request->post('alert_status', 'success');
         $alert_type       = $request->post('alert_type', 'error');
         $mac              = $request->post('mac');
+        $version              = $request->post('version');
         $dnplayer         = $request->post('dnplayer', 0);
         $dnplayer_running = $request->post('dnplayer_running', 0);
         $pro_version = $request->post('pro_version', '');
@@ -331,6 +332,7 @@ class AlertController extends Controller
             Redis::hSet($key, 'm_info', $m_info);
             Redis::hSet($key, 'pc_name', $pc_name);
             Redis::hSet($key, 'mac', $mac);
+            Redis::hSet($key, 'version', $version);
             Redis::hSet($key, 'pc_info', $pc_info);
             Redis::hSet($key, 'status', $alert_status);
             Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
