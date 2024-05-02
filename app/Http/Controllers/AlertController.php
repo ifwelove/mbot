@@ -578,15 +578,6 @@ class AlertController extends Controller
 
     public function monitor()
     {
-//        $count  = 0;
-//        $tokens = $this->getTokens();
-//        foreach ($tokens as $token => $name) {
-//            $macAddresses = Redis::sMembers("token:$token:machines");
-//            foreach ($macAddresses as $mac) {
-//                $count++;
-//            }
-//        }
-//        dd($count);
         $totalCount = 0;
         $tokens = $this->getTokens();
         $macCounts = [];
@@ -785,8 +776,9 @@ class AlertController extends Controller
         //        return response()->json(['machines' => $machines]);
     }
 
-    public function showDemo($token)
+    public function showDemo(Request $request, $token)
     {
+        $admin = $request->get('admin');
         //        if ($token !== 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
         //            dd('功能尚未開放, 僅供展示');
         //        }
@@ -932,7 +924,7 @@ class AlertController extends Controller
 
             return $aWorldNo <=> $bWorldNo;
         });
-        if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+        if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and !is_null($admin)) {
             return view('demo', [
                 //                'macCount' => $macCount,
                 'user'                   => $user,
