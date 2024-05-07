@@ -221,9 +221,6 @@
                         <span class="status-icon {{ $machine['data']['status'] }}"></span>
                         {{ $machine['data']['status'] }}
                     </td>
-                    <td>
-
-                    </td>
                     <td>@foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach</td>
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
                     <td>
