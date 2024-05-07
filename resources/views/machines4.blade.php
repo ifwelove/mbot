@@ -200,7 +200,6 @@
                 <th scope="col">模擬器數量</th>
                 <th scope="col">鑽石(點選可複製)</th>
                 <th scope="col">卡號到期</th>
-                <th scope="col"></th>
 {{--                <th scope="col">MAC</th>--}}
                 <th scope="col">最後更新時間</th>
                 <th scope="col">遠端控制</th>
