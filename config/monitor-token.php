@@ -142,7 +142,7 @@ return [
         'amount' => '100',
     ],
     'Xhepja25V75KA2ENCQdLuXJtYYfONo2dTbVei7ZxwIn'  => [
-        'name'   => '',
+        'name'   => '浪漫',
         'date'   => '2025-01-01',
         'amount' => '100',
     ],
@@ -419,7 +419,7 @@ return [
         'amount' => '1',
     ],
     'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
-        'name'   => '',
+        'name'   => '咖啡',
         'date'   => '2025-01-01',
         'amount' => '10',
     ],
