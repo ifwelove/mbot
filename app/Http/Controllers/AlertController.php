@@ -44,21 +44,21 @@ class AlertController extends Controller
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
                 $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
-                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/machines', $token);
+                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/pro', $token);
                 break;
             case ($alert_status === 'plugin_not_open') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
                 $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
-                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/machines', $token);
+                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/pro', $token);
                 break;
             case ($alert_status === 'success') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
                 $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
-                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/machines', $token);
+                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/pro', $token);
                 break;
             default:
                 $message .= $pc_message;

@@ -33,7 +33,8 @@ return [
     'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6'  => [
         'name'   => '桃聖潔',
         'date'   => '2025-01-01',
-        'amount' => '15',
+        'amount' => '12',
+        'pay'    => true
     ],
     '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo'  => [
         'name'   => '小白',
