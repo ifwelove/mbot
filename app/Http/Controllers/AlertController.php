@@ -924,7 +924,7 @@ class AlertController extends Controller
 
             return $aWorldNo <=> $bWorldNo;
         });
-        if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and !is_null($admin)) {
+        if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and is_null($admin)) {
             return view('demo', [
                 //                'macCount' => $macCount,
                 'user'                   => $user,
