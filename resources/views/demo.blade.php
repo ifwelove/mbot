@@ -241,6 +241,9 @@
 {{--                        <button class="command-btn update-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="update_mpro">更新大尾</button>--}}
                         <button class="command-btn reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reboot_pc">重新開機</button>
                         <button class="command-btn sort_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="sort_player">排列模擬器</button>
+                        <button class="command-btn copy_to_local-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="copy_to_local">雲端複製到本地</button>
+                        <button class="command-btn open_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_update_mpro">開啟自動更新</button>
+                        <button class="command-btn close_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_update_mpro">關閉自動更新</button>
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置網頁資料</button>
                     </td>
                 </tr>
