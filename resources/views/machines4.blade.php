@@ -91,13 +91,13 @@
             顯示資料
         </button>
     </p>
-    <div class="command-container">
+    <div class="command-container my-3">
         <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一件關閉大尾</button>
         <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一件開啟大尾</button>
         <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一件重開大尾</button>
         <button class="command-btn-all-mac sort_player-btn btn btn-danger" data-token="{{ $token }}" data-command="sort_player">一件排列模擬器</button>
     </div>
-    <div class="command-container">
+    <div class="command-container my-3">
         <button class="command-btn-all-mac reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">一件重新開機</button>
         <button class="command-btn-all-mac copy_to_local-btn btn btn-danger" data-token="{{ $token }}" data-command="copy_to_local">一件雲端複製到本地</button>
         <button class="command-btn-all-mac open_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_update_mpro">一件開啟自動更新</button>
