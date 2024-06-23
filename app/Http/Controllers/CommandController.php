@@ -42,7 +42,7 @@ class CommandController extends Controller
 
         $token   = $validated['token'];
         $command = $validated['command'];
-        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player', 'copy_to_local', 'open_update_mpro', 'close_update_mpro'];
+        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player', 'copy_to_local', 'open_update_mpro', 'close_update_mpro', 'reopen_monitor'];
         if (!in_array($command, $commands)) {
             return response()->json(['message' => 'Command stored failed']);
         }
@@ -70,7 +70,7 @@ class CommandController extends Controller
         $token   = $validated['token'];
         $mac     = $validated['mac'];
         $command = $validated['command'];
-        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player', 'copy_to_local', 'open_update_mpro', 'close_update_mpro'];
+        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player', 'copy_to_local', 'open_update_mpro', 'close_update_mpro', 'reopen_monitor'];
         if (!in_array($command, $commands)) {
             return response()->json(['message' => 'Command stored failed']);
         }
