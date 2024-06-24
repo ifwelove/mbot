@@ -64,7 +64,7 @@ class BossListCommand extends Command
     {
         $bossConfig = Config::get('boss');
         $now        = Carbon::now();
-        if ($now->gt($info['nextTime'])) {
+        if ($now->gt($info['nextTime']) && isset($bossConfig[$boss])) {
             $nextTime         = Carbon::createFromFormat('Y-m-d H:i:s', $info['nextTime'])
                 ->addMinutes($bossConfig[$boss]);
             $info['nextTime'] = $nextTime->format('Y-m-d H:i:s');
