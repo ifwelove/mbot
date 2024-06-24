@@ -285,7 +285,7 @@ class LineController extends Controller
                 ];
 
                 //if ($info[0] == '6666' || $info[0] == 6666) {
-                if ($info[0] == '6666' || $info[0] == 6666 || $info[0] == '666' || $info[0] == 666 || $info[0] == '66' || $info[0] == 66 || $info[0] == '6' || $info[0] == 6 || $info[0] === 'K' || $info[0] === 'k') {
+                if ($info[0] === '6666' || $info[0] === 6666 || $info[0] === '666' || $info[0] === 666 || $info[0] === 'K' || $info[0] === 'k') {
                     $tt = Carbon::now()
                         ->format('His');
                 } else {
