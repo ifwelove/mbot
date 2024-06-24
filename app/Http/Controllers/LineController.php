@@ -34,7 +34,7 @@ class LineController extends Controller
 
     public function ping(Request $request)
     {
-        $line = config('line');
+        $line      = config('line');
         $tableName = '';
         $count     = 1;
         DB::connection('sync')
@@ -54,22 +54,22 @@ class LineController extends Controller
                     $insert[] = $row;
                 }
                 \Illuminate\Support\Facades\Cache::put(sprintf('test_%s', $count), json_encode($insert), 600);
-//                $client    = new Client();
-//                $response  = $client->post(sprintf('%s/items/test', $line['sync_url']), [
-//                    'json' => [
-//                        'items' => $insert
-//                    ]
-//                ]);
-//                $tableName = json_decode($response->getBody()
-//                    ->getContents(), true);
+                //                $client    = new Client();
+                //                $response  = $client->post(sprintf('%s/items/test', $line['sync_url']), [
+                //                    'json' => [
+                //                        'items' => $insert
+                //                    ]
+                //                ]);
+                //                $tableName = json_decode($response->getBody()
+                //                    ->getContents(), true);
                 $count++;
             }, 'index');
-//        $client             = new Client();
-//        $response           = $client->post(sprintf('%s/items/test', $line['sync_url']), [
-//            'json' => [
-//                'table' => $tableName['table']
-//            ]
-//        ]);
+        //        $client             = new Client();
+        //        $response           = $client->post(sprintf('%s/items/test', $line['sync_url']), [
+        //            'json' => [
+        //                'table' => $tableName['table']
+        //            ]
+        //        ]);
 
         return response('', 200);
     }
@@ -79,18 +79,20 @@ class LineController extends Controller
         ignore_user_abort(true);
         set_time_limit(0);
         // Send the response to the client
-        response()->json()->send();
+        response()
+            ->json()
+            ->send();
         // If you're using FastCGI, this will end the request/response cycle
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         }
-        $allowGroupIds = $this->getTokens();
-        $config = config('line');
+        $allowGroupIds              = $this->getTokens();
+        $config                     = config('line');
         $this->channel_access_token = $config['token'];
-        $this->channel_secret = $config['secret'];
-        $httpClient   = new CurlHTTPClient($this->channel_access_token);
-        $this->bot    = new LINEBot($httpClient, ['channelSecret' => $this->channel_secret]);
-        $this->client = $httpClient;
+        $this->channel_secret       = $config['secret'];
+        $httpClient                 = new CurlHTTPClient($this->channel_access_token);
+        $this->bot                  = new LINEBot($httpClient, ['channelSecret' => $this->channel_secret]);
+        $this->client               = $httpClient;
 
         $bot       = $this->bot;
         $signature = $request->header(\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE);
@@ -103,36 +105,39 @@ class LineController extends Controller
         }
 
         $now = Carbon::now();
-        if (!isset($events)) {
+        if (! isset($events)) {
             dd('if (!isset($events)) {');
         }
         foreach ($events as $event) {
             if ($event instanceof MessageEvent) {
-                $replyToken = $event->getReplyToken();
+                $replyToken   = $event->getReplyToken();
                 $message_type = $event->getMessageType();
                 $groupId      = $event->getGroupId();
 
                 //@ 反向, 即可使用
-                if (isset($allowGroupIds[$groupId]) && $now->gt(Carbon::createFromFormat('Y-m-d', $allowGroupIds[$groupId])->startOfDay())) {
-                    $shopeeURl = '序號已經到期:'  . $allowGroupIds[$groupId] . $this->breakLine;
-                    $shopeeURl .= '請私訊作者購買 line id: ifwelove'  . $this->breakLine;
-                    $shopeeURl .= '您的群組編號：' . $groupId . $this->breakLine;
-                    $this->bot->replyText($replyToken, $shopeeURl);
-                    break;
-                } else if (!isset($allowGroupIds[$groupId])) {
-                    $shopeeURl = '群組尚未註冊:'   . $this->breakLine;
-                    $shopeeURl .= '請私訊作者購買 line id: ifwelove'  . $this->breakLine;
+                if (isset($allowGroupIds[$groupId]) && $now->gt(Carbon::createFromFormat('Y-m-d', $allowGroupIds[$groupId])
+                        ->startOfDay())) {
+                    $shopeeURl = '序號已經到期:' . $allowGroupIds[$groupId] . $this->breakLine;
+                    $shopeeURl .= '請私訊作者購買 line id: ifwelove' . $this->breakLine;
                     $shopeeURl .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $shopeeURl);
                     break;
                 } else {
-                    switch ($message_type) {
-                        case 'text':
-                            $text = $event->getText();
-                            //                        $this->getToken($text, $replyToken, $groupId);
-                            $this->getToken($text, $replyToken, $groupId, $request);
-                            $this->boss($text, $replyToken, $groupId);
-                            break;
+                    if (! isset($allowGroupIds[$groupId])) {
+                        $shopeeURl = '群組尚未註冊:' . $this->breakLine;
+                        $shopeeURl .= '請私訊作者購買 line id: ifwelove' . $this->breakLine;
+                        $shopeeURl .= '您的群組編號：' . $groupId . $this->breakLine;
+                        $this->bot->replyText($replyToken, $shopeeURl);
+                        break;
+                    } else {
+                        switch ($message_type) {
+                            case 'text':
+                                $text = $event->getText();
+                                //                        $this->getToken($text, $replyToken, $groupId);
+                                $this->getToken($text, $replyToken, $groupId, $request);
+                                $this->boss($text, $replyToken, $groupId);
+                                break;
+                        }
                     }
                 }
             }
@@ -145,32 +150,33 @@ class LineController extends Controller
     {
         switch (1) {
             case ($text === '群組編號') :
-//                $this->bot->replyText($replyToken, json_encode($request->all()));
+                //                $this->bot->replyText($replyToken, json_encode($request->all()));
                 $this->bot->replyText($replyToken, $groupId);
 
                 break;
 
         }
     }
+
     private function boss($text, $replyToken, $groupId)
     {
         $allowGroupIds = $this->getTokens();
-        $displayUrl = 'https://reurl.cc/WrMXZx';
+        $displayUrl    = 'https://reurl.cc/WrMXZx';
         //        $displayUrl = url('/');
         switch (1) {
             case ($text === '重生' || $text === '重生時間') :
-                if (isset($allowGroupIds[$groupId])){
-                    $message    = '';
+                if (isset($allowGroupIds[$groupId])) {
+                    $message = '';
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                     $message    = '' . $displayUrl . $this->breakLine;
-                    $message    .= '沒付費群組即無法使用' . $this->breakLine;
-                    $message    .= '歡迎加入賴群討論' . $this->breakLine;
-                    $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
-                    $message    .= '或者私訊作者購買 line id: ifwelove'  . $this->breakLine;
-                    $message    .= '購買網址 https://shopee.tw/product/2002016/23425009159/'  . $this->breakLine;
-                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
+                    $message = '' . $displayUrl . $this->breakLine;
+                    $message .= '沒付費群組即無法使用' . $this->breakLine;
+                    $message .= '歡迎加入賴群討論' . $this->breakLine;
+                    $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
+                    $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
+                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
+                    $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
                 }
@@ -182,18 +188,18 @@ class LineController extends Controller
 
                 break;
             case ($text === '王列表') :
-                if (isset($allowGroupIds[$groupId])){
-                    $message    = '';
+                if (isset($allowGroupIds[$groupId])) {
+                    $message = '';
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                    $message    = '' . $displayUrl . $this->breakLine;
-                    $message    .= '沒付費群組即無法使用' . $this->breakLine;
-                    $message    .= '歡迎加入賴群討論' . $this->breakLine;
-                    $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
-                    $message    .= '或者私訊作者購買 line id: ifwelove'  . $this->breakLine;
-                    $message    .= '購買網址 https://shopee.tw/product/2002016/23425009159/'  . $this->breakLine;
-                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
+                    $message = '' . $displayUrl . $this->breakLine;
+                    $message .= '沒付費群組即無法使用' . $this->breakLine;
+                    $message .= '歡迎加入賴群討論' . $this->breakLine;
+                    $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
+                    $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
+                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
+                    $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
                 }
@@ -211,22 +217,22 @@ class LineController extends Controller
                     '--groupId' => $groupId,
                 ]);
                 $bossList = \Illuminate\Support\Facades\Cache::get($groupId);
-                if (isset($allowGroupIds[$groupId])){
-                    $message    = '';
+                if (isset($allowGroupIds[$groupId])) {
+                    $message = '';
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                     $message    = '' . $displayUrl . $this->breakLine;
-                    $message    .= '沒付費群組即無法使用' . $this->breakLine;
-                    $message    .= '歡迎加入賴群討論' . $this->breakLine;
-                    $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
-                    $message    .= '或者私訊作者購買 line id: ifwelove'  . $this->breakLine;
-                    $message    .= '購買網址 https://shopee.tw/product/2002016/23425009159/'  . $this->breakLine;
-                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
+                    $message = '' . $displayUrl . $this->breakLine;
+                    $message .= '沒付費群組即無法使用' . $this->breakLine;
+                    $message .= '歡迎加入賴群討論' . $this->breakLine;
+                    $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
+                    $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
+                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
+                    $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
                 }
-                $message  .= '出王時間表：' . $this->breakLine;
+                $message .= '出王時間表：' . $this->breakLine;
                 if (! is_null($bossList)) {
                     foreach ($bossList as $name => $info) {
                         if ($info['pass'] === 0) {
@@ -278,11 +284,13 @@ class LineController extends Controller
                     '--memo'    => $memo,
                 ];
 
-//if ($info[0] == '6666' || $info[0] == 6666) {
-                 if ($info[0] == '6666' || $info[0] == 6666 || $info[0] === 'K' || $info[0] === 'k') {
-                    $tt                = Carbon::now()->format('His');
+                //if ($info[0] == '6666' || $info[0] == 6666) {
+                if ($info[0] == '6666' || $info[0] == 6666 || $info[0] == '666' || $info[0] == 666 || $info[0] == '66' || $info[0] == 66 || $info[0] == '6' || $info[0] == 6 || $info[0] === 'K' || $info[0] === 'k') {
+                    $tt = Carbon::now()
+                        ->format('His');
                 } else {
-                    $tt                = str_pad($info[0], 6, Carbon::now()->format('s'));
+                    $tt = str_pad($info[0], 6, Carbon::now()
+                        ->format('s'));
                 }
                 $options['--time'] = $tt;
                 $time              = Carbon::createFromFormat('His', $tt);
@@ -290,26 +298,26 @@ class LineController extends Controller
                 if ($time->gt($now)) {
                     $time->subDay();
                 }
-                if (!isset($list[$name])) {
+                if (! isset($list[$name])) {
                     return false;
                 }
                 $killTime = $time->format('m/d H:i:s');
                 $nextTime = $time->addMinutes($boss[$list[$name]])
                     ->format('m/d H:i:s');
                 Artisan::call('boss:kill', $options);
-                $maps    = implode(', ', $bossMaps[$list[$name]]);
-                if (isset($allowGroupIds[$groupId])){
-                    $message    = '';
+                $maps = implode(', ', $bossMaps[$list[$name]]);
+                if (isset($allowGroupIds[$groupId])) {
+                    $message = '';
                     //                    $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     //                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
-                     $message    = '' . $displayUrl . $this->breakLine;
-                    $message    .= '沒付費群組即無法使用' . $this->breakLine;
-                    $message    .= '歡迎加入賴群討論' . $this->breakLine;
-                    $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
-                    $message    .= '或者私訊作者購買 line id: ifwelove'  . $this->breakLine;
-                    $message    .= '購買網址 https://shopee.tw/product/2002016/23425009159/'  . $this->breakLine;
-                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
+                    $message = '' . $displayUrl . $this->breakLine;
+                    $message .= '沒付費群組即無法使用' . $this->breakLine;
+                    $message .= '歡迎加入賴群討論' . $this->breakLine;
+                    $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
+                    $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
+                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
+                    $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
                 }
@@ -330,23 +338,23 @@ class LineController extends Controller
 
                 break;
             case ($text === '使用期限' || $text === '有效期限') :
-                $message    = '';
-                if (isset($allowGroupIds[$groupId])){
-                        $message    = '';
-                                           $message    = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
-                                           $message    .= '您的群組編號：' . $groupId . $this->breakLine;
-                    }else{
-                         $message    = '' . $displayUrl . $this->breakLine;
-                    $message    .= '沒付費群組即無法使用' . $this->breakLine;
-                    $message    .= '歡迎加入賴群討論' . $this->breakLine;
-                    $message    .= '請蝦皮賣場購買序號後提供賴群編號開通使用'  . $this->breakLine;
-                    $message    .= '或者私訊作者購買 line id: ifwelove'  . $this->breakLine;
-                    $message    .= '購買網址 https://shopee.tw/product/2002016/23425009159/'  . $this->breakLine;
-                    $message    .= '您的群組編號：' . $groupId . $this->breakLine;
+                $message = '';
+                if (isset($allowGroupIds[$groupId])) {
+                    $message = '';
+                    $message = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
+                    $message .= '您的群組編號：' . $groupId . $this->breakLine;
+                } else {
+                    $message = '' . $displayUrl . $this->breakLine;
+                    $message .= '沒付費群組即無法使用' . $this->breakLine;
+                    $message .= '歡迎加入賴群討論' . $this->breakLine;
+                    $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
+                    $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
+                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
+                    $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
 
-                    }
+                }
                 $this->bot->replyText($replyToken, $message);
 
                 break;
