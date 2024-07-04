@@ -175,7 +175,6 @@ class LineController extends Controller
                     $message .= '歡迎加入賴群討論' . $this->breakLine;
                     $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
                     $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
-                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
                     $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
@@ -198,7 +197,6 @@ class LineController extends Controller
                     $message .= '歡迎加入賴群討論' . $this->breakLine;
                     $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
                     $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
-                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
                     $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
@@ -227,7 +225,6 @@ class LineController extends Controller
                     $message .= '歡迎加入賴群討論' . $this->breakLine;
                     $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
                     $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
-                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
                     $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
@@ -316,7 +313,6 @@ class LineController extends Controller
                     $message .= '歡迎加入賴群討論' . $this->breakLine;
                     $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
                     $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
-                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
                     $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
@@ -338,9 +334,7 @@ class LineController extends Controller
 
                 break;
             case ($text === '使用期限' || $text === '有效期限') :
-                $message = '';
                 if (isset($allowGroupIds[$groupId])) {
-                    $message = '';
                     $message = '感謝付費 使用期限：' . $allowGroupIds[$groupId] . $this->breakLine;
                     $message .= '您的群組編號：' . $groupId . $this->breakLine;
                 } else {
@@ -349,7 +343,6 @@ class LineController extends Controller
                     $message .= '歡迎加入賴群討論' . $this->breakLine;
                     $message .= '請蝦皮賣場購買序號後提供賴群編號開通使用' . $this->breakLine;
                     $message .= '或者私訊作者購買 line id: ifwelove' . $this->breakLine;
-                    $message .= '購買網址 https://shopee.tw/product/2002016/23425009159/' . $this->breakLine;
                     $message .= '您的群組編號：' . $groupId . $this->breakLine;
                     $this->bot->replyText($replyToken, $message);
                     exit;
