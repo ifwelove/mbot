@@ -203,7 +203,7 @@ class LineController extends Controller
                 }
 
                 $message  .= '王 標籤ㄧ覽：' . $this->breakLine;
-                $bossTags = Config::get('boss-tags');
+                $bossTags = Config::get('boss-list');
                 foreach ($bossTags as $name => $tags) {
                     $message .= $name . ' : ' . implode(', ', $tags) . $this->breakLine;
                 }
