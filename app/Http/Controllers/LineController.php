@@ -235,7 +235,7 @@ class LineController extends Controller
                     foreach ($bossList as $name => $info) {
                         $map = '';
                         if (isset($bossMaps[$name])) {
-                            $map = $bossMaps[$name];
+                            $map = implode(",", $bossMaps[$name]);
                         }
                         if ($info['pass'] === 0) {
                             if (isset($info['memo']) && $info['memo'] != '') {
