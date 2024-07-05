@@ -231,22 +231,27 @@ class LineController extends Controller
                 }
                 $message .= '出王時間表：' . $this->breakLine;
                 if (! is_null($bossList)) {
+                    $bossMaps = Config::get('boss-maps');
                     foreach ($bossList as $name => $info) {
+                        $map = '';
+                        if (isset($bossMaps[$name])) {
+                            $map = $bossMaps[$name];
+                        }
                         if ($info['pass'] === 0) {
                             if (isset($info['memo']) && $info['memo'] != '') {
                                 $message .= Carbon::createFromFormat('Y-m-d H:i:s', $info['nextTime'])
-                                        ->format('H:i:s') . ' ' . $name . ' ' . ' ' . '#' . $info['memo'] . $this->breakLine;
+                                        ->format('H:i:s') . ' ' . '[' . $map . ']' . $name . ' ' . ' ' . '#' . $info['memo'] . $this->breakLine;
                             } else {
                                 $message .= Carbon::createFromFormat('Y-m-d H:i:s', $info['nextTime'])
-                                        ->format('H:i:s') . ' ' . $name . ' ' . $this->breakLine;
+                                        ->format('H:i:s') . ' ' . '[' . $map . ']'  . $name . ' ' . $this->breakLine;
                             }
                         } else {
                             if (isset($info['memo']) && $info['memo'] != '') {
                                 $message .= Carbon::createFromFormat('Y-m-d H:i:s', $info['nextTime'])
-                                        ->format('H:i:s') . ' ' . $name . ' ' . '[過' . $info['pass'] . ']' . ' ' . '#' . $info['memo'] . $this->breakLine;
+                                        ->format('H:i:s') . ' ' . '[' . $map . ']'  . $name . ' ' . '[過' . $info['pass'] . ']' . ' ' . '#' . $info['memo'] . $this->breakLine;
                             } else {
                                 $message .= Carbon::createFromFormat('Y-m-d H:i:s', $info['nextTime'])
-                                        ->format('H:i:s') . ' ' . $name . ' ' . '[過' . $info['pass'] . ']' . $this->breakLine;
+                                        ->format('H:i:s') . ' ' . '[' . $map . ']'  . $name . ' ' . '[過' . $info['pass'] . ']' . $this->breakLine;
                             }
                         }
 
