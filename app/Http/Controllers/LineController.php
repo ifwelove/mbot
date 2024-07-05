@@ -231,7 +231,7 @@ class LineController extends Controller
                 }
                 $message .= '出王時間表：' . $this->breakLine;
                 if (! is_null($bossList)) {
-                    $bossMaps = Config::get('boss-maps');
+                    $bossMaps = Config::get('boss-show-maps');
                     foreach ($bossList as $name => $info) {
                         $map = '';
                         if (isset($bossMaps[$name])) {
