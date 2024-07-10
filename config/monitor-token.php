@@ -25,11 +25,11 @@ return [
         'amount' => '2',
         'pay'    => true
     ],
-    'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K'  => [
-        'name'   => '什麼啊',
-        'date'   => '2025-01-01',
-        'amount' => '2',
-    ],
+//    'BwaD9GSKNCvUXanBptPoKe8vw09eqOawH0Pqdikcu6K'  => [
+//        'name'   => '什麼啊',
+//        'date'   => '2025-01-01',
+//        'amount' => '2',
+//    ],
     'x46LmjVIU5CUUfTQfcqfiaBsihhue5wpITDMpM6WTV6'  => [
         'name'   => '桃聖潔',
         'date'   => '2025-01-01',
