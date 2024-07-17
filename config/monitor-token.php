@@ -465,4 +465,9 @@ return [
         'date'   => '2025-01-01',
         'amount' => '1',
     ],
+    'liZ5Wtf8IOP7KA9m8QDnGX4do8kiXM0naiNipbNBDsO'  => [
+        'name'   => 'test朋友',
+        'date'   => '2026-01-01',
+        'amount' => '5',
+    ],
 ];
