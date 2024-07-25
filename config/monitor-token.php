@@ -415,11 +415,11 @@ return [
         'date'   => '2025-01-01',
         'amount' => '1',
     ],
-    'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
-        'name'   => '咖啡',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
+//    'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
+//        'name'   => '咖啡',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
     'StYqtm0RD97Z6DuZoDDEWdiIeM8vWCMXdjt4vrHfhFP'  => [
         'name'   => '李家臣',
         'date'   => '2025-01-01',
