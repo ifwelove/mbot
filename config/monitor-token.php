@@ -51,11 +51,11 @@ return [
         'date'   => '2025-01-01',
         'amount' => '100',
     ],
-    'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
-        'name'   => '懶得整理帳號',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
+//    'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
+//        'name'   => '懶得整理帳號',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
     'fyZDjo8TB6aOHXxK0DIXrIVl0QBYXZEJyovVG18uiOh'  => [
         'name'   => '劉',
         'date'   => '2025-01-01',
@@ -176,11 +176,7 @@ return [
         'name'   => 'ann',
         'date'   => '2025-01-01',
         'amount' => '10',
-    ],
-    'kCuAcpMFJe6rlp043viUGJB1dQDf6mkZfvuo2TS0p9n'  => [
-        'name'   => 'ann',
-        'date'   => '2025-01-01',
-        'amount' => '10',
+        'pay'    => true
     ],
     'iOrcXzDPrg3BqYh3zSlzSq8MNzn1Hc9nvTfibe0MGbS'  => [
         'name'   => '黃士杰',
