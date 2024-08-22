@@ -38,19 +38,20 @@ return [
     ],
     '6cPuC4LR52C78mI9OVGDdTce1dNmQIgTzn3iayAHpEo'  => [
         'name'   => '小白',
-        'date'   => '2025-01-01',
-        'amount' => '15',
+        'date'   => '2025-07-11',
+        'amount' => '7',
+        'pay'    => true
     ],
     'ZdxVsVdWDNJzHFKZTgSNaWg3BhfOCwEJOybvM2Q98R9'  => [
         'name'   => '??',
         'date'   => '2025-01-01',
         'amount' => '100',
     ],
-    'iMPSeJqEf7WJLgTDPSnSHE3UwMDNHjL02eV0p5S42fM'  => [
-        'name'   => '??',
-        'date'   => '2025-01-01',
-        'amount' => '100',
-    ],
+//    'iMPSeJqEf7WJLgTDPSnSHE3UwMDNHjL02eV0p5S42fM'  => [
+//        'name'   => 'test沒在用了',
+//        'date'   => '2025-01-01',
+//        'amount' => '5',
+//    ],
 //    'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
 //        'name'   => '懶得整理帳號',
 //        'date'   => '2025-01-01',
@@ -146,6 +147,7 @@ return [
         'name'   => '浪漫',
         'date'   => '2025-01-01',
         'amount' => '100',
+        'pay'    => true
     ],
     'hsLs1km8dy9eIVQnkIXsL2XiYt14EdzVS07eGCUwket'  => [
         'name'   => '',
@@ -174,8 +176,8 @@ return [
 //    ],
     'PhpCq0TbO0ifi4oRDyDONDdbbC2xWEHXhS9IdzZQIK4'  => [
         'name'   => 'ann',
-        'date'   => '2025-01-01',
-        'amount' => '10',
+        'date'   => '2025-07-01',
+        'amount' => '6',
         'pay'    => true
     ],
     'iOrcXzDPrg3BqYh3zSlzSq8MNzn1Hc9nvTfibe0MGbS'  => [
@@ -250,9 +252,9 @@ return [
         'amount' => '10',
     ],
     '6xe1p9KRkkHcsYaMVCIuhDm83uuwxhKeen4wO4oBwEu'  => [
-        'name'   => '',
+        'name'   => 'fish',
         'date'   => '2025-01-01',
-        'amount' => '20',
+        'amount' => '9',
     ],
     'B1YRmU404uOJsy0D6CgfRZ3Z1d868SAlS3bM94BVz7K'  => [
         'name'   => '',
@@ -418,14 +420,14 @@ return [
     'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
         'name'   => '咖啡',
         'date'   => '2025-01-01',
-        'amount' => '10',
+        'amount' => '1',
+        'pay'    => true,
     ],
     'StYqtm0RD97Z6DuZoDDEWdiIeM8vWCMXdjt4vrHfhFP'  => [
         'name'   => '李家臣',
-        'date'   => '2025-01-01',
+        'date'   => '2025-08-12',
         'amount' => '1',
-        'pay'    => false,
-        'memo'  => '想付款我還沒給他付2024/06/01'
+        'pay'    => true
     ],
     'krw5R3iNHMKduXi77B0l5L8gTVKDjvhRBQprUoKuRTN'  => [
         'name'   => '',
@@ -463,7 +465,8 @@ return [
     ],
     'liZ5Wtf8IOP7KA9m8QDnGX4do8kiXM0naiNipbNBDsO'  => [
         'name'   => 'test朋友',
-        'date'   => '2026-01-01',
+        'date'   => '2025-07-18',
         'amount' => '5',
+        'pay'    => true
     ],
 ];
