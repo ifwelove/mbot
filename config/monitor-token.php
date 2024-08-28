@@ -47,11 +47,11 @@ return [
         'date'   => '2025-01-01',
         'amount' => '100',
     ],
-//    'iMPSeJqEf7WJLgTDPSnSHE3UwMDNHjL02eV0p5S42fM'  => [
-//        'name'   => 'test沒在用了',
-//        'date'   => '2025-01-01',
-//        'amount' => '5',
-//    ],
+    'iMPSeJqEf7WJLgTDPSnSHE3UwMDNHjL02eV0p5S42fM'  => [
+        'name'   => '汪星人',
+        'date'   => '2025-09-01',
+        'amount' => '5',
+    ],
 //    'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
 //        'name'   => '懶得整理帳號',
 //        'date'   => '2025-01-01',
