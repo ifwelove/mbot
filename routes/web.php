@@ -33,6 +33,7 @@ Route::get('/bill/{token}', [AlertController::class, 'showBill']);
 Route::get('/pro/{token}', [AlertController::class, 'showDemo']);
 Route::get('/show/{token}', [AlertController::class, 'showToken']);
 Route::post('/check/token', [AlertController::class, 'checkToken']);
+Route::post('/apk/check/token', [AlertController::class, 'apkCheckToken']);
 Route::post('/olin/check/token', [AlertController::class, 'checkOlinToken']);
 Route::post('/olin/tap', [AlertController::class, 'execOlinTap']);
 Route::post('/delete-machine', [AlertController::class, 'deleteMachine']);

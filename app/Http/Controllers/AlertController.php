@@ -143,6 +143,7 @@ class AlertController extends Controller
         }
     }
 
+    //heroku
     public function checkToken(Request $request)
     {
         $token      = $request->post('token');
@@ -191,6 +192,38 @@ class AlertController extends Controller
             $name = $fileService->getLatestFileName();
 
             return response(sprintf('token 授權成功 開始檢查大尾更新流程 最前雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
+        }
+    }
+
+    public function apkCheckToken(Request $request)
+    {
+        $token      = $request->post('token');
+        $result     = $this->checkAllowToken($token);
+        if ($result === false) {
+            $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+            $client   = new Client();
+            $headers  = [
+                'Authorization' => sprintf('Bearer %s', $owen_token),
+                'Content-Type'  => 'application/x-www-form-urlencoded'
+            ];
+            $options  = [
+                'form_params' => [
+                    //                'message' => $message
+                    //                    'message' => $request->post('pc_name')
+                    'message' => json_encode($request->all())
+                ]
+            ];
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers'     => $headers,
+                'form_params' => $options['form_params']
+            ]);
+
+            return response('token 未授權 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
+        } else {
+            $fileService = resolve(FileService::class);
+            $name = $fileService->getApkLatestFileName();
+
+            return response(sprintf('token 授權成功 開始檢查APK更新流程 最前雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
         }
     }
 

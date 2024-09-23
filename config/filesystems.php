@@ -29,6 +29,21 @@ return [
     */
 
     'disks' => [
+        //very6 使用中
+        'mpro' => [
+            'driver' => 'local',
+            'root' => storage_path('app/mpro'),
+            'url' => env('APP_URL').'/storage/mpro',
+            'visibility' => 'public',
+        ],
+
+        //very6 使用中
+        'apks' => [
+            'driver' => 'local',
+            'root' => storage_path('app/apks'),
+            'url' => env('APP_URL').'/storage/apks',
+            'visibility' => 'public',
+        ],
 
         'local' => [
             'driver' => 'local',
