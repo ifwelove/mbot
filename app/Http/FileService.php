@@ -38,7 +38,7 @@ class FileService
         // 从 Redis 缓存中获取最新文件名，如果不存在或已过期则执行回调
         $latestFileName = Cache::remember('apk_latest_file_name', 300, function () {
             // 向文件服务器发送请求获取最新文件名
-            $response = Http::get($this->latestFilename);
+            $response = Http::get($this->apkLatestFilename);
 
             // 确认响应成功并获取文件名，否则返回默认值
             if ($response->successful() && $response->json('apkLatestFileName')) {
