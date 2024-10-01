@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         'alert',
         'alert2',
         'check/token',
+        'apk/check/token',
         'olin/check/token',
         'olin/tap',
         'delete-machine',

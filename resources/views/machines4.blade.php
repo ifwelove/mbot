@@ -101,6 +101,7 @@
     </div>
     <div class="command-container my-3">
         <button class="command-btn-all-mac reopen_monitor-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_monitor">一件重開監視器程式</button>
+        <button class="command-btn-all-mac apk_install-btn btn btn-danger" data-token="{{ $token }}" data-command="apk_install">一件安裝apk</button>
     </div>
 
 
@@ -249,6 +250,7 @@
                         <button class="command-btn open_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_update_mpro">開啟自動更新</button>
                         <button class="command-btn close_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_update_mpro">關閉自動更新</button>
                         <button class="command-btn reopen_monitor-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_monitor">重開監視器程式</button>
+                        <button class="command-btn apk_install-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="apk_install">安裝apk</button>
                         <button class="delete-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}">重置網頁資料</button>
                     </td>
                 </tr>

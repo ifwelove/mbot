@@ -191,7 +191,7 @@ class AlertController extends Controller
             $fileService = resolve(FileService::class);
             $name = $fileService->getLatestFileName();
 
-            return response(sprintf('token 授權成功 開始檢查大尾更新流程 最前雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
+            return response(sprintf('token 授權成功 開始檢查大尾更新流程 最新雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
         }
     }
 
@@ -223,7 +223,7 @@ class AlertController extends Controller
             $fileService = resolve(FileService::class);
             $name = $fileService->getApkLatestFileName();
 
-            return response(sprintf('token 授權成功 開始檢查APK更新流程 最前雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
+            return response(sprintf('token 授權成功 開始檢查APK更新流程 最新雲端空間檔案最新版本為:%s', $name), 200)->header('Content-Type', 'text/plain');
         }
     }
 
