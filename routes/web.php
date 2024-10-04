@@ -4,6 +4,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineController;
 use App\Http\Controllers\AlertController;
 use App\Http\Controllers\CommandController;
+use Illuminate\Support\Facades\Redis;
+
+Route::get('/log-ip', function () {
+    $ip_address = request()->ip();  // 獲取 IP 地址
+    $key = 'ip_log';  // Redis 中的鍵
+    Redis::rpush($key, $ip_address);  // 將 IP 地址存入 Redis 的列表中
+    return response()->json(['message' => 'IP Address logged', 'ip' => $ip_address]);
+});
+Route::get('/view-ips', function () {
+    $key = 'ip_log';  // Redis 中的鍵
+    $ips = Redis::lrange($key, 0, -1);  // 從 Redis 中獲取所有 IP 地址
+    return response()->json(['ips' => $ips]);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
