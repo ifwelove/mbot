@@ -30,8 +30,9 @@ class ProxyController extends Controller
             }
         });
 //        $latestFileName = '大尾3-9.7.9-v1.7.19.rar';
-//        return response()->json(['latestFileName' => $latestFileName]);
-        return response($latestFileName, 200)->header('Content-Type', 'text/plain');
+        $latestFileName = '大尾3-2.0.0.2-v1.7.25.rar';
+        return response()->json(['latestFileName' => $latestFileName]);
+//        return response($latestFileName, 200)->header('Content-Type', 'text/plain');
     }
 
     public function getApkLatestFileName(Request $request)
