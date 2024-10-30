@@ -205,6 +205,11 @@ class MonitorCardCommand extends Command
                     } else {
                         $m_pro_gg_count = 1;
                     }
+                    if (isset($machine['m_pro_gg_alert_total'])) {
+                        $m_pro_gg_alert_total = (int) $machine['m_pro_gg_alert_total'] + 1;
+                    } else {
+                        $m_pro_gg_alert_total = 1;
+                    }
                     if (count($time_counts) > 1) {
                         $m_pro_gg_count++;
                         Redis::hSet($key, 'm_pro_gg_count', (string) $m_pro_gg_count);
@@ -213,7 +218,8 @@ class MonitorCardCommand extends Command
                         $m_pro_gg_count = 1;
                     }
 
-                    if ($m_pro_gg_count > 6) {
+                    if ($m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
+                        Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
@@ -234,6 +240,8 @@ class MonitorCardCommand extends Command
                             'headers'     => $headers,
                             'form_params' => $options['form_params']
                         ]);
+                    } else {
+                        Redis::hSet($key, 'm_pro_gg_alert_total', '1');
                     }
 
 //                    角色死亡,
