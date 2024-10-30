@@ -104,7 +104,7 @@ class MonitorCardCommand extends Command
                                 // 判斷是否需要發送通知
 
                                 if ($expirationTime->lte(Carbon::now()
-                                        ->addHours(1)) && $card_alert_total <= 3) {
+                                        ->addHours()) && $card_alert_total <= 3) {
 //                                    dump($card_alert_total);
                                     //                                    echo "發送通知";
                                     Redis::hSet($key, 'card_alert_total', (string) $card_alert_total);
@@ -145,7 +145,14 @@ class MonitorCardCommand extends Command
                             $rows = $m_info['rows'];
                         }
                     }
+
+                    $time_counts = [];
                     foreach ($rows as $role) {
+                        if (preg_match('/(\d+)天\s*(\d+)小?/', $role[12], $matches)) {
+                            $time = "{$matches[1]}天 {$matches[2]}小";
+                            $time_counts[$time] = ($time_counts[$time] ?? 0) + 1;
+                        }
+
                         if(!in_array($role[2], $not_check_role_status)) {
                             $role_gg = 1;
                             $role_gg_items[] = $role[1];
@@ -174,6 +181,32 @@ class MonitorCardCommand extends Command
                             }
                         }
                     }
+
+                    if (count($time_counts) > 1) {
+                        $breakLine = "\n";
+                        $message   = $breakLine;
+                        $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
+                        $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
+                        $message   .= sprintf('大尾狀態 : %s:%s', '資料出現異常請人工排除', $breakLine);
+                        $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token);
+                        //                        $message   .= sprintf('已經處理點選清除通知 : https://mbot-3-ac8b63fd9692.herokuapp.com/delete-machine?token=%s&mac=%s', $token, $mac);
+                        //                        dump($message);
+                        $client   = new Client();
+                        $headers  = [
+                            'Authorization' => sprintf('Bearer %s', $token),
+                            'Content-Type'  => 'application/x-www-form-urlencoded'
+                        ];
+                        $options  = [
+                            'form_params' => [
+                                'message' => $message
+                            ]
+                        ];
+                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                            'headers'     => $headers,
+                            'form_params' => $options['form_params']
+                        ]);
+                    }
+
                     if (isset($machine['role_gg_alert_total'])) {
                         $role_gg_alert_total = (int) $machine['role_gg_alert_total'] + 1;
                     } else {
