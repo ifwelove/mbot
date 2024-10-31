@@ -851,6 +851,7 @@ class AlertController extends Controller
             '遊戲執行',
             '角色死亡',
         ];
+        $merges   = [];
         foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
             $machine     = Redis::hGetAll($key);
@@ -860,7 +861,7 @@ class AlertController extends Controller
                 $machine['status'] = 'pc_not_open'; // 更新本地变量以反映新状态
             }
 
-            $merge   = [];
+//            $merge   = [];
             $rows   = [];
             $rows_status = [];
             $money_rows = [];
@@ -869,9 +870,9 @@ class AlertController extends Controller
             $machine['pro_version'] = isset($machine['pro_version']) ? $machine['pro_version'] : '';
             if (isset($machine['m_info']) && $machine['m_info'] != '' && ! is_null($machine['m_info'])) {
                 $m_info = json_decode(base64_decode($machine['m_info']), true);
-                if (isset($m_info['merge'])) {
-                    $merge = $m_info['merge'];
-                }
+//                if (isset($m_info['merge'])) {
+//                    $merge = $m_info['merge'];
+//                }
                 if (isset($m_info['rows'])) {
                     $rows = $m_info['rows'];
                 }
@@ -900,24 +901,29 @@ class AlertController extends Controller
                         $money_rows[$temp_name]['total'] = (int) $money_rows[$temp_name]['total'] +  (int) $role[3];
                         $money_rows[$temp_name]['rows'] .= $role[3] . '<br>';
                     }
+                    if (!isset($merges[$temp_name])) {
+                        $merges[$temp_name] =  (int) $role[3];
+                    } else {
+                        $merges[$temp_name] = (int) $merges[$temp_name] +  (int) $role[3];
+                    }
                 }
                 if (strpos($role[12], '?') !== false) {
                     $card = str_replace('?', '時', $role[12]);
                 }
             }
 
-            foreach ($merge as $merge_sub => $merge_sub_total) {
-                $money_total = $money_total + $merge_sub_total;
-                if (!isset($merges[$merge_sub])) {
-                    $merges[$merge_sub] = $merge_sub_total;
-                } else {
-                    $merges[$merge_sub] = $merges[$merge_sub] + $merge_sub_total;
-                }
-            }
+//            foreach ($merge as $merge_sub => $merge_sub_total) {
+//                $money_total = $money_total + $merge_sub_total;
+//                if (!isset($merges[$merge_sub])) {
+//                    $merges[$merge_sub] = $merge_sub_total;
+//                } else {
+//                    $merges[$merge_sub] = $merges[$merge_sub] + $merge_sub_total;
+//                }
+//            }
             $machines[]             = [
                 'mac'              => $mac,
                 'pc_name'          => $pc_name,
-                'merge'            => $merge,
+//                'merge'            => $merge,
                 'card'             => $card,
                 'dnplayer'         => $dnplayer,
                 'dnplayer_running' => $dnplayer_running,
@@ -963,6 +969,7 @@ class AlertController extends Controller
 
             return $aWorldNo <=> $bWorldNo;
         });
+        $money_total = array_sum($currentData);
         if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and is_null($admin)) {
             return view('demo', [
                 //                'macCount' => $macCount,
