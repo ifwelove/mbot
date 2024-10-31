@@ -970,7 +970,7 @@ class AlertController extends Controller
             return $aWorldNo <=> $bWorldNo;
         });
         $money_total = array_sum($currentData);
-        dump($money_total);
+//        dump($money_total);
         if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and is_null($admin)) {
             return view('demo', [
                 //                'macCount' => $macCount,
