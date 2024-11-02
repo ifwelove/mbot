@@ -65,6 +65,11 @@ class MonitorCardCommand extends Command
                 '角色死亡',
                 '工具結束',
             ];
+            $extra = [
+                'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB',
+                'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3',
+                '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu',
+                ];
             foreach ($tokens as $token => $name) {
 //                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
 //                    continue;
@@ -218,7 +223,7 @@ class MonitorCardCommand extends Command
                         $m_pro_gg_count = 1;
                     }
 
-                    if ($m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
+                    if (in_array($token, $extra) && $m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
                         Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
