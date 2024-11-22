@@ -52,7 +52,7 @@ class CommandController extends Controller
             $redisKey = "token:{$token}:mac:{$mac}:command";
 
             // 使用 SET 命令存储命令，并设置过期时间
-            Redis::set($redisKey, $command, 'EX', 86400 / 24 / 10); // 这里我们设置了 24 小时的过期时间
+            Redis::set($redisKey, $command, 'EX', 86400 / 24 / 5); // 这里我们设置了 24 小时的过期时间
         }
 
 
@@ -77,7 +77,7 @@ class CommandController extends Controller
         $redisKey = "token:{$token}:mac:{$mac}:command";
 
         // 使用 SET 命令存储命令，并设置过期时间
-        Redis::set($redisKey, $command, 'EX', 86400 / 24 / 10); // 这里我们设置了 24 小时的过期时间
+        Redis::set($redisKey, $command, 'EX', 86400 / 24 / 5); // 这里我们设置了 24 小时的过期时间
 
         return response()->json(['message' => '發送命令成功, 等待命令執行, 如120秒內未執行會放棄該命令, 請再重新點選命令']);
     }
