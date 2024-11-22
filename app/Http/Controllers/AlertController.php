@@ -229,7 +229,7 @@ class AlertController extends Controller
 
     public function alert2(Request $request)
     {
-        if (rand(0,1)) {
+        if (rand(1, 100) <= 30) { // 30% 機率成立
             return response('', 200)->header('Content-Type', 'text/plain');
         }
         ignore_user_abort(true);
