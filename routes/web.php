@@ -112,6 +112,7 @@ Route::get('/track-and-dump', function (Request $request) {
     // 新增數據，設置 TTL 為 1 天（86400 秒）
     Redis::incr($redisKey);
     Redis::expire($redisKey, 86400/24);
+    dump($redisKey);
     dd(Redis::get($redisKey));
     // 獲取所有鍵
     $keys = Redis::keys("api_calls:*"); // 查詢當前主機的所有統計鍵
