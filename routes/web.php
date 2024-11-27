@@ -79,7 +79,7 @@ Route::get('/dump', function (Request $request) {
     $keys = Redis::keys("api_calls:*"); // 獲取所有統計鍵
     foreach ($keys as $key) {
         dump($key);
-        dump(Redis::get($key)); // 獲取次數
+        dump(Redis::get(str_replace('laravel_database_', '', $key))); // 獲取次數
     }
 });
 
