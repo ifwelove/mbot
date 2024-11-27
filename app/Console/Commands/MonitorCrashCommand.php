@@ -63,7 +63,7 @@ class MonitorCrashCommand extends Command
 
                     //@todo 待測試穩定
 //                    $status = isset($machine['status']) ? $machine['status'] : '';
-//                    if (now()->timestamp - $lastUpdated > 1800 || $status == 'pc_not_open') {
+//                    if (now()->timestamp - $lastUpdated > 3600 || $status == 'pc_not_open') {
 //                        if ($machine['status'] != 'pc_not_open') {
 //                            Redis::hSet($key, 'status', 'pc_not_open');
 //                        }
@@ -77,7 +77,7 @@ class MonitorCrashCommand extends Command
 
 //                    dump($crash_alert_total);
                     //crash_alert_total 三次了不會再通知, 但沒有點選清除, 但後續電腦正常後, 晚上又當機了但因為沒有清除所以不會通知, 所以要有一個機制當電腦正常後 crash_alert_total 要 reset
-                    if (now()->timestamp - $lastUpdated > 1800 && $crash_alert_total <= 3) {
+                    if (now()->timestamp - $lastUpdated > 3600 && $crash_alert_total <= 3) {
                         Redis::hSet($key, 'crash_alert_total', (string) $crash_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
@@ -102,7 +102,7 @@ class MonitorCrashCommand extends Command
                             'headers'     => $headers,
                             'form_params' => $options['form_params']
                         ]);
-                    } else if (now()->timestamp - $lastUpdated <= 1800) {
+                    } else if (now()->timestamp - $lastUpdated <= 3600) {
                         Redis::hSet($key, 'crash_alert_total', '1');
                     }
                 }
