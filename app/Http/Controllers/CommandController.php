@@ -84,9 +84,9 @@ class CommandController extends Controller
 
     public function getAndClearCommand(Request $request)
     {
-//        if (rand(1, 100) <= 30) { // 30% 機率成立
-//            return response()->json(['message' => 'no_command']);
-//        }
+        if (rand(1, 100) <= 30) { // 30% 機率成立
+            return response()->json(['message' => 'no_command']);
+        }
 //        $validated['token'] = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
 //        $validated['mac'] = '22:35:4D:08:03:29';
 
