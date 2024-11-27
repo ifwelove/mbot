@@ -5,6 +5,7 @@ use App\Http\Controllers\LineController;
 use App\Http\Controllers\AlertController;
 use App\Http\Controllers\CommandController;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
 
 Route::get('/log-ip', function () {
     $ip_address = request()->ip();  // 獲取 IP 地址
@@ -73,3 +74,37 @@ Route::post('/store-all-mac-command', [CommandController::class, 'storeAllMacCom
 Route::post('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
 
 //Route::get('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
+
+Route::get('/dump', function (Request $request) {
+    $host = $request->getHost(); // 取得主機名稱
+    $keys = Redis::keys("api_calls:{$host}:*"); // 獲取所有統計鍵
+    $data = [];
+
+    foreach ($keys as $key) {
+        $minute = str_replace("api_calls:{$host}:", '', $key); // 提取時間
+        $data[$minute] = Redis::get($key); // 獲取次數
+    }
+
+    return response()->json([
+        'host' => $host,
+        'data' => $data,
+    ]);
+});
+
+
+// 清除特定主機的 Redis 統計數據
+Route::delete('/clear', function (Request $request) {
+    $host = $request->getHost(); // 獲取當前主機名稱
+    $keys = Redis::keys("api_calls:{$host}:*"); // 獲取該主機的所有鍵
+
+    // 刪除所有相關鍵
+    foreach ($keys as $key) {
+        Redis::del($key);
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'message' => "All statistics for host {$host} have been cleared.",
+        'cleared_keys' => count($keys),
+    ]);
+});
