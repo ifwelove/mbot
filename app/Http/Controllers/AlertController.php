@@ -231,7 +231,8 @@ class AlertController extends Controller
     {
         $host = $request->getHost(); // 取得主機名稱
         $currentMinute = now()->format('Y-m-d H:i'); // 以分鐘為單位統計
-        $redisKey = "api_calls:{$host}:{$currentMinute}";
+        $redisKey = "api_calls:{$currentMinute}";
+//        $redisKey = "api_calls:{$host}:{$currentMinute}";
         // 記錄次數，並設置 TTL 為 1 天（86400 秒）
         Redis::incr($redisKey);
         Redis::expire($redisKey, 86400 / 12);

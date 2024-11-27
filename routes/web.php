@@ -76,19 +76,14 @@ Route::post('/get-clear-command', [CommandController::class, 'getAndClearCommand
 //Route::get('/get-clear-command', [CommandController::class, 'getAndClearCommand']);
 
 Route::get('/dump', function (Request $request) {
-    $host = $request->getHost(); // 取得主機名稱
-    $keys = Redis::keys("api_calls:{$host}:*"); // 獲取所有統計鍵
+    $keys = Redis::keys("api_calls:*"); // 獲取所有統計鍵
     $data = [];
 
     foreach ($keys as $key) {
-        $minute = str_replace("api_calls:{$host}:", '', $key); // 提取時間
+        $minute = str_replace("api_calls:", '', $key); // 提取時間
         $data[$minute] = Redis::get($key); // 獲取次數
     }
-
-    return response()->json([
-        'host' => $host,
-        'data' => $data,
-    ]);
+    dump($data);
 });
 
 
