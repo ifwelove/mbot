@@ -103,3 +103,27 @@ Route::delete('/clear', function (Request $request) {
         'cleared_keys' => count($keys),
     ]);
 });
+
+Route::get('/track-and-dump', function (Request $request) {
+//    $host = $request->getHost(); // 獲取主機名稱
+    $currentMinute = now()->format('YmdH'); // 格式化為當前分鐘
+    $redisKey = "api_calls:{$currentMinute}"; // 鍵名
+
+    // 新增數據，設置 TTL 為 1 天（86400 秒）
+    Redis::incr($redisKey);
+    Redis::expire($redisKey, 86400/24);
+    dump(Redis::get($redisKey));
+    // 獲取所有鍵
+    $keys = Redis::keys("api_calls:*"); // 查詢當前主機的所有統計鍵
+    $data = [];
+
+    foreach ($keys as $key) {
+        $minute = str_replace("api_calls:", '', $key); // 提取時間部分
+        $data[$minute] = Redis::get($key); // 獲取次數
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'data' => $data,
+    ]);
+});
