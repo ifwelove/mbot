@@ -85,7 +85,7 @@ class CommandController extends Controller
     public function getAndClearCommand(Request $request)
     {
         $host = $request->getHost(); // 取得主機名稱
-        $currentMinute = now()->format('Y-m-d H:i'); // 以分鐘為單位統計
+        $currentMinute = now()->format('YmdHi'); // 以分鐘為單位統計
         $redisKey = "api_calls:{$currentMinute}";
 //        $redisKey = "api_calls:{$host}:{$currentMinute}";
         // 記錄次數，並設置 TTL 為 1 天（86400 秒）
