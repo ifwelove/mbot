@@ -40,10 +40,24 @@ class CommandController extends Controller
             'command' => 'required|string',
         ]);
 
-        $token   = $validated['token'];
-        $command = $validated['command'];
-        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player', 'copy_to_local', 'open_update_mpro', 'close_update_mpro', 'reopen_monitor', 'apk_install'];
-        if (!in_array($command, $commands)) {
+        $token    = $validated['token'];
+        $command  = $validated['command'];
+        $commands = [
+            'close_mpro',
+            'reopen_mpro',
+            'open_mpro',
+            'update_mpro',
+            'reboot_pc',
+            'sort_player',
+            'copy_to_local',
+            'open_update_mpro',
+            'close_update_mpro',
+            'reopen_monitor',
+            'apk_install',
+            'open_exception_auto_reboot',
+            'close_exception_auto_reboot',
+        ];
+        if (! in_array($command, $commands)) {
             return response()->json(['message' => 'Command stored failed']);
         }
         //loop
@@ -67,11 +81,25 @@ class CommandController extends Controller
             'command' => 'required|string',
         ]);
 
-        $token   = $validated['token'];
-        $mac     = $validated['mac'];
-        $command = $validated['command'];
-        $commands = ['close_mpro', 'reopen_mpro', 'open_mpro', 'update_mpro', 'reboot_pc', 'sort_player', 'copy_to_local', 'open_update_mpro', 'close_update_mpro', 'reopen_monitor', 'apk_install'];
-        if (!in_array($command, $commands)) {
+        $token    = $validated['token'];
+        $mac      = $validated['mac'];
+        $command  = $validated['command'];
+        $commands = [
+            'close_mpro',
+            'reopen_mpro',
+            'open_mpro',
+            'update_mpro',
+            'reboot_pc',
+            'sort_player',
+            'copy_to_local',
+            'open_update_mpro',
+            'close_update_mpro',
+            'reopen_monitor',
+            'apk_install',
+            'open_exception_auto_reboot',
+            'close_exception_auto_reboot',
+        ];
+        if (! in_array($command, $commands)) {
             return response()->json(['message' => 'Command stored failed']);
         }
         $redisKey = "token:{$token}:mac:{$mac}:command";
@@ -84,19 +112,19 @@ class CommandController extends Controller
 
     public function getAndClearCommand(Request $request)
     {
-//        $host = $request->getHost(); // 取得主機名稱
-//        $currentMinute = now()->format('YmdHi'); // 以分鐘為單位統計
-//        $redisKey = "api_calls:{$currentMinute}";
-////        $redisKey = "api_calls:{$host}:{$currentMinute}";
-//        // 記錄次數，並設置 TTL 為 1 天（86400 秒）
-//        Redis::incr($redisKey);
-//        Redis::expire($redisKey, 86400 / 12);
+        //        $host = $request->getHost(); // 取得主機名稱
+        //        $currentMinute = now()->format('YmdHi'); // 以分鐘為單位統計
+        //        $redisKey = "api_calls:{$currentMinute}";
+        ////        $redisKey = "api_calls:{$host}:{$currentMinute}";
+        //        // 記錄次數，並設置 TTL 為 1 天（86400 秒）
+        //        Redis::incr($redisKey);
+        //        Redis::expire($redisKey, 86400 / 12);
 
         if (rand(1, 100) <= 30) { // 30% 機率成立
             return response()->json(['message' => 'no_command']);
         }
-//        $validated['token'] = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
-//        $validated['mac'] = '22:35:4D:08:03:29';
+        //        $validated['token'] = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
+        //        $validated['mac'] = '22:35:4D:08:03:29';
 
         $validated = $request->validate([
             'token' => 'required|string',
