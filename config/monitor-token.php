@@ -217,9 +217,10 @@ return [
         'amount' => '10',
     ],
     'myS4xCet2nlafRRhgb7XCDQqThRvdJwyBTCYfqjXz7g'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
+        'name'   => '少鈞',
+        'date'   => '2025-12-01',
+        'amount' => '1',
+        'pay'    => true
     ],
     'VMq5kvEcnHwSaoDBk8uSrUwh8i2Pjyqal6kwiDqHeEY'  => [
         'name'   => '',
