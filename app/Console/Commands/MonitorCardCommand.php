@@ -153,7 +153,7 @@ class MonitorCardCommand extends Command
 
                     $time_counts = [];
                     foreach ($rows as $role) {
-                        if (preg_match('/(\d+)天\s*(\d+)小?/', $role[12], $matches)) {
+                        if ($role[0] === "1" && preg_match('/(\d+)天\s*(\d+)小?/', $role[12], $matches)) {
                             $time = "{$matches[1]}天 {$matches[2]}小";
                             $time_counts[$time] = ($time_counts[$time] ?? 0) + 1;
                         }
@@ -223,7 +223,8 @@ class MonitorCardCommand extends Command
                         $m_pro_gg_count = 1;
                     }
 
-                    if (in_array($token, $extra) && $m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
+                    if ($m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
+//                    if (in_array($token, $extra) && $m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
                         Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
