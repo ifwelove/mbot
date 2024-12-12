@@ -247,7 +247,10 @@ class MonitorCardCommand extends Command
                             'form_params' => $options['form_params']
                         ]);
                     } else {
-                        Redis::hSet($key, 'm_pro_gg_alert_total', '1');
+                        if ($m_pro_gg_alert_total > 3){
+                            Redis::hSet($key, 'm_pro_gg_count', '1');
+                            Redis::hSet($key, 'm_pro_gg_alert_total', '1');
+                        }
                     }
 
 //                    角色死亡,
