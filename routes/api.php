@@ -40,5 +40,5 @@ Route::get('/apk-latest-filename-r2', [ProxyController::class, 'getApkLatestFile
 //Route::get('/apk-files', [FileController::class, 'apkListFiles']);
 //Route::get('/apk-latest-filename', [FileController::class, 'getApkLatestFileName']);
 
-Route::post('/apk-upload-r2', [FileController::class, 'apkUploadByR2']);
-Route::get('/apk-download-latest-r2', [FileController::class, 'apkDownloadLatestByR2']);
+//Route::post('/apk-upload-r2', [FileController::class, 'apkUploadByR2']);
+//Route::get('/apk-download-latest-r2', [FileController::class, 'apkDownloadLatestByR2']);
