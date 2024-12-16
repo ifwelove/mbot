@@ -59,8 +59,7 @@ class ProxyController extends Controller
 
     public function getApkLatestFileNameByR2(Request $request)
     {
-        $data = Cache::remember('apk_latest_file_name_r2', 1, function () {
-//        $data = Cache::remember('apk_latest_file_name_r2', 300 * 6, function () {
+        $data = Cache::remember('apk_latest_file_name_r2', 300 * 6, function () {
             $files = collect(Storage::disk('r2')
                 ->files('/'))
                 ->filter(function ($file) {
@@ -108,5 +107,17 @@ class ProxyController extends Controller
             'fileName' => $data['file_name'],
             'url'      => $data['url'],
         ]);
+    }
+
+    public function clearApkLatestFileNameR2Cache()
+    {
+        // 清除指定的快取
+        $cacheKey = 'apk_latest_file_name_r2';
+        if (Cache::has($cacheKey)) {
+            Cache::forget($cacheKey); // 清除快取
+            return response()->json(['message' => 'Cache cleared successfully.']);
+        }
+
+        return response()->json(['message' => 'Cache does not exist.'], 404);
     }
 }
