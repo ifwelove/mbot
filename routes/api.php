@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //heroku
 Route::get('/latest-filename', [ProxyController::class, 'getLatestFileName']);
 Route::get('/apk-latest-filename', [ProxyController::class, 'getApkLatestFileName']);
+Route::get('/apk-latest-filename-r2', [ProxyController::class, 'getApkLatestFileNameByR2']);
 
 
 //very6 有用到
