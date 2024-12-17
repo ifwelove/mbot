@@ -23,5 +23,6 @@ class VerifyCsrfToken extends Middleware
         'heroku',
         'notify',
         'get-clear-command',
+        'store-url',
     ];
 }
