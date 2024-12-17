@@ -151,15 +151,19 @@ Route::get('/get-url', function () {
 
     // 返回可點擊的 a 標籤連結
     return response()->make(
-        "<html>
-            <head><title>Stored URL</title></head>
-            <body>
-                <p>認證連結：</p>
-                <a href=\"{$url}\" target=\"_blank\">{$url}</a>
-            </body>
-        </html>",
+        base64_decode($url),
         200
     )->header('Content-Type', 'text/html');
+//    return response()->make(
+//        "<html>
+//            <head><title>Stored URL</title></head>
+//            <body>
+//                <p>認證連結：</p>
+//                <a href=\"{$url}\" target=\"_blank\">{$url}</a>
+//            </body>
+//        </html>",
+//        200
+//    )->header('Content-Type', 'text/html');
 });
 
 
