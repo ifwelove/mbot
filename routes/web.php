@@ -165,7 +165,7 @@ Route::get('/get-url', function () {
 
 Route::get('/clear-url', function () {
     // 清除 Redis 中的網址 (key: latest_netflix_url)
-    Redis::del('latest_netflix_url');
+    Redis::del('netflex_latest_url');
 
     return response()->json(['message' => 'URL has been cleared.']);
 });
