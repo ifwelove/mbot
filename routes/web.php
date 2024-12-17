@@ -125,3 +125,39 @@ Route::get('/track-and-dump', function (Request $request) {
         'data' => $data,
     ]);
 });
+
+
+Route::post('/store-url', function (\Illuminate\Http\Request $request) {
+    // 驗證並接收 URL 參數
+    $url = $request->input('url');
+
+    if (!$url) {
+        return response()->json(['message' => 'URL is required.'], 400);
+    }
+
+    // 存到 Redis，使用 'latest_url' 作為 key
+    Redis::set('netflex_latest_url', $url);
+
+    return response()->json(['message' => 'URL stored successfully.']);
+});
+
+Route::get('/get-url', function () {
+    // 從 Redis 取得網址
+    $url = Redis::get('netflex_latest_url');
+
+    if (!$url) {
+        return response()->json(['message' => 'No URL found.']);
+    }
+
+    // 返回可點擊的 a 標籤連結
+    return response()->make(
+        "<html>
+            <head><title>Stored URL</title></head>
+            <body>
+                <p>認證連結：</p>
+                <a href=\"{$url}\" target=\"_blank\">{$url}</a>
+            </body>
+        </html>",
+        200
+    )->header('Content-Type', 'text/html');
+});
