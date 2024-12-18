@@ -494,4 +494,10 @@ return [
         'amount' => '1',
         'pay'    => true
     ],
+    'yDgRMaL1uOJI6Dy3hT3XozDIZyCSi1XrZ1pK3JOyH8v'  => [
+        'name'   => '青蛙姐夫',
+        'date'   => '2025-12-20',
+        'amount' => '8',
+        'pay'    => true
+    ],
 ];
