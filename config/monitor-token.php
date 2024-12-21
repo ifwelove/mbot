@@ -503,7 +503,7 @@ return [
     'MPJOmuV77B3Av5YcdslrvlR0mdugTr9X8pbjSQYlJzw'  => [
         'name'   => 'biao',
         'date'   => '2025-06-23',
-        'amount' => '1',
+        'amount' => '2',
         'pay'    => true
     ],
 ];
