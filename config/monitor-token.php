@@ -506,4 +506,10 @@ return [
         'amount' => '2',
         'pay'    => true
     ],
+    '13ZnWmzoKicZN2yh8yhz1xBlmC0uoTaLwqKEp38cI3A'  => [
+        'name'   => '小曼',
+        'date'   => '2026-01-01',
+        'amount' => '50',
+        'pay'    => false
+    ],
 ];
