@@ -43,6 +43,8 @@ class CommandController extends Controller
         $token    = $validated['token'];
         $command  = $validated['command'];
         $commands = [
+            'close_all_player',
+            'open_all_player',
             'close_mpro',
             'reopen_mpro',
             'open_mpro',
@@ -85,6 +87,8 @@ class CommandController extends Controller
         $mac      = $validated['mac'];
         $command  = $validated['command'];
         $commands = [
+            'close_all_player',
+            'open_all_player',
             'close_mpro',
             'reopen_mpro',
             'open_mpro',

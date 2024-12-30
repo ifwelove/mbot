@@ -86,22 +86,26 @@
         </button>
     </p>
     <div class="command-container my-3">
-        <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一件關閉大尾</button>
-        <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一件開啟大尾</button>
-        <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一件重開大尾</button>
-        <button class="command-btn-all-mac sort_player-btn btn btn-danger" data-token="{{ $token }}" data-command="sort_player">一件排列模擬器</button>
+        <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一鍵關閉大尾</button>
+        <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一鍵開啟大尾</button>
+        <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一鍵重開大尾</button>
+        <button class="command-btn-all-mac sort_player-btn btn btn-danger" data-token="{{ $token }}" data-command="sort_player">一鍵排列模擬器</button>
     </div>
     <div class="command-container my-3">
-        <button class="command-btn-all-mac reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">一件重新開機</button>
-        <button class="command-btn-all-mac copy_to_local-btn btn btn-danger" data-token="{{ $token }}" data-command="copy_to_local">一件雲端複製到本地</button>
-        <button class="command-btn-all-mac open_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_update_mpro">一件開啟自動更新</button>
-        <button class="command-btn-all-mac close_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_update_mpro">一件關閉自動更新</button>
+        <button class="command-btn-all-mac reboot_pc-btn btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">一鍵重新開機</button>
+        <button class="command-btn-all-mac copy_to_local-btn btn btn-danger" data-token="{{ $token }}" data-command="copy_to_local">一鍵雲端複製到本地</button>
+        <button class="command-btn-all-mac open_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_update_mpro">一鍵開啟自動更新</button>
+        <button class="command-btn-all-mac close_update_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_update_mpro">一鍵關閉自動更新</button>
     </div>
     <div class="command-container my-3">
-        <button class="command-btn-all-mac reopen_monitor-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_monitor">一件重開監視器程式</button>
-        <button class="command-btn-all-mac apk_install-btn btn btn-danger" data-token="{{ $token }}" data-command="apk_install">一件安裝apk</button>
-        <button class="command-btn-all-mac open_exception_auto_reboot-btn btn btn-danger" data-token="{{ $token }}" data-command="open_exception_auto_reboot">一件開啟模擬器畫面異常自動重啟</button>
-        <button class="command-btn-all-mac close_exception_auto_reboot-btn btn btn-danger" data-token="{{ $token }}" data-command="close_exception_auto_reboot">一件關閉模擬器畫面異常自動重啟</button>
+        <button class="command-btn-all-mac reopen_monitor-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_monitor">一鍵重開監視器程式</button>
+        <button class="command-btn-all-mac apk_install-btn btn btn-danger" data-token="{{ $token }}" data-command="apk_install">一鍵安裝apk</button>
+        <button class="command-btn-all-mac open_exception_auto_reboot-btn btn btn-danger" data-token="{{ $token }}" data-command="open_exception_auto_reboot">一鍵開啟模擬器畫面異常自動重啟</button>
+        <button class="command-btn-all-mac close_exception_auto_reboot-btn btn btn-danger" data-token="{{ $token }}" data-command="close_exception_auto_reboot">一鍵關閉模擬器畫面異常自動重啟</button>
+    </div>
+    <div class="command-container my-3">
+        <button class="command-btn-all-mac close_all_player-btn btn btn-danger" data-token="{{ $token }}" data-command="close_all_player">一鍵關閉所有模擬器</button>
+        <button class="command-btn-all-mac open_all_player-btn btn btn-danger" data-token="{{ $token }}" data-command="open_all_player">一鍵開啟所有模擬器</button>
     </div>
 
     <p>
@@ -239,6 +243,8 @@
 {{--                    <td>{{ $machine['mac'] }}</td>--}}
                     <td>{{ $machine['data']['last_updated'] }}</td>
                     <td>
+                        <button class="command-btn close_all_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_all_player">關閉所有模擬器</button>
+                        <button class="command-btn open_all_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_all_player">開啟所有模擬器</button>
                         <button class="command-btn close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_mpro">關閉大尾</button>
                         <button class="command-btn open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_mpro">開啟大尾</button>
                         <button class="command-btn reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_mpro">重開大尾</button>
