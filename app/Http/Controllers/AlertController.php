@@ -287,8 +287,6 @@ class AlertController extends Controller
         $role_gg_alert = $request->post('role_gg_alert', 'yes');
         $dead_gg_alert = $request->post('dead_gg_alert', 'yes');
 
-
-
         try {
             $tokens    = $this->getTokens();
             $maxMacs   = $tokens[$token]['amount'];
@@ -319,23 +317,39 @@ class AlertController extends Controller
                     $m_info = base64_encode(json_encode($m_info));
                 }
             }
-            Redis::hSet($key, 'm_info', $m_info);
-            Redis::hSet($key, 'pc_name', $pc_name);
-            Redis::hSet($key, 'mac', $mac);
-            Redis::hSet($key, 'version', $version);
-            Redis::hSet($key, 'pc_info', $pc_info);
-            Redis::hSet($key, 'status', $alert_status);
-            Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
-            Redis::hSet($key, 'dnplayer', $dnplayer);
-            Redis::hSet($key, 'bag_alert', $bag_alert);
-            Redis::hSet($key, 'role_gg_alert', $role_gg_alert);
-            Redis::hSet($key, 'dead_gg_alert', $dead_gg_alert);
-            Redis::hSet($key, 'pro_version', $pro_version);
-            Redis::hSet($key, 'last_updated', now()->timestamp);
+//            Redis::hSet($key, 'm_info', $m_info);
+//            Redis::hSet($key, 'pc_name', $pc_name);
+//            Redis::hSet($key, 'mac', $mac);
+//            Redis::hSet($key, 'version', $version);
+//            Redis::hSet($key, 'pc_info', $pc_info);
+//            Redis::hSet($key, 'status', $alert_status);
+//            Redis::hSet($key, 'dnplayer_running', $dnplayer_running);
+//            Redis::hSet($key, 'dnplayer', $dnplayer);
+//            Redis::hSet($key, 'bag_alert', $bag_alert);
+//            Redis::hSet($key, 'role_gg_alert', $role_gg_alert);
+//            Redis::hSet($key, 'dead_gg_alert', $dead_gg_alert);
+//            Redis::hSet($key, 'pro_version', $pro_version);
+//            Redis::hSet($key, 'last_updated', now()->timestamp);
+//            Redis::expire($key, 86400 * 7);
+//            Redis::sAdd("token:$token:machines", $mac);
 
-//            Redis::hMSet($key, $value);
-            Redis::expire($key, 86400 * 7);
-            Redis::sAdd("token:$token:machines", $mac);
+            Redis::pipeline(function ($pipe) use ($key, $m_info, $pc_name, $mac, $version, $pc_info, $alert_status, $dnplayer_running, $dnplayer, $bag_alert, $role_gg_alert, $dead_gg_alert, $pro_version, $token) {
+                $pipe->hSet($key, 'm_info', $m_info);
+                $pipe->hSet($key, 'pc_name', $pc_name);
+                $pipe->hSet($key, 'mac', $mac);
+                $pipe->hSet($key, 'version', $version);
+                $pipe->hSet($key, 'pc_info', $pc_info);
+                $pipe->hSet($key, 'status', $alert_status);
+                $pipe->hSet($key, 'dnplayer_running', $dnplayer_running);
+                $pipe->hSet($key, 'dnplayer', $dnplayer);
+                $pipe->hSet($key, 'bag_alert', $bag_alert);
+                $pipe->hSet($key, 'role_gg_alert', $role_gg_alert);
+                $pipe->hSet($key, 'dead_gg_alert', $dead_gg_alert);
+                $pipe->hSet($key, 'pro_version', $pro_version);
+                $pipe->hSet($key, 'last_updated', now()->timestamp);
+                $pipe->expire($key, 86400 * 7);
+                $pipe->sAdd("token:$token:machines", $mac);
+            });
 
             $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token);
             $currentDay  = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
