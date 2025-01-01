@@ -854,6 +854,21 @@ class AlertController extends Controller
         $dnplayer_running_total = 0;
         $dnplayer_total         = 0;
         $macAddresses           = Redis::sMembers("token:$token:machines");
+        // 生成所有需要获取的键
+        $keys = array_map(function ($mac) use ($token) {
+            return "token:$token:mac:$mac";
+        }, $macAddresses);
+        // 使用 Pipeline 批量获取所有机器数据
+        $machines = Redis::pipeline(function ($pipe) use ($keys) {
+            foreach ($keys as $key) {
+                $pipe->hGetAll($key);
+            }
+        });
+        // 将结果与 MAC 地址对应
+        $result = [];
+        foreach ($macAddresses as $index => $mac) {
+            $result[$mac] = $machines[$index]; // 每个 MAC 对应的机器数据
+        }
         //        dump($macAddresses);
         $machines               = [];
         $m_info                 = [
@@ -870,9 +885,10 @@ class AlertController extends Controller
             '角色死亡',
         ];
         $merges   = [];
-        foreach ($macAddresses as $mac) {
+        foreach ($result as $mac => $machine) {
+//        foreach ($macAddresses as $mac) {
             $key         = "token:$token:mac:$mac";
-            $machine     = Redis::hGetAll($key);
+//            $machine     = Redis::hGetAll($key);
             $lastUpdated = $machine['last_updated'] ?? 0;
             if (now()->timestamp - $lastUpdated > 1800) {
                 Redis::hSet($key, 'status', 'pc_not_open');

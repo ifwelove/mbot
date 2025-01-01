@@ -55,10 +55,42 @@ class MonitorCrashCommand extends Command
 //                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
 //                    continue;
 //                }
+                // 获取所有 mac 地址
                 $macAddresses = Redis::sMembers("token:$token:machines");
-                foreach ($macAddresses as $mac) {
+                if (empty($macAddresses)) {
+                    continue; // 如果没有 MAC 地址，跳过
+                }
+
+                // 生成所有需要获取的键
+                $keys = array_map(function ($mac) use ($token) {
+                    return "token:$token:mac:$mac";
+                }, $macAddresses);
+
+                // 使用 Pipeline 批量获取所有机器数据
+                $machines = Redis::pipeline(function ($pipe) use ($keys) {
+                    foreach ($keys as $key) {
+                        $pipe->hGetAll($key);
+                    }
+                });
+
+                // 将结果与 MAC 地址对应
+                $result = [];
+                foreach ($macAddresses as $index => $mac) {
+                    $result[$mac] = $machines[$index]; // 每个 MAC 对应的机器数据
+                }
+
+                // 此时 $result 包含所有 MAC 地址及其数据
+                // 你可以根据需要进一步处理 $result
+                foreach ($result as $mac => $machine) {
+                    // 在这里对每台机器的数据进行处理
+//                    dd($machine);
+//                    Log::info("MAC: $mac, Data: " . json_encode($machine));
+//                }
+//                $macAddresses = Redis::sMembers("token:$token:machines");
+//                foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
-                    $machine     = Redis::hGetAll($key);
+//                    $machine     = Redis::hGetAll($key);
+//                    dump($machine);
                     $lastUpdated = $machine['last_updated'] ?? 0;
 
                     //@todo 待測試穩定
@@ -67,8 +99,6 @@ class MonitorCrashCommand extends Command
 //                        if ($machine['status'] != 'pc_not_open') {
 //                            Redis::hSet($key, 'status', 'pc_not_open');
 //                        }
-//                    dump($machine['pc_name']);
-//                    dump($machine['crash_alert_total']);
                     if (isset($machine['crash_alert_total'])) {
                         $crash_alert_total = (int) $machine['crash_alert_total'] + 1;
                     } else {
