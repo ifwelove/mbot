@@ -44,21 +44,21 @@ class AlertController extends Controller
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有回應', $breakLine);
                 $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
-                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/pro', $token);
+                $message .= sprintf('網頁版 : %s/%s', 'https://lbs.a5963745.workers.dev/pro', $token);
                 break;
             case ($alert_status === 'plugin_not_open') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '沒有執行', $breakLine);
                 $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
-                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/pro', $token);
+                $message .= sprintf('網頁版 : %s/%s', 'https://lbs.a5963745.workers.dev/pro', $token);
                 break;
             case ($alert_status === 'success') :
                 $message .= sprintf('自訂代號 : %s%s', $pc_name, $breakLine);
                 $message .= sprintf('電腦資訊 : %s%s', $pc_info, $breakLine);
                 $message .= sprintf('大尾狀態 : %s%s', '正常運作中', $breakLine);
                 $message .= sprintf('模擬器數量 : %s/%s%s', $dnplayer_running, $dnplayer, $breakLine);
-                $message .= sprintf('網頁版 : %s/%s', 'https://mbot-3-ac8b63fd9692.herokuapp.com/pro', $token);
+                $message .= sprintf('網頁版 : %s/%s', 'https://lbs.a5963745.workers.dev/pro', $token);
                 break;
             default:
                 $message .= $pc_message;
@@ -287,7 +287,6 @@ class AlertController extends Controller
         $role_gg_alert = $request->post('role_gg_alert', 'yes');
         $dead_gg_alert = $request->post('dead_gg_alert', 'yes');
 
-        $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token);
 
 
         try {
@@ -300,62 +299,7 @@ class AlertController extends Controller
                     return response(sprintf('電腦台數限制 %s 已滿請聯繫作者', $maxMacs), 200)->header('Content-Type', 'text/plain');
                 }
             }
-
-            $currentDay  = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
-            $currentTime = date('H:i'); // 獲取當前時間（24小時制）
-
-            if (! ($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
-                $client  = new Client();
-                $headers = [
-                    'Authorization' => sprintf('Bearer %s', $token),
-                    'Content-Type'  => 'application/x-www-form-urlencoded'
-                ];
-                $options = [
-                    'form_params' => [
-                        'message' => $message
-                    ]
-                ];
-
-                // 暫時停用看看
-                if ($alert_type === 'all') {
-                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                        'headers'     => $headers,
-                        'form_params' => $options['form_params']
-                    ]);
-                }
-
-                if (in_array($alert_status, ['failed', 'plugin_not_open'])) {
-//                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
-                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                        'headers'     => $headers,
-                        'form_params' => $options['form_params']
-                    ]);
-                }
-            }
-            //            $m_info = json_decode(base64_decode($m_info), true);
             $key   = "token:$token:mac:$mac";
-//            $value = [
-//                'pc_name'          => $pc_name,
-//                'status'           => $alert_status,
-//                'dnplayer_running' => $dnplayer_running,
-//                'dnplayer'         => $dnplayer,
-////                'm_info'           => $m_info,
-//                'last_updated'     => now()->timestamp
-//            ];
-//            $client   = new Client();
-//            $headers  = [
-//                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
-//                'Content-Type'  => 'application/x-www-form-urlencoded'
-//            ];
-//            $options  = [
-//                'form_params' => [
-//                    'message' => json_encode(['key' => $key, 'value' => json_encode($value)])
-//                ]
-//            ];
-//            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-//                'headers'     => $headers,
-//                'form_params' => $options['form_params']
-//            ]);
             if (! is_null($m_info)) {
                 $machine     = Redis::hGetAll($key);
                 $rows_old = [];
@@ -393,26 +337,76 @@ class AlertController extends Controller
             Redis::expire($key, 86400 * 7);
             Redis::sAdd("token:$token:machines", $mac);
 
+            $message = $this->getMessage($alert_status, $pc_message, $pc_name, $pc_info, $dnplayer_running, $dnplayer, $token);
+            $currentDay  = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
+            $currentTime = date('H:i'); // 獲取當前時間（24小時制）
+            if (! ($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
+                $client  = new Client();
+                $headers = [
+                    'Authorization' => sprintf('Bearer %s', $token),
+                    'Content-Type'  => 'application/x-www-form-urlencoded'
+                ];
+                $options = [
+                    'form_params' => [
+                        'message' => $message
+                    ]
+                ];
+                // 暫時停用看看
+                if ($alert_type === 'all') {
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params'],
+                        'timeout'     => 5,
+                    ]);
+                }
+
+                if (in_array($alert_status, ['failed', 'plugin_not_open'])) {
+                    //                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
+                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                        'headers'     => $headers,
+                        'form_params' => $options['form_params'],
+                        'timeout'     => 5,
+                    ]);
+                }
+            }
         } catch (\Exception $e) {
             $client   = new Client();
             $headers  = [
                 'Authorization' => sprintf('Bearer %s', $owen_token),
                 'Content-Type'  => 'application/x-www-form-urlencoded'
             ];
-            $options  = [
+            $errorInfo = [
+                'token'    => $token,
+                'message'    => $e->getMessage(),
+                'file'       => $e->getFile(),
+                'line'       => $e->getLine(),
+                'code'       => $e->getCode(),
+                'trace'      => $this->getShortTrace($e->getTraceAsString(), 5), // 仅取前 5 行
+            ];
+            $options = [
                 'form_params' => [
-                    'message' => json_encode([$e->getMessage(), $request->all()])
+                    'message' => json_encode($errorInfo, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT),
                 ]
             ];
+//            $options  = [
+//                'form_params' => [
+//                    'message' => json_encode([$e->getMessage(), $token, $e])
+//                ]
+//            ];
             $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                 'headers'     => $headers,
-                'form_params' => $options['form_params']
+                'form_params' => $options['form_params'],
+                'timeout'     => 5,
             ]);
         }
-
-
         //        return response($value, 200)->header('Content-Type', 'application/json');
         return response('', 200)->header('Content-Type', 'text/plain');
+    }
+
+    private function getShortTrace(string $trace, int $lines = 5): string
+    {
+        $traceLines = explode("\n", $trace);
+        return implode("\n", array_slice($traceLines, 0, $lines));
     }
 
     public function alert(Request $request)
@@ -595,7 +589,7 @@ class AlertController extends Controller
         $token = $request->post('token');
         if (isset($tokens[$token])) {
             dump('申請已通過, 通過後可在下方連結看到專屬網頁');
-            dd('https://mbot-3-ac8b63fd9692.herokuapp.com/pro/' . $token);
+            dd('https://lbs.a5963745.workers.dev/pro/' . $token);
         }
         $client   = new Client();
         $headers  = [
@@ -613,7 +607,7 @@ class AlertController extends Controller
         ]);
         dump($token);
         dump('審核申請中, 通過後可在下方連結看到專屬網頁');
-        dump('https://mbot-3-ac8b63fd9692.herokuapp.com/pro/' . $token);
+        dump('https://lbs.a5963745.workers.dev/pro/' . $token);
     }
 
     public function shareToken()
@@ -1221,7 +1215,7 @@ class AlertController extends Controller
         Redis::del($key);
         Redis::sRem("token:$token:machines", $mac);
 
-        return redirect(sprintf('https://mbot-3-ac8b63fd9692.herokuapp.com/pro/%s', $token));
+        return redirect(sprintf('https://lbs.a5963745.workers.dev/pro/%s', $token));
     }
 
 
