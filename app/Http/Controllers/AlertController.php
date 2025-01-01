@@ -279,9 +279,6 @@ class AlertController extends Controller
         $alert_status     = $request->post('alert_status', 'success');
         $alert_type       = $request->post('alert_type', 'error');
         $mac              = $request->post('mac');
-        if ($mac == '00:F1:F3:D0:2B:AE') {
-            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
-        }
         $version              = $request->post('version');
         $dnplayer         = $request->post('dnplayer', 0);
         $dnplayer_running = $request->post('dnplayer_running', 0);
@@ -319,6 +316,7 @@ class AlertController extends Controller
                     ]
                 ];
 
+                // 暫時停用看看
                 if ($alert_type === 'all') {
                     $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                         'headers'     => $headers,
@@ -326,7 +324,8 @@ class AlertController extends Controller
                     ]);
                 }
 
-                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
+                if (in_array($alert_status, ['failed', 'plugin_not_open'])) {
+//                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
                     $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
                         'headers'     => $headers,
                         'form_params' => $options['form_params']
