@@ -240,14 +240,14 @@ class AlertController extends Controller
 //        if (rand(1, 100) <= 50) { // 30% 機率成立
 //            return response('', 200)->header('Content-Type', 'text/plain');
 //        }
-        ignore_user_abort(true);
-        set_time_limit(0);
+//        ignore_user_abort(true);
+//        set_time_limit(0);
         // Send the response to the client
-        response()->json()->send();
+//        response()->json()->send();
         // If you're using FastCGI, this will end the request/response cycle
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request();
-        }
+//        if (function_exists('fastcgi_finish_request')) {
+//            fastcgi_finish_request();
+//        }
 
         $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
         $token      = $request->post('token');
