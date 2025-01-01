@@ -154,6 +154,11 @@ return [
             'password' => $redisUrl['pass'],
             'port'     => $redisUrl['port'],
             'database' => env('REDIS_DB', '0'),
+            'options' => [
+                'parameters' => ['persistent' => true], // 启用持久连接
+            ],
+            'timeout'  => 5.0, // 连接超时时间（秒）
+            'read_write_timeout' => 10.0, // 读写超时时间（秒）
         ],
 
         'cache' => [
