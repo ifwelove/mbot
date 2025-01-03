@@ -252,13 +252,13 @@ class MonitorCardCommand extends Command
                     }
 
 //                    if ($m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
-                    if (in_array($token, $extra) && $m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
+                    if (in_array($token, $extra) && $m_pro_gg_count > 12 && $m_pro_gg_alert_total <= 3) {
                         Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                         $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
-                        $message   .= sprintf('大尾狀態 : %s:%s', '資料出現異常請人工排除', $breakLine);
+                        $message   .= sprintf('大尾狀態 : %s:%s', '可能出黑屏現異常請人工排除', $breakLine);
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
                         $client   = new Client();
                         $headers  = [
