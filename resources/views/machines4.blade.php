@@ -231,7 +231,12 @@
                         <span class="status-icon {{ $machine['data']['status'] }}"></span>
                         {{ $machine['data']['status'] }}
                     </td>
-                    <td>@foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach</td>
+                    <td>
+                        @foreach ($machine['rows'] as $status => $total){{ $status }}:{{ $total }}<br>@endforeach
+                        @if (isset($machine['m_pro_gg_count']) && $machine['m_pro_gg_count'] > 6)
+                            模擬器黑屏異常
+                        @endif
+                    </td>
                     <td>{{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}</td>
                     <td>
                         @foreach ($machine['money_rows'] as $server => $items)
