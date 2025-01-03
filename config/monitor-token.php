@@ -512,4 +512,10 @@ return [
         'amount' => '50',
         'pay'    => false
     ],
+    'XVM0o2lTbVUd6IBv9JDQGiTz1fm96QN9bRS02gGmY5x'  => [
+        'name'   => 'yee',
+        'date'   => '2026-01-01',
+        'amount' => '60',
+        'pay'    => false
+    ],
 ];
