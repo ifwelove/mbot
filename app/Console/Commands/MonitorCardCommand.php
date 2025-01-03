@@ -252,7 +252,7 @@ class MonitorCardCommand extends Command
                     }
 
 //                    if ($m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
-                    if (in_array($token, $extra) && $m_pro_gg_count > 12 && $m_pro_gg_alert_total <= 3) {
+                    if (in_array($token, $extra) && $m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
                         Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
                         $breakLine = "\n";
                         $message   = $breakLine;
