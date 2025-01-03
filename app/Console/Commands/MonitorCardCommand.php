@@ -69,6 +69,7 @@ class MonitorCardCommand extends Command
                 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB',
 //                'bWBWihKBoPyGbNN5Ht14TtBtfN0H9f7quS1fV7LCyU3',
                 '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu',
+                'XVM0o2lTbVUd6IBv9JDQGiTz1fm96QN9bRS02gGmY5x',
                 ];
             foreach ($tokens as $token => $name) {
 //                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
