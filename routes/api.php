@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/latest-filename', [ProxyController::class, 'getLatestFileName']);
 Route::get('/apk-latest-filename', [ProxyController::class, 'getApkLatestFileName']);
 Route::get('/apk-latest-filename-r2', [ProxyController::class, 'getApkLatestFileNameByR2']);
+Route::get('/apk-64-latest-filename-r2', [ProxyController::class, 'getApk64LatestFileNameByR2']);
 Route::delete('/cache/apk-latest-file-name-r2', [ProxyController::class, 'clearApkLatestFileNameR2Cache']);
 
 

@@ -37,6 +37,14 @@ return [
             'bucket' => env('R2_BUCKET'),
             'endpoint' => env('R2_ENDPOINT'),
         ],
+        '64r2' => [
+            'driver' => 's3',
+            'key' => env('R2_ACCESS_KEY'),
+            'secret' => env('R2_SECRET_KEY'),
+            'region' => 'auto', // R2 不需要明確設定區域
+            'bucket' => env('64R2_BUCKET', '64linm'),
+            'endpoint' => env('R2_ENDPOINT'),
+        ],
         //very6 使用中
         'mpro' => [
             'driver' => 'local',
