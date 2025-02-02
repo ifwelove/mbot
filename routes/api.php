@@ -28,6 +28,7 @@ Route::get('/apk-latest-filename', [ProxyController::class, 'getApkLatestFileNam
 Route::get('/apk-latest-filename-r2', [ProxyController::class, 'getApkLatestFileNameByR2']);
 Route::get('/apk-64-latest-filename-r2', [ProxyController::class, 'getApk64LatestFileNameByR2']);
 Route::delete('/cache/apk-latest-file-name-r2', [ProxyController::class, 'clearApkLatestFileNameR2Cache']);
+Route::delete('/cache/apk-64-latest-file-name-r2', [ProxyController::class, 'clearApk64LatestFileNameR2Cache']);
 
 
 //very6 有用到

@@ -173,4 +173,16 @@ class ProxyController extends Controller
 
         return response()->json(['message' => 'Cache does not exist.'], 404);
     }
+
+    public function clearApk64LatestFileNameR2Cache()
+    {
+        // 清除指定的快取
+        $cacheKey = 'apk_64_latest_file_name_r2';
+        if (Cache::has($cacheKey)) {
+            Cache::forget($cacheKey); // 清除快取
+            return response()->json(['message' => 'Cache cleared successfully.']);
+        }
+
+        return response()->json(['message' => 'Cache does not exist.'], 404);
+    }
 }
