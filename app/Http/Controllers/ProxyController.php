@@ -185,4 +185,69 @@ class ProxyController extends Controller
 
         return response()->json(['message' => 'Cache does not exist.'], 404);
     }
+
+    public function clearMproLatestFileNameR2Cache()
+    {
+        // 清除指定的快取
+        $cacheKey = 'mpro_latest_file_name_r2';
+        if (Cache::has($cacheKey)) {
+            Cache::forget($cacheKey); // 清除快取
+            return response()->json(['message' => 'Cache cleared successfully.']);
+        }
+
+        return response()->json(['message' => 'Cache does not exist.'], 404);
+    }
+
+    public function getMproLatestFileNameByR2(Request $request)
+    {
+        $data = Cache::remember('mpro_latest_file_name_r2', 300 * 6, function () {
+            $files = collect(Storage::disk('mpror2')
+                ->files('/'))
+                ->filter(function ($file) {
+                    return preg_match('/\.rar$/', $file); // 只匹配 .rar 文件
+                })
+                ->mapWithKeys(function ($file) {
+                    return [
+                        $file => Storage::disk('mpror2')
+                            ->lastModified($file)
+                    ]; // 使用文件的最后修改时间
+                })
+                ->sortByDesc(function ($timestamp, $file) {
+                    return $timestamp; // 按最后修改时间排序
+                })
+                ->keys();
+
+            if ($files->isEmpty()) {
+                return null; // 如果没有文件，返回 null
+            }
+
+            $latestFile = $files->first();
+
+            // 生成下载 URL
+            $temporaryUrl = Storage::disk('mpror2')
+                ->temporaryUrl($latestFile, now()->addMinutes(60), // 设置 URL 的有效期
+                    [
+                        'ResponseContentType'        => 'application/x-rar-compressed',
+                        'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
+                    ]);
+
+            return redirect()->away($temporaryUrl, 302);
+//            return [
+//                'file_name' => basename($latestFile),
+//                'url'       => $temporaryUrl,
+//            ];
+        });
+
+        // 如果没有找到文件
+        if (is_null($data)) {
+            return 'No file found';
+            //                return response()->json(['message' => 'No files found'], 404);
+        }
+
+        // 返回结果
+        return response()->json([
+            'fileName' => $data['file_name'],
+            'url'      => $data['url'],
+        ]);
+    }
 }
