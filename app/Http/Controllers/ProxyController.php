@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Aws\S3\S3Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -253,28 +254,71 @@ class ProxyController extends Controller
     }
 
 
-    public function getPresignedUrl(Request $request)
+//    public function getPresignedUrl(Request $request)
+//    {
+//        // 1. 從前端或 Postman 帶檔名進來 (也可自己後端生)
+//        //    這裡你可以用 $request->input('fileName'); 或其他方式取得檔名
+//        $fileName = $request->input('fileName', 'my-default-file.rar');
+//
+//        // 2. 產生 R2 預簽名 URL（有效期 1 小時、可調整）
+//        $temporaryUrl = Storage::disk('mpror2')->temporaryUrl(
+//            $fileName,
+//            now()->addHour(),
+//            [
+//                'ResponseContentType' => 'application/x-rar-compressed',
+//                // 這裡的 ContentDisposition 是 R2 在用 GET 下載時才會帶給客戶端
+//                // 若你只是單純要上傳，可以不一定需要
+//                'ResponseContentDisposition' => 'attachment; filename="' . $fileName . '"',
+//            ]
+//        );
+//
+//        // 3. 回傳給前端（或 Postman）使用
+//        return response()->json([
+//            'presignedUrl' => $temporaryUrl,
+//            'fileName' => $fileName
+//        ]);
+//    }
+
+    public function getPresignedUrlForUpload(Request $request)
     {
-        // 1. 從前端或 Postman 帶檔名進來 (也可自己後端生)
-        //    這裡你可以用 $request->input('fileName'); 或其他方式取得檔名
-        $fileName = $request->input('fileName', 'my-default-file.rar');
+        // 檔案名稱，可以前端帶參數，也可以自己後端定義
+        $fileName = $request->input('fileName', 'default-file.rar');
 
-        // 2. 產生 R2 預簽名 URL（有效期 1 小時、可調整）
-        $temporaryUrl = Storage::disk('mpror2')->temporaryUrl(
-            $fileName,
-            now()->addHour(),
-            [
-                'ResponseContentType' => 'application/x-rar-compressed',
-                // 這裡的 ContentDisposition 是 R2 在用 GET 下載時才會帶給客戶端
-                // 若你只是單純要上傳，可以不一定需要
-                'ResponseContentDisposition' => 'attachment; filename="' . $fileName . '"',
-            ]
-        );
+        // R2 帳號、密鑰等你自己要去 .env 或 config 中撈
+        $accessKey = config('filesystems.disks.mpror2.key');
+        $secretKey = config('filesystems.disks.mpror2.secret');
+        $bucket    = config('filesystems.disks.mpror2.bucket');
+        $endpoint  = 'https://'.config('filesystems.disks.mpror2.account_id').'.r2.cloudflarestorage.com';
+        // 上面 endpoint 要替換成你的 R2 設定
 
-        // 3. 回傳給前端（或 Postman）使用
+        // 建立 S3Client
+        $s3 = new S3Client([
+            'version'     => 'latest',
+            'region'      => 'auto',  // Cloudflare R2 常用 "auto"
+            'endpoint'    => $endpoint,
+            'credentials' => [
+                'key'    => $accessKey,
+                'secret' => $secretKey,
+            ],
+        ]);
+
+        // 建立一個 putObject 的 Command，表示要上傳檔案
+        $cmd = $s3->getCommand('putObject', [
+            'Bucket'      => $bucket,
+            'Key'         => $fileName,
+            // 這個可視需求而定，若想帶 Content-Type
+            'ContentType' => 'application/x-rar-compressed',
+        ]);
+
+        // 產生預簽名請求，設定時效（例如 60 分鐘）
+        $requestAws = $s3->createPresignedRequest($cmd, '+60 minutes');
+
+        // 取得實際可用的預簽名 URL
+        $uploadUrl = (string)$requestAws->getUri();
+
         return response()->json([
-            'presignedUrl' => $temporaryUrl,
-            'fileName' => $fileName
+            'fileName'     => $fileName,
+            'presignedUrl' => $uploadUrl,
         ]);
     }
 }
