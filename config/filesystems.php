@@ -52,6 +52,7 @@ return [
             'region' => 'auto', // R2 不需要明確設定區域
             'bucket' => env('MPROR2_BUCKET', 'mpro'),
             'endpoint' => env('R2_ENDPOINT'),
+            'account_id' => env('R2_ACCOUNT_ID', '69036bf2096bfe2e72462cb59ff4366c'),
         ],
         //very6 使用中
         'mpro' => [
