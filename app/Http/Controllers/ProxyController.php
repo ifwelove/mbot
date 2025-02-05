@@ -251,4 +251,30 @@ class ProxyController extends Controller
 //            'url'      => $data['url'],
 //        ]);
     }
+
+
+    public function getPresignedUrl(Request $request)
+    {
+        // 1. 從前端或 Postman 帶檔名進來 (也可自己後端生)
+        //    這裡你可以用 $request->input('fileName'); 或其他方式取得檔名
+        $fileName = $request->input('fileName', 'my-default-file.rar');
+
+        // 2. 產生 R2 預簽名 URL（有效期 1 小時、可調整）
+        $temporaryUrl = Storage::disk('mpror2')->temporaryUrl(
+            $fileName,
+            now()->addHour(),
+            [
+                'ResponseContentType' => 'application/x-rar-compressed',
+                // 這裡的 ContentDisposition 是 R2 在用 GET 下載時才會帶給客戶端
+                // 若你只是單純要上傳，可以不一定需要
+                'ResponseContentDisposition' => 'attachment; filename="' . $fileName . '"',
+            ]
+        );
+
+        // 3. 回傳給前端（或 Postman）使用
+        return response()->json([
+            'presignedUrl' => $temporaryUrl,
+            'fileName' => $fileName
+        ]);
+    }
 }

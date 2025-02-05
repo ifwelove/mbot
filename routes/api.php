@@ -33,6 +33,8 @@ Route::delete('/cache/apk-64-latest-file-name-r2', [ProxyController::class, 'cle
 Route::delete('/cache/mpro-latest-file-name-r2', [ProxyController::class, 'clearMproLatestFileNameR2Cache']);
 
 
+Route::post('get-r2-url', [ProxyController::class, 'getPresignedUrl']);
+
 //very6 有用到
 //use App\Http\Controllers\FileController;
 //
