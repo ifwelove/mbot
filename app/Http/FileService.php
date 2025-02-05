@@ -5,6 +5,7 @@ namespace App\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
@@ -31,6 +32,48 @@ class FileService
         });
 
         return $latestFileName;
+    }
+
+    public function getLatestFileNameByR2()
+    {
+        $data = Cache::remember('mpro_latest_file_name_r2', 600 * 6, function () {
+            $files = collect(Storage::disk('mpror2')
+                ->files('/'))
+                ->filter(function ($file) {
+                    return preg_match('/\.rar$/', $file); // 只匹配 .rar 文件
+                })
+                ->mapWithKeys(function ($file) {
+                    return [
+                        $file => Storage::disk('mpror2')
+                            ->lastModified($file)
+                    ]; // 使用文件的最后修改时间
+                })
+                ->sortByDesc(function ($timestamp, $file) {
+                    return $timestamp; // 按最后修改时间排序
+                })
+                ->keys();
+
+            if ($files->isEmpty()) {
+                return null; // 如果没有文件，返回 null
+            }
+
+            $latestFile = $files->first();
+
+            // 生成下载 URL
+            $temporaryUrl = Storage::disk('mpror2')
+                ->temporaryUrl($latestFile, now()->addMinutes(60), // 设置 URL 的有效期
+                    [
+                        'ResponseContentType'        => 'application/x-rar-compressed',
+                        'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
+                    ]);
+
+            return [
+                'file_name' => basename($latestFile),
+                'url'       => $temporaryUrl,
+            ];
+        });
+
+        return $data['file_name'];
     }
 
     public function getApkLatestFileName()

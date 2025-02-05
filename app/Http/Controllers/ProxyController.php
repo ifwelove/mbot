@@ -200,7 +200,7 @@ class ProxyController extends Controller
 
     public function getMproLatestFileNameByR2(Request $request)
     {
-        $data = Cache::remember('mpro_latest_file_name_r2', 300 * 6, function () {
+        $data = Cache::remember('mpro_latest_file_name_r2', 600 * 6, function () {
             $files = collect(Storage::disk('mpror2')
                 ->files('/'))
                 ->filter(function ($file) {
@@ -231,11 +231,11 @@ class ProxyController extends Controller
                         'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
                     ]);
 
-            return redirect()->away($temporaryUrl, 302);
-//            return [
-//                'file_name' => basename($latestFile),
-//                'url'       => $temporaryUrl,
-//            ];
+//            return redirect()->away($temporaryUrl, 302);
+            return [
+                'file_name' => basename($latestFile),
+                'url'       => $temporaryUrl,
+            ];
         });
 
         // 如果没有找到文件
@@ -244,10 +244,11 @@ class ProxyController extends Controller
             //                return response()->json(['message' => 'No files found'], 404);
         }
 
+        return redirect()->away($data['url'], 302);
         // 返回结果
-        return response()->json([
-            'fileName' => $data['file_name'],
-            'url'      => $data['url'],
-        ]);
+//        return response()->json([
+//            'fileName' => $data['file_name'],
+//            'url'      => $data['url'],
+//        ]);
     }
 }
