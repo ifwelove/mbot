@@ -533,7 +533,7 @@ return [
     'DDs7eTEtRakMR4ZLrLkRdOUR1GWuTYPfddKNgxVP0OI'  => [
         'name'   => '',
         'date'   => '2026-01-01',
-        'amount' => '1',
+        'amount' => '2',
         'pay'    => false
     ],
     'qlso6EkZIbHcMg7buOpmtmBxQYQ9WZzxntEMhWQZFCJ'  => [
