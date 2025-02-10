@@ -531,10 +531,10 @@ return [
         'pay'    => false
     ],
     'DDs7eTEtRakMR4ZLrLkRdOUR1GWuTYPfddKNgxVP0OI'  => [
-        'name'   => '',
+        'name'   => 'YU Sheng',
         'date'   => '2026-01-01',
-        'amount' => '2',
-        'pay'    => false
+        'amount' => '3',
+        'pay'    => true
     ],
     'qlso6EkZIbHcMg7buOpmtmBxQYQ9WZzxntEMhWQZFCJ'  => [
         'name'   => '',
