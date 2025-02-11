@@ -533,7 +533,7 @@ return [
     'DDs7eTEtRakMR4ZLrLkRdOUR1GWuTYPfddKNgxVP0OI'  => [
         'name'   => 'YU Sheng',
         'date'   => '2026-01-01',
-        'amount' => '3',
+        'amount' => '5',
         'pay'    => true
     ],
     'qlso6EkZIbHcMg7buOpmtmBxQYQ9WZzxntEMhWQZFCJ'  => [
