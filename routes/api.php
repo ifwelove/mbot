@@ -31,6 +31,7 @@ Route::get('/mpro-latest-filename-r2', [ProxyController::class, 'getMproLatestFi
 Route::delete('/cache/apk-latest-file-name-r2', [ProxyController::class, 'clearApkLatestFileNameR2Cache']);
 Route::delete('/cache/apk-64-latest-file-name-r2', [ProxyController::class, 'clearApk64LatestFileNameR2Cache']);
 Route::delete('/cache/mpro-latest-file-name-r2', [ProxyController::class, 'clearMproLatestFileNameR2Cache']);
+Route::get('/cache/mpro-latest-file-name-r2', [ProxyController::class, 'clearMproLatestFileNameR2Cache']);
 
 
 //Route::post('get-r2-url', [ProxyController::class, 'getPresignedUrl']);
