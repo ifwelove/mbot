@@ -519,9 +519,9 @@ return [
         'pay'    => false
     ],
     '4LdxFQXogMd5ZN79H7DlSYDnWITV89IfDiMvSIbqdsI'  => [
-        'name'   => '易',
+        'name'   => '智',
         'date'   => '2026-01-01',
-        'amount' => '10',
+        'amount' => '1',
         'pay'    => false
     ],
     'iOJ1dB0NlxdmaCAgIPJVqijK0FKu9xFH376bthsCs48'  => [
