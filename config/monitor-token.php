@@ -556,9 +556,10 @@ return [
     ],
     'cJ2cBSi8yPXC85kLyaxcT6xQZMcskSjng36aejF6Ouq'  => [
         'name'   => '小顏',
-        'date'   => '2026-01-01',
+        'date'   => '2026-03-01',
         'amount' => '9',
-        'pay'    => false
+        'pay'    => true,
+        'pay_date'    => '2025-02-17'
     ],
     'Qx85ezFmgoZIxt8ldPB81Yaj08ugTD4ARYq0nSQqEQ9'  => [
         'name'   => '慢',
@@ -570,6 +571,12 @@ return [
         'name'   => '慢',
         'date'   => '2026-01-01',
         'amount' => '50',
+        'pay'    => false
+    ],
+    'BVZ63in2ntQj6YIlRX5rx7bezIhIb1DYq3MwSU5dRv6'  => [
+        'name'   => 'Sam',
+        'date'   => '2026-03-01',
+        'amount' => '3',
         'pay'    => false
     ],
 ];
