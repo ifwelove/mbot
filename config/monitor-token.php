@@ -597,4 +597,16 @@ return [
         'amount' => '18',
         'pay'    => false
     ],
+    'tzjFB4wh7nuRnf83bbo3JML1n4Wn3lFG85obmOn8jt9'  => [
+        'name'   => '另一個小白',
+        'date'   => '2026-03-01',
+        'amount' => '18',
+        'pay'    => false
+    ],
+    'qYG4UZdJ0OojF0cFU1F1qLQi9AYl9KqNTTjvHYYpyhx'  => [
+        'name'   => '德鋼 江欽輝',
+        'date'   => '2026-03-01',
+        'amount' => '1',
+        'pay'    => false
+    ],
 ];
