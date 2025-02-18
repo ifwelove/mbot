@@ -609,4 +609,10 @@ return [
         'amount' => '1',
         'pay'    => false
     ],
+    'MKZrUucOiz3fM1Nq5FU5mePr4WknaiuxfJRAZA0wPbN'  => [
+        'name'   => 'S',
+        'date'   => '2026-03-01',
+        'amount' => '15',
+        'pay'    => false
+    ],
 ];
