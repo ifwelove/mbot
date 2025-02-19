@@ -597,12 +597,6 @@ return [
         'amount' => '18',
         'pay'    => false
     ],
-    'tzjFB4wh7nuRnf83bbo3JML1n4Wn3lFG85obmOn8jt9'  => [
-        'name'   => '另一個小白',
-        'date'   => '2026-03-01',
-        'amount' => '18',
-        'pay'    => false
-    ],
     'qYG4UZdJ0OojF0cFU1F1qLQi9AYl9KqNTTjvHYYpyhx'  => [
         'name'   => '德鋼 江欽輝',
         'date'   => '2026-03-01',
@@ -616,9 +610,9 @@ return [
         'pay'    => false
     ],
     'ESSiHtaj6fhsBv190FiKB1zrv7uR2rIepjnnQPhhuIO'  => [
-        'name'   => '另一個小白2',
-        'date'   => '2026-03-01',
-        'amount' => '18',
+        'name'   => '另一個小白',
+        'date'   => '2025-09-01',
+        'amount' => '27',
         'pay'    => false
     ],
     'iOifb1TgypFdT240G2Xh4UT6RRlEfpd7mZCI17cfFNG'  => [
