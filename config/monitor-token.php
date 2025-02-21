@@ -2,6 +2,7 @@
 
 return [
     'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'  => [
+        'telegram' => 7989823638,
         'name'   => 'very6',
         'date'   => '2025-01-01',
         'amount' => '20',
