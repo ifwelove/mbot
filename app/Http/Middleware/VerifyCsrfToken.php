@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/callback',
+        'callback',
         'alert',
         'alert2',
         'check/token',
@@ -26,5 +26,6 @@ class VerifyCsrfToken extends Middleware
         'store-all-mac-command',
         'store-command',
         'store-url',
+        'telegram/webhook',
     ];
 }
