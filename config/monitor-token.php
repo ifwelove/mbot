@@ -652,4 +652,10 @@ return [
         'amount' => '5',
         'pay'    => false
     ],
+    'mNPUL3NPfL2QkdhHIr4j8enAO7FPFl2562w7r6pgJSI'  => [
+        'name'   => '賴明志',
+        'date'   => '2026-03-01',
+        'amount' => '2',
+        'pay'    => false
+    ],
 ];
