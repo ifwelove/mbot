@@ -637,7 +637,7 @@ return [
     '5KvhcmzoApi5dz7Zq0yQPQ3N8id9gtSi1FpPtM4EIBM'  => [
         'name'   => 'ㄚ峰',
         'date'   => '2026-03-01',
-        'amount' => '20',
+        'amount' => '50',
         'pay'    => false
     ],
 ];
