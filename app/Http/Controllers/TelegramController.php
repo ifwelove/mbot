@@ -54,9 +54,26 @@ class TelegramController extends Controller
 
             // 若需要，您也可以回覆訊息給此人
             // 例如：sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
+             $this->sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
         }
 
         // 記得回傳 200 OK，Telegram 要求 Webhook handler 需快速回覆
         return response('OK', 200);
+    }
+
+    public function sendTelegramMessage($chatId, $text)
+    {
+        $token = config('telegram.token');
+        $url   = "https://api.telegram.org/bot{$token}/sendMessage";
+
+        $client = new \GuzzleHttp\Client();
+        $params = [
+            'chat_id' => $chatId,
+            'text'    => $text,
+            // 'parse_mode' => 'HTML'
+        ];
+        $res = $client->post($url, ['form_params' => $params]);
+
+        return json_decode($res->getBody()->getContents(), true);
     }
 }
