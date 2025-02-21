@@ -30,8 +30,9 @@ Route::get('/view-ips', function () {
 |
 */
 use App\Http\Controllers\IconController;
+use App\Http\Controllers\TelegramController;
 
-Route::post('/telegram/webhook', 'TelegramController@webhookHandler');
+Route::post('/telegram/webhook', [TelegramController::class, 'webhookHandler']);
 
 Route::get('/icons', [IconController::class, 'index'])->name('icons.index');
 
