@@ -636,9 +636,9 @@ return [
     ],
     '5KvhcmzoApi5dz7Zq0yQPQ3N8id9gtSi1FpPtM4EIBM'  => [
         'name'   => 'ㄚ峰',
-        'date'   => '2026-03-01',
-        'amount' => '50',
-        'pay'    => false
+        'date'   => '2025-09-01',
+        'amount' => '45',
+        'pay'    => true
     ],
     'DCrViLaT9pmYCC7N6bubJNB92u3KSkzy0aQA70N98Ia'  => [
         'name'   => '陳智寬',
