@@ -42,102 +42,103 @@ return [
         'amount' => '7',
         'pay'    => true
     ],
-    'ZdxVsVdWDNJzHFKZTgSNaWg3BhfOCwEJOybvM2Q98R9'  => [
-        'name'   => '??',
-        'date'   => '2025-01-01',
-        'amount' => '100',
-    ],
+//    'ZdxVsVdWDNJzHFKZTgSNaWg3BhfOCwEJOybvM2Q98R9'  => [
+//        'name'   => '??',
+//        'date'   => '2025-01-01',
+//        'amount' => '100',
+//    ],
     'iMPSeJqEf7WJLgTDPSnSHE3UwMDNHjL02eV0p5S42fM'  => [
         'name'   => '汪星人',
         'date'   => '2025-09-01',
         'amount' => '5',
+        'pay'    => true
     ],
 //    'rHJrjmB1gU1p6PmC31WlM0hOus95r7cINfJq4yqgFJO'  => [
 //        'name'   => '懶得整理帳號',
 //        'date'   => '2025-01-01',
 //        'amount' => '10',
 //    ],
-    'fyZDjo8TB6aOHXxK0DIXrIVl0QBYXZEJyovVG18uiOh'  => [
-        'name'   => '劉',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'P0hUzNMFXXo4CtuUSvC6y5lYiV5YjflLvnwrrNykVDj'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'VoFeaNeo8PgMMCUkLPw00of7y8p29w6nWZGHw3t6ne9'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'j3767kA1ffoVZ8mGkNojr3PHpZx48zXWaLxTMJPAMar'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'edfB7yIhXbwfarlatz49i9A7btaOxMyuyvedFCd3gzQ'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    '64uElnR2ehLR9ygMSVCTUtd33WJa1Or8ZVIx8NDTJOB'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    '7C4Ofv5yQe1NXLnRQZpff7ReNV47FvbTG7mxfmzOp9m'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'Ris6VZrQCceyLMIbXyvd2TIpPZfr8mQz8Dh6MkGQDAg'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'XZFxmblQKoy9Gr6786C8GhZcFr2M66OcLcvGiTJHtSs'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'H6mMNoVSycg3POSl6dxY4nIYq4Xjur7I1oyCzZrsxZp'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'ycqdkGMLGfhNn5Ct1okWMmaf3FPEHnot6PEHaa9TvjB'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
+//    'fyZDjo8TB6aOHXxK0DIXrIVl0QBYXZEJyovVG18uiOh'  => [
+//        'name'   => '劉',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'P0hUzNMFXXo4CtuUSvC6y5lYiV5YjflLvnwrrNykVDj'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'VoFeaNeo8PgMMCUkLPw00of7y8p29w6nWZGHw3t6ne9'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'j3767kA1ffoVZ8mGkNojr3PHpZx48zXWaLxTMJPAMar'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'edfB7yIhXbwfarlatz49i9A7btaOxMyuyvedFCd3gzQ'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    '64uElnR2ehLR9ygMSVCTUtd33WJa1Or8ZVIx8NDTJOB'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    '7C4Ofv5yQe1NXLnRQZpff7ReNV47FvbTG7mxfmzOp9m'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'Ris6VZrQCceyLMIbXyvd2TIpPZfr8mQz8Dh6MkGQDAg'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'XZFxmblQKoy9Gr6786C8GhZcFr2M66OcLcvGiTJHtSs'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'H6mMNoVSycg3POSl6dxY4nIYq4Xjur7I1oyCzZrsxZp'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'ycqdkGMLGfhNn5Ct1okWMmaf3FPEHnot6PEHaa9TvjB'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
     'OVQPsS1yS99vCbfAX9hRY2YOvZ72pPQXFnSbj5WIcfu'  => [
         'name'   => '飛',
         'date'   => '2025-06-01',
         'amount' => '34',
         'pay'    => true
     ],
-    'txfeMgZN951hoVlRCT03uZ050gU20MDVYVdX2xcu1Jl'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'J2qbf0s3wAVYNxksiXYWlFLflSStUnJzPeaEiQp5j5k'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    '5NISlRdnrZJjLShfTmljdvQCN4UXlckC0xwMN3f1xD8'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
-    'Qlho7Dx3Br1Q9eiBYfjNzT9jVqDIYolLLLNrHKqhsoT'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '10',
-    ],
+//    'txfeMgZN951hoVlRCT03uZ050gU20MDVYVdX2xcu1Jl'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'J2qbf0s3wAVYNxksiXYWlFLflSStUnJzPeaEiQp5j5k'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    '5NISlRdnrZJjLShfTmljdvQCN4UXlckC0xwMN3f1xD8'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
+//    'Qlho7Dx3Br1Q9eiBYfjNzT9jVqDIYolLLLNrHKqhsoT'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '10',
+//    ],
 //    'lrem2aHL3xyqGrYxfrfKtkFveod72QaHuWhs9pn9IF2'  => [
 //        'name'   => '',
 //        'date'   => '2025-01-01',
@@ -374,7 +375,7 @@ return [
         'amount' => '1',
     ],
     '7mJZxLPB0dKYf69arest6jAUxIQ6be7lpGs7z4lmUX5'  => [
-        'name'   => '',
+        'name'   => 'gary',
         'date'   => '2025-01-01',
         'amount' => '2',
     ],
@@ -619,6 +620,12 @@ return [
         'name'   => '謝宏龍',
         'date'   => '2026-03-01',
         'amount' => '10',
+        'pay'    => false
+    ],
+    'HSWnw7BiNETSFnZ4eAk0PRHdqwuGNByM8vCitTTnZqc'  => [
+        'name'   => '朋格 Roy',
+        'date'   => '2026-03-01',
+        'amount' => '4',
         'pay'    => false
     ],
 ];
