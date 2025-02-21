@@ -646,4 +646,10 @@ return [
         'amount' => '25',
         'pay'    => false
     ],
+    'HTizHNi65bohBI9EM9k12HL2qPoUzExw8lVofqTOQjm'  => [
+        'name'   => '小顧',
+        'date'   => '2026-03-01',
+        'amount' => '5',
+        'pay'    => false
+    ],
 ];
