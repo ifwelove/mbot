@@ -640,4 +640,10 @@ return [
         'amount' => '50',
         'pay'    => false
     ],
+    'DCrViLaT9pmYCC7N6bubJNB92u3KSkzy0aQA70N98Ia'  => [
+        'name'   => '陳智寬',
+        'date'   => '2026-03-01',
+        'amount' => '25',
+        'pay'    => false
+    ],
 ];
