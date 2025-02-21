@@ -65,8 +65,8 @@ class TelegramController extends Controller
             // 1. 取得 chat_id
             // ================
             if (isset($update['message'])) {
-//                $chatId = $update['message']['chat']['id'];
-//                $text   = $update['message']['text'] ?? '';
+                $chatId = $update['message']['chat']['id'];
+                $text   = $update['message']['text'] ?? '';
 //                $chatId = 7989823638;
                 // ... 您可以紀錄 user/客戶 => $chatId 的關係到 DB
                 // 例如：
@@ -74,7 +74,7 @@ class TelegramController extends Controller
 
                 // 若需要，您也可以回覆訊息給此人
                 // 例如：sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
-                $this->sendTelegramMessage($update['message']['chat']['id'], "Hello! 已經綁定你的 chat_id: $update['message']['chat']['id']");
+                $this->sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
 //            $this->sendTelegramMessage($chatId, json_encode([$update]));
             }
 
