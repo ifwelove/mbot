@@ -74,7 +74,8 @@ class TelegramController extends Controller
 
                 // 若需要，您也可以回覆訊息給此人
                 // 例如：sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
-                $this->sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
+                $this->sendTelegramMessage($chatId, json_encode([$update]));
+//                $this->sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
 //            }
 
         } catch (\Exception $e) {
