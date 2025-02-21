@@ -23,6 +23,8 @@ class VerifyCsrfToken extends Middleware
         'heroku',
         'notify',
         'get-clear-command',
+        'store-all-mac-command',
+        'store-command',
         'store-url',
     ];
 }
