@@ -671,4 +671,10 @@ return [
         'amount' => '1',
         'pay'    => false
     ],
+    'zjq3B23EVgnWF63D3Z8ynrlbFXWnCQqjyXKb2EZaEWS'  => [
+        'name'   => '治',
+        'date'   => '2026-03-01',
+        'amount' => '10',
+        'pay'    => false
+    ],
 ];
