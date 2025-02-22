@@ -657,7 +657,7 @@ return [
         'name'   => '賴明志',
         'date'   => '2026-03-01',
         'amount' => '2',
-        'pay'    => false
+        'pay'    => true
     ],
     'p4gGyIbBQF963SXYCz5nJf1acOdqGjYN5oUYbumHbLj'  => [
         'name'   => '聖小魂',
