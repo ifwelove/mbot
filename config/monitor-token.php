@@ -677,4 +677,10 @@ return [
         'amount' => '10',
         'pay'    => false
     ],
+    'LrE3M77ktdqcDSt1LfhSIWpvC3IL4oiVC69K'  => [
+        'name'   => '盧小迪',
+        'date'   => '2026-03-01',
+        'amount' => '3',
+        'pay'    => false
+    ],
 ];
