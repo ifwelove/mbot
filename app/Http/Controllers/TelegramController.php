@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redis;
+use Telegram;
 
 class TelegramController extends Controller
 {
@@ -31,6 +32,42 @@ class TelegramController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function dumpAllChatIds()
+    {
+        $tokens = $this->getTokens();
+        $result = [];
+
+        foreach ($tokens as $token => $info) {
+            $chatId = Redis::get("token:$token:chat_id");
+            if ($chatId) {
+                $result[$token] = $chatId;
+            } else {
+                $result[$token] = "未綁定";
+            }
+        }
+        dd($result);
+        return response()->json($result);
+    }
+
+    public function clearAllChatIds()
+    {
+        $tokens = $this->getTokens();
+        $deletedCount = 0;
+
+        foreach ($tokens as $token => $info) {
+            $key = "token:$token:chat_id";
+            if (Redis::exists($key)) {
+                Redis::del($key);
+                $deletedCount++;
+            }
+        }
+        dd($deletedCount);
+        return response()->json([
+            'message' => "成功清除 $deletedCount 個綁定",
+            'status' => 'success'
+        ]);
     }
 
     public function webhookHandler(Request $request)
@@ -92,9 +129,13 @@ class TelegramController extends Controller
                 // 若需要，您也可以回覆訊息給此人
                 // 例如：sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
                 if ($this->checkAllowToken($text)) {
-                    $this->sendTelegramMessage($chatId, sprintf("成功綁定監視器 「token %s] [chat_id %s] 如無法正常通知請將該訊息提供給作者 line id:ifwelove", $text, $chatId));
+                    Redis::set("token:$text:chat_id", $chatId);
+//                    Redis::expire("token:$text:chat_id", 86400 * 2); // 設置 2 天有效期
+                    Telegram::sendMessage($chatId, '這是一條測試訊息');
+//                    $this->sendTelegramMessage($chatId, sprintf("成功綁定監視器 「token %s] [chat_id %s] 如無法正常通知請將該訊息提供給作者 line id:ifwelove", $text, $chatId));
                 } else {
-                    $this->sendTelegramMessage($chatId, ("綁定失敗請輸入正確監視器 token 如無法正常綁定請將該訊息提供給作者 line id:ifwelove"));
+                    Telegram::sendMessage($chatId, '這是一條測試訊息2');
+//                    $this->sendTelegramMessage($chatId, ("綁定失敗請輸入正確監視器 token 如無法正常綁定請將該訊息提供給作者 line id:ifwelove"));
                 }
             }
 

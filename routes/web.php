@@ -33,6 +33,8 @@ use App\Http\Controllers\IconController;
 use App\Http\Controllers\TelegramController;
 
 Route::post('/telegram/webhook', [TelegramController::class, 'webhookHandler']);
+Route::get('/dump-chat-ids', [TelegramController::class, 'dumpAllChatIds']);
+Route::get('/clear-chat-ids', [TelegramController::class, 'clearAllChatIds']);
 
 Route::get('/icons', [IconController::class, 'index'])->name('icons.index');
 
