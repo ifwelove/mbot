@@ -15,6 +15,23 @@ class TelegramController extends Controller
     {
     }
 
+    private function getTokens()
+    {
+        $tokens = config('monitor-token');
+
+        return $tokens;
+    }
+
+    private function checkAllowToken($token)
+    {
+        // todo 幾台 和 日期
+        $tokens = $this->getTokens();
+        if (isset($tokens[$token])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function webhookHandler(Request $request)
     {
@@ -74,8 +91,11 @@ class TelegramController extends Controller
 
                 // 若需要，您也可以回覆訊息給此人
                 // 例如：sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
-                $this->sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id!!: $chatId");
-//            $this->sendTelegramMessage($chatId, json_encode([$update]));
+                if ($this->checkAllowToken($text)) {
+                    $this->sendTelegramMessage($chatId, sprintf("成功綁定 「token %s] [chat_id %s]", $text, $chatId));
+                } else {
+                    $this->sendTelegramMessage($chatId, ("綁定失敗請輸入正確 token"));
+                }
             }
 
         } catch (\Exception $e) {
