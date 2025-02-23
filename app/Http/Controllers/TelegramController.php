@@ -92,9 +92,9 @@ class TelegramController extends Controller
                 // 若需要，您也可以回覆訊息給此人
                 // 例如：sendTelegramMessage($chatId, "Hello! 已經綁定你的 chat_id: $chatId");
                 if ($this->checkAllowToken($text)) {
-                    $this->sendTelegramMessage($chatId, sprintf("成功綁定 「token %s] [chat_id %s]", $text, $chatId));
+                    $this->sendTelegramMessage($chatId, sprintf("成功綁定 「token %s] [chat_id %s] 如無法正常通知請將該訊息提供給作者 line id:ifwelove", $text, $chatId));
                 } else {
-                    $this->sendTelegramMessage($chatId, ("綁定失敗請輸入正確 token"));
+                    $this->sendTelegramMessage($chatId, ("綁定失敗請輸入正確 token 如無法正常綁定請將該訊息提供給作者 line id:ifwelove"));
                 }
             }
 
