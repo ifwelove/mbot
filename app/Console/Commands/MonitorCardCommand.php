@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
+use Telegram;
 
 class MonitorCardCommand extends Command
 {
@@ -33,21 +34,6 @@ class MonitorCardCommand extends Command
 
     public function handle()
     {
-        //        $owen_token = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
-        //        $client   = new Client();
-        //        $headers  = [
-        //            'Authorization' => sprintf('Bearer %s', $owen_token),
-        //            'Content-Type'  => 'application/x-www-form-urlencoded'
-        //        ];
-        //        $options  = [
-        //            'form_params' => [
-        //                'message' => 'test MonitorCrashCommand'
-        //            ]
-        //        ];
-        //        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-        //            'headers'     => $headers,
-        //            'form_params' => $options['form_params']
-        //        ]);
 
         $tokens = config('monitor-token');
         try {
@@ -149,20 +135,9 @@ class MonitorCardCommand extends Command
                                     $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
 //                                    $message   .= sprintf('已經處理點選清除通知 : https://lbs.a5963745.workers.dev/delete-machine?token=%s&mac=%s', $token, $mac);
 
-                                    $client   = new Client();
-                                    $headers  = [
-                                        'Authorization' => sprintf('Bearer %s', $token),
-                                        'Content-Type'  => 'application/x-www-form-urlencoded'
-                                    ];
-                                    $options  = [
-                                        'form_params' => [
-                                            'message' => $message
-                                        ]
-                                    ];
-                                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                                        'headers'     => $headers,
-                                        'form_params' => $options['form_params']
-                                    ]);
+
+
+                                    Telegram::sendAlertMessage($token, $message);
                                 } else {
                                     Redis::hSet($key, 'card_alert_total', '1');
                                     //                                    echo "不需要發送通知";
@@ -260,20 +235,8 @@ class MonitorCardCommand extends Command
                         $message   .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                         $message   .= sprintf('大尾狀態 : %s:%s', '可能出黑屏現異常請人工排除', $breakLine);
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
-                        $client   = new Client();
-                        $headers  = [
-                            'Authorization' => sprintf('Bearer %s', $token),
-                            'Content-Type'  => 'application/x-www-form-urlencoded'
-                        ];
-                        $options  = [
-                            'form_params' => [
-                                'message' => $message
-                            ]
-                        ];
-                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                            'headers'     => $headers,
-                            'form_params' => $options['form_params']
-                        ]);
+
+                        Telegram::sendAlertMessage($token, $message);
                     } else {
                         if ($m_pro_gg_alert_total > 3){
                             Redis::hSet($key, 'm_pro_gg_count', '1');
@@ -298,20 +261,9 @@ class MonitorCardCommand extends Command
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
 //                        $message   .= sprintf('已經處理點選清除通知 : https://lbs.a5963745.workers.dev/delete-machine?token=%s&mac=%s', $token, $mac);
 //                        dump($message);
-                        $client   = new Client();
-                        $headers  = [
-                            'Authorization' => sprintf('Bearer %s', $token),
-                            'Content-Type'  => 'application/x-www-form-urlencoded'
-                        ];
-                        $options  = [
-                            'form_params' => [
-                                'message' => $message
-                            ]
-                        ];
-                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                            'headers'     => $headers,
-                            'form_params' => $options['form_params']
-                        ]);
+
+
+                        Telegram::sendAlertMessage($token, $message);
                     } else {
                         Redis::hSet($key, 'role_gg_alert_total', '1');
                     }
@@ -331,20 +283,8 @@ class MonitorCardCommand extends Command
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
                         //                        $message   .= sprintf('已經處理點選清除通知 : https://lbs.a5963745.workers.dev/delete-machine?token=%s&mac=%s', $token, $mac);
                         //                        dump($message);
-                        $client   = new Client();
-                        $headers  = [
-                            'Authorization' => sprintf('Bearer %s', $token),
-                            'Content-Type'  => 'application/x-www-form-urlencoded'
-                        ];
-                        $options  = [
-                            'form_params' => [
-                                'message' => $message
-                            ]
-                        ];
-                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                            'headers'     => $headers,
-                            'form_params' => $options['form_params']
-                        ]);
+
+                        Telegram::sendAlertMessage($token, $message);
                     } else {
                         Redis::hSet($key, 'dead_gg_alert_total', '1');
                     }
@@ -364,44 +304,16 @@ class MonitorCardCommand extends Command
                         $message   .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
                         //                        $message   .= sprintf('已經處理點選清除通知 : https://lbs.a5963745.workers.dev/delete-machine?token=%s&mac=%s', $token, $mac);
                         //                        dump($message);
-                        $client   = new Client();
-                        $headers  = [
-                            'Authorization' => sprintf('Bearer %s', $token),
-                            'Content-Type'  => 'application/x-www-form-urlencoded'
-                        ];
-                        $options  = [
-                            'form_params' => [
-                                'message' => $message
-                            ]
-                        ];
-                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                            'headers'     => $headers,
-                            'form_params' => $options['form_params']
-                        ]);
+
+
+                        Telegram::sendAlertMessage($token, $message);
                     } else {
                         Redis::hSet($key, 'bag_gg_alert_total', '1');
                     }
                 }
             }
         } catch (\Exception $exception) {
-//            $client   = new Client();
-//            $headers  = [
-//                'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
-//                'Content-Type'  => 'application/x-www-form-urlencoded'
-//            ];
-//            $options  = [
-//                'form_params' => [
-//                    'message' => json_encode([
-//                        'token'   => $token,
-//                        'message' => $exception->getMessage(),
-//                        'data'    => $machine
-//                    ])
-//                ]
-//            ];
-//            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-//                'headers'     => $headers,
-//                'form_params' => $options['form_params']
-//            ]);
+            Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'message' => $exception->getMessage()]));
         }
     }
 }

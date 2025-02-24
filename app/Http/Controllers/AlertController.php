@@ -71,24 +71,7 @@ class AlertController extends Controller
 
     public function heroku(Request $request)
     {
-        //        '7173297118557c83de0dffed03fadddce186044ebecce65aa9e1d576e365'
-        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-        $client     = new Client();
-        $headers    = [
-            'Authorization' => sprintf('Bearer %s', $owen_token),
-            'Content-Type'  => 'application/x-www-form-urlencoded'
-        ];
-        $options    = [
-            'form_params' => [
-                //                'message' => $message
-                //                    'message' => $request->post('pc_name')
-                'message' => json_encode($request->all())
-            ]
-        ];
-        $response   = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-            'headers'     => $headers,
-            'form_params' => $options['form_params']
-        ]);
+        Telegram::sendToLineOwner(json_encode($request->all()));
 
         return response();
     }
@@ -97,21 +80,8 @@ class AlertController extends Controller
     {
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
-        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-        $client   = new Client();
-        $headers  = [
-            'Authorization' => sprintf('Bearer %s', $owen_token),
-            'Content-Type'  => 'application/x-www-form-urlencoded'
-        ];
-        $options  = [
-            'form_params' => [
-                'message' => 'checkOlinTap:' . $token
-            ]
-        ];
-        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-            'headers'     => $headers,
-            'form_params' => $options['form_params']
-        ]);
+
+        Telegram::sendToLineOwner('checkOlinTap:' . $token);
 
         return response('ok', 200)->header('Content-Type', 'text/plain');
     }
@@ -120,23 +90,7 @@ class AlertController extends Controller
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
         if ($result === false) {
-            $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    //                'message' => $message
-                    //                    'message' => $request->post('pc_name')
-                    'message' => json_encode($request->all())
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            Telegram::sendToLineOwner(json_encode($request->all()));
 
             return response('token 未授權 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
         } else {
@@ -148,44 +102,10 @@ class AlertController extends Controller
     public function checkToken(Request $request)
     {
         $token      = $request->post('token');
-//        if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-//            $client   = new Client();
-//            $headers  = [
-//                'Authorization' => sprintf('Bearer %s', '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75'),
-//                'Content-Type'  => 'application/x-www-form-urlencoded'
-//            ];
-//            $options  = [
-//                'form_params' => [
-//                    'message' => $token . ' 使用自動更新'
-//                ]
-//            ];
-//            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-//                'headers'     => $headers,
-//                'form_params' => $options['form_params']
-//            ]);
-//        }
-
-
 
         $result     = $this->checkAllowToken($token);
         if ($result === false) {
-            $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    //                'message' => $message
-                    //                    'message' => $request->post('pc_name')
-                    'message' => json_encode($request->all())
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            Telegram::sendToLineOwner(json_encode($request->all()));
 
             return response('token 未授權 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
         } else {
@@ -202,24 +122,7 @@ class AlertController extends Controller
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
         if ($result === false) {
-            $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    //                'message' => $message
-                    //                    'message' => $request->post('pc_name')
-                    'message' => json_encode($request->all())
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
-
+            Telegram::sendToLineOwner(json_encode($request->all()));
             return response('token 未授權 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
         } else {
             $fileService = resolve(FileService::class);
@@ -251,26 +154,10 @@ class AlertController extends Controller
 //            fastcgi_finish_request();
 //        }
 
-        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
         if ($result === false) {
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    //                'message' => $message
-                    //                    'message' => $request->post('pc_name')
-                    'message' => json_encode($request->all())
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            Telegram::sendToLineOwner(json_encode($request->all()));
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
@@ -357,40 +244,17 @@ class AlertController extends Controller
             $currentDay  = date('w'); // 獲取當前星期，其中 0（表示週日）到 6（表示週六）
             $currentTime = date('H:i'); // 獲取當前時間（24小時制）
             if (! ($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
-                $client  = new Client();
-                $headers = [
-                    'Authorization' => sprintf('Bearer %s', $token),
-                    'Content-Type'  => 'application/x-www-form-urlencoded'
-                ];
-                $options = [
-                    'form_params' => [
-                        'message' => $message
-                    ]
-                ];
                 // 暫時停用看看
                 if ($alert_type === 'all') {
-                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                        'headers'     => $headers,
-                        'form_params' => $options['form_params'],
-                        'timeout'     => 5,
-                    ]);
+                    Telegram::sendAlertMessage($token, $message);
                 }
 
                 if (in_array($alert_status, ['failed', 'plugin_not_open'])) {
                     //                if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
-                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                        'headers'     => $headers,
-                        'form_params' => $options['form_params'],
-                        'timeout'     => 5,
-                    ]);
+                    Telegram::sendAlertMessage($token, $message);
                 }
             }
         } catch (\Exception $e) {
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
             $errorInfo = [
                 'token'    => $token,
                 'message'    => $e->getMessage(),
@@ -399,21 +263,8 @@ class AlertController extends Controller
                 'code'       => $e->getCode(),
                 'trace'      => $this->getShortTrace($e->getTraceAsString(), 5), // 仅取前 5 行
             ];
-            $options = [
-                'form_params' => [
-                    'message' => json_encode($errorInfo, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT),
-                ]
-            ];
-//            $options  = [
-//                'form_params' => [
-//                    'message' => json_encode([$e->getMessage(), $token, $e])
-//                ]
-//            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params'],
-                'timeout'     => 5,
-            ]);
+
+            Telegram::sendToLineOwner(json_encode($errorInfo, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
         }
         //        return response($value, 200)->header('Content-Type', 'application/json');
         return response('', 200)->header('Content-Type', 'text/plain');
@@ -465,29 +316,13 @@ class AlertController extends Controller
             $currentTime = date('H:i'); // 獲取當前時間（24小時制）
 
             if (! ($currentDay == 3 && $currentTime >= '04:30' && $currentTime <= '11:30')) {
-                $client  = new Client();
-                $headers = [
-                    'Authorization' => sprintf('Bearer %s', $token),
-                    'Content-Type'  => 'application/x-www-form-urlencoded'
-                ];
-                $options = [
-                    'form_params' => [
-                        'message' => $message
-                    ]
-                ];
 
                 if ($alert_type === 'all') {
-                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                        'headers'     => $headers,
-                        'form_params' => $options['form_params']
-                    ]);
+                    Telegram::sendAlertMessage($token, $message);
                 }
 
                 if ($alert_type === 'error' && in_array($alert_status, ['failed', 'plugin_not_open'])) {
-                    $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                        'headers'     => $headers,
-                        'form_params' => $options['form_params']
-                    ]);
+                    Telegram::sendAlertMessage($token, $message);
                 }
             }
 
@@ -521,20 +356,8 @@ class AlertController extends Controller
             dump('申請已通過, 通過後可在下方連結看到專屬網頁');
             dd('https://lbs.a5963745.workers.dev/pro/' . $token);
         }
-        $client   = new Client();
-        $headers  = [
-            'Authorization' => sprintf('Bearer %s', '5hcyGO935sKzRjF522X1UPPNnfL5QqYCMrLnB5M0KhE'),
-            'Content-Type'  => 'application/x-www-form-urlencoded'
-        ];
-        $options  = [
-            'form_params' => [
-                'message' => $token
-            ]
-        ];
-        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-            'headers'     => $headers,
-            'form_params' => $options['form_params']
-        ]);
+
+        Telegram::sendAlertMessage($token, $token);
         dump($token);
         dump('審核申請中, 通過後可在下方連結看到專屬網頁');
         dump('https://lbs.a5963745.workers.dev/pro/' . $token);
@@ -569,25 +392,6 @@ class AlertController extends Controller
 
         // 顯示每個 token 的 macAddresses 數量
         dd($totalCount, $macCounts);
-    }
-
-    public function sendMessage(Request $request, $token)
-    {
-        $text = $request->input('text');
-        $client   = new Client();
-        $headers  = [
-            'Authorization' => sprintf('Bearer %s', $token),
-            'Content-Type'  => 'application/x-www-form-urlencoded'
-        ];
-        $options  = [
-            'form_params' => [
-                'message' => $text
-            ]
-        ];
-        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-            'headers'     => $headers,
-            'form_params' => $options['form_params']
-        ]);
     }
 
     public function showToken($token)

@@ -138,23 +138,7 @@ class TelegramController extends Controller
             }
 
         } catch (\Exception $e) {
-            $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
-            $client     = new Client();
-            $headers    = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options    = [
-                'form_params' => [
-                    //                'message' => $message
-                    //                    'message' => $request->post('pc_name')
-                    'message' => json_encode([$e->getMessage(), $request->all()])
-                ]
-            ];
-            $response   = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            Telegram::sendToLineOwner(json_encode([$e->getMessage(), $request->all()]));
         }
         // 記得回傳 200 OK，Telegram 要求 Webhook handler 需快速回覆
         return response('OK', 200);

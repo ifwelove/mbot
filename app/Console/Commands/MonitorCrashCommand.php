@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
+use Telegram;
 
 class MonitorCrashCommand extends Command
 {
@@ -32,29 +33,11 @@ class MonitorCrashCommand extends Command
 
     public function handle()
     {
-//        $owen_token = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
-//        $client   = new Client();
-//        $headers  = [
-//            'Authorization' => sprintf('Bearer %s', $owen_token),
-//            'Content-Type'  => 'application/x-www-form-urlencoded'
-//        ];
-//        $options  = [
-//            'form_params' => [
-//                'message' => 'test MonitorCrashCommand'
-//            ]
-//        ];
-//        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-//            'headers'     => $headers,
-//            'form_params' => $options['form_params']
-//        ]);
 
         $tokens = config('monitor-token');
         try {
 
             foreach ($tokens as $token => $name) {
-//                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-//                    continue;
-//                }
                 // 获取所有 mac 地址
                 $macAddresses = Redis::sMembers("token:$token:machines");
                 if (empty($macAddresses)) {
@@ -117,43 +100,15 @@ class MonitorCrashCommand extends Command
                         $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['dnplayer']);
                         $message .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
 //                        $message .= sprintf('已經處理點選清除通知 : https://lbs.a5963745.workers.dev/delete-machine?token=%s&mac=%s', $token, $mac);
+                        Telegram::sendAlertMessage($token, $message);
 
-                        $client   = new Client();
-                        $headers  = [
-                            'Authorization' => sprintf('Bearer %s', $token),
-                            'Content-Type'  => 'application/x-www-form-urlencoded'
-                        ];
-                        $options  = [
-                            'form_params' => [
-                                'message' => $message
-                            ]
-                        ];
-                        $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                            'headers'     => $headers,
-                            'form_params' => $options['form_params']
-                        ]);
                     } else if (now()->timestamp - $lastUpdated <= 3600) {
                         Redis::hSet($key, 'crash_alert_total', '1');
                     }
                 }
             }
         } catch (\Exception $exception) {
-//            dump($exception->getMessage());
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB'),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    'message' => json_encode(['token'  => $token, 'message' => $exception->getMessage()])
-//                    'message' => json_encode(['token'  => $token, 'message' => $exception->getMessage(), 'data' => $machine])
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            Telegram::sendToLineOwner(json_encode(['token'  => $token, 'message' => $exception->getMessage()]));
         }
     }
 }

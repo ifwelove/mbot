@@ -377,8 +377,9 @@ return [
     ],
     '7mJZxLPB0dKYf69arest6jAUxIQ6be7lpGs7z4lmUX5'  => [
         'name'   => 'gary',
-        'date'   => '2025-01-01',
+        'date'   => '2026-03-01',
         'amount' => '2',
+        'pay'    => true,//目前只付款一台
     ],
     'tFGVoQckHdtuqBdUgiRKYb5SwfLTzq5sLGUqa7ovAF8'  => [
         'name'   => '',
@@ -681,6 +682,12 @@ return [
         'name'   => '盧小迪',
         'date'   => '2026-03-01',
         'amount' => '3',
+        'pay'    => false
+    ],
+    'GwH94OjbnwjTjg6UvidlZktXLhOcKnQLQzAf7e3Q4NM'  => [
+        'name'   => '銘哲',
+        'date'   => '2026-03-01',
+        'amount' => '1',
         'pay'    => false
     ],
 ];
