@@ -669,7 +669,7 @@ return [
         'name'   => '麟',
         'date'   => '2026-03-01',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     'zjq3B23EVgnWF63D3Z8ynrlbFXWnCQqjyXKb2EZaEWS'  => [
         'name'   => '治',
