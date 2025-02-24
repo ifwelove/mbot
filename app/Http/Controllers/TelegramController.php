@@ -131,11 +131,9 @@ class TelegramController extends Controller
                 if ($this->checkAllowToken($text)) {
                     Redis::set("token:$text:chat_id", $chatId);
 //                    Redis::expire("token:$text:chat_id", 86400 * 2); // 設置 2 天有效期
-                    Telegram::sendMessage($chatId, '這是一條測試訊息');
-//                    $this->sendTelegramMessage($chatId, sprintf("成功綁定監視器 「token %s] [chat_id %s] 如無法正常通知請將該訊息提供給作者 line id:ifwelove", $text, $chatId));
+                    Telegram::sendMessage($chatId, sprintf("成功綁定監視器 「token %s] [chat_id %s] 如無法正常通知請將該訊息提供給作者 line id:ifwelove", $text, $chatId));
                 } else {
-                    Telegram::sendMessage($chatId, '這是一條測試訊息2');
-//                    $this->sendTelegramMessage($chatId, ("綁定失敗請輸入正確監視器 token 如無法正常綁定請將該訊息提供給作者 line id:ifwelove"));
+                    Telegram::sendMessage($chatId, ("綁定失敗請輸入正確監視器 token 如無法正常綁定請將該訊息提供給作者 line id:ifwelove"));
                 }
             }
 
@@ -160,25 +158,5 @@ class TelegramController extends Controller
         }
         // 記得回傳 200 OK，Telegram 要求 Webhook handler 需快速回覆
         return response('OK', 200);
-    }
-
-    public function sendTelegramMessage($chatId, $text)
-    {
-        $telegram = config('telegram');
-        $token = $telegram['token'];
-//        dd($token);
-        $url   = "https://api.telegram.org/bot{$token}/sendMessage";
-
-        $client = new Client();
-        $params = [
-            'chat_id' => $chatId,
-//            'chat_id' => 7989823638,
-            'text'    => $text,
-            // 'parse_mode' => 'HTML'
-        ];
-        $res    = $client->post($url, ['form_params' => $params]);
-
-        return json_decode($res->getBody()
-            ->getContents(), true);
     }
 }

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Telegram;
 
 class AlertController extends Controller
 {
@@ -426,26 +427,12 @@ class AlertController extends Controller
 
     public function alert(Request $request)
     {
-        $owen_token = '3r5FV6kWXEyBvqHPSjzToZTRiSWe5MsLNn4ZGnvWX75';
+        $owen_token = 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB';
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
         if ($result === false) {
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    //                'message' => $message
-                    //                    'message' => $request->post('pc_name')
-                    'message' => json_encode($request->all())
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            $chatId = Redis::get(sprintf("token:%s:chat_id", $owen_token));
+            Telegram::sendMessage($chatId, json_encode($request->all()));
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
         }
@@ -518,56 +505,13 @@ class AlertController extends Controller
             Redis::sAdd("token:$token:machines", $mac);
 
         } catch (\Exception $e) {
-            $client   = new Client();
-            $headers  = [
-                'Authorization' => sprintf('Bearer %s', $owen_token),
-                'Content-Type'  => 'application/x-www-form-urlencoded'
-            ];
-            $options  = [
-                'form_params' => [
-                    'message' => json_encode([$e->getMessage(), $request->all()])
-                ]
-            ];
-            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
-                'headers'     => $headers,
-                'form_params' => $options['form_params']
-            ]);
+            $chatId = Redis::get(sprintf("token:%s:chat_id", $owen_token));
+            Telegram::sendMessage($chatId, json_encode([$e->getMessage(), $request->all()]));
         }
 
 
         return response('呼叫 line notify 成功', 200)->header('Content-Type', 'text/plain');
     }
-
-    //    public function updateMachineStatus()
-    //    {
-    //        $keys = Redis::keys("token:*:mac:*");
-    //        foreach ($keys as $key) {
-    //            $machine = Redis::hGetAll($key);
-    //            $lastUpdated = $machine['last_updated'];
-    //
-    //            // 檢查是否超過一小時未更新
-    //            if (now()->timestamp - $lastUpdated > 3600) {
-    //                // 更新狀態為 'notopen'
-    //                Redis::hSet($key, 'status', 'notopen');
-    //            }
-    //        }
-    //    }
-
-    //    public function showMachines($token)
-    //    {
-    //        $macAddresses = Redis::sMembers("token:$token:machines");
-    //        $machines = [];
-    //
-    //        foreach ($macAddresses as $mac) {
-    //            $key = "token:$token:mac:$mac";
-    //            $machines[] = [
-    //                'mac' => $mac,
-    //                'data' => Redis::hGetAll($key)
-    //            ];
-    //        }
-    //
-    //        return response()->json(['machines' => $machines]);
-    //    }
 
     public function shareApply(Request $request)
     {
