@@ -554,7 +554,7 @@ return [
     'PgiFhqvNyDPjGXjxGvJpU8F8DsmFYlIfqDkGOjAti2v'  => [
         'name'   => '竹',
         'date'   => '2025-09-01',
-        'amount' => '11',
+        'amount' => '12',
         'pay'    => true
     ],
     'cJ2cBSi8yPXC85kLyaxcT6xQZMcskSjng36aejF6Ouq'  => [
@@ -616,7 +616,7 @@ return [
         'name'   => '另一個小白',
         'date'   => '2025-09-01',
         'amount' => '27',
-        'pay'    => false
+        'pay'    => true
     ],
     'iOifb1TgypFdT240G2Xh4UT6RRlEfpd7mZCI17cfFNG'  => [
         'name'   => '謝宏龍',
@@ -642,12 +642,12 @@ return [
         'amount' => '45',
         'pay'    => true
     ],
-    'DCrViLaT9pmYCC7N6bubJNB92u3KSkzy0aQA70N98Ia'  => [
-        'name'   => '陳智寬',
-        'date'   => '2026-03-01',
-        'amount' => '25',
-        'pay'    => false
-    ],
+//    'DCrViLaT9pmYCC7N6bubJNB92u3KSkzy0aQA70N98Ia'  => [
+//        'name'   => '陳智寬',
+//        'date'   => '2026-03-01',
+//        'amount' => '25',
+//        'pay'    => false
+//    ],
     'HTizHNi65bohBI9EM9k12HL2qPoUzExw8lVofqTOQjm'  => [
         'name'   => '小顧',
         'date'   => '2026-03-01',
