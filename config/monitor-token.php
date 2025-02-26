@@ -591,8 +591,8 @@ return [
     '7gU6FFe5IpCxBJKSJGi9GoZkKU4fyUbZxfR2XY3W8DJ'  => [
         'name'   => '李宗益',
         'date'   => '2026-03-01',
-        'amount' => '4',
-        'pay'    => false
+        'amount' => '4',//付兩台
+        'pay'    => true
     ],
     'lWj2iKT7SEaIf0Ft2t49waq4287P8jMNtl2nli02ccE'  => [
         'name'   => 'Larry',
@@ -608,9 +608,9 @@ return [
     ],
     'MKZrUucOiz3fM1Nq5FU5mePr4WknaiuxfJRAZA0wPbN'  => [
         'name'   => 'S',
-        'date'   => '2026-03-01',
+        'date'   => '2025-09-01',
         'amount' => '15',
-        'pay'    => false
+        'pay'    => true
     ],
     'ESSiHtaj6fhsBv190FiKB1zrv7uR2rIepjnnQPhhuIO'  => [
         'name'   => '另一個小白',
@@ -618,12 +618,12 @@ return [
         'amount' => '27',
         'pay'    => true
     ],
-    'iOifb1TgypFdT240G2Xh4UT6RRlEfpd7mZCI17cfFNG'  => [
-        'name'   => '謝宏龍',
-        'date'   => '2026-03-01',
-        'amount' => '10',
-        'pay'    => false
-    ],
+//    'iOifb1TgypFdT240G2Xh4UT6RRlEfpd7mZCI17cfFNG'  => [
+//        'name'   => '謝宏龍',
+//        'date'   => '2026-03-01',
+//        'amount' => '10',
+//        'pay'    => false
+//    ],
     'HSWnw7BiNETSFnZ4eAk0PRHdqwuGNByM8vCitTTnZqc'  => [
         'name'   => '朋格 Roy',
         'date'   => '2026-03-01',
