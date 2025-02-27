@@ -639,7 +639,7 @@ return [
     '5KvhcmzoApi5dz7Zq0yQPQ3N8id9gtSi1FpPtM4EIBM'  => [
         'name'   => 'ㄚ峰',
         'date'   => '2025-09-01',
-        'amount' => '45',
+        'amount' => '46',
         'pay'    => true
     ],
 //    'DCrViLaT9pmYCC7N6bubJNB92u3KSkzy0aQA70N98Ia'  => [
