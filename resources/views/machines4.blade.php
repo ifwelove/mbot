@@ -88,6 +88,10 @@
         </button>
     </p>
     <div class="command-container my-3">
+        <button class="command-btn-all-mac close_64_apk-btn btn btn-danger" data-token="{{ $token }}" data-command="close_64_apk">一鍵關閉自動檢查64apk</button>
+        <button class="command-btn-all-mac open_64_apk-btn btn btn-danger" data-token="{{ $token }}" data-command="open_64_apk">一鍵開啟自動檢查64apk</button>
+    </div>
+    <div class="command-container my-3">
         <button class="command-btn-all-mac close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一鍵關閉大尾</button>
         <button class="command-btn-all-mac open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一鍵開啟大尾</button>
         <button class="command-btn-all-mac reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一鍵重開大尾</button>
@@ -251,7 +255,9 @@
                     <td>{{ $machine['data']['last_updated'] }}</td>
                     <td>
                         <button class="command-btn close_all_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_all_player">關閉所有模擬器</button>
+                        <button class="command-btn close_64_apk_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_64_apk">關閉自動檢查64apk</button>
                         <button class="command-btn open_all_player-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_all_player">開啟所有模擬器</button>
+                        <button class="command-btn open_64_apk-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_64_apk">開啟自動檢查64apk</button>
                         <button class="command-btn close_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="close_mpro">關閉大尾</button>
                         <button class="command-btn open_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="open_mpro">開啟大尾</button>
                         <button class="command-btn reopen_mpro-btn btn btn-danger" data-token="{{ $token }}" data-mac="{{ $machine['mac'] }}" data-command="reopen_mpro">重開大尾</button>

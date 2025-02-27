@@ -43,6 +43,8 @@ class CommandController extends Controller
         $token    = $validated['token'];
         $command  = $validated['command'];
         $commands = [
+            'open_64_apk',
+            'close_64_apk',
             'close_all_player',
             'open_all_player',
             'close_mpro',
@@ -87,6 +89,8 @@ class CommandController extends Controller
         $mac      = $validated['mac'];
         $command  = $validated['command'];
         $commands = [
+            'open_64_apk',
+            'close_64_apk',
             'close_all_player',
             'open_all_player',
             'close_mpro',
