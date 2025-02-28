@@ -604,7 +604,7 @@ return [
         'name'   => '德鋼 江欽輝',
         'date'   => '2026-03-01',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     'MKZrUucOiz3fM1Nq5FU5mePr4WknaiuxfJRAZA0wPbN'  => [
         'name'   => 'S',
