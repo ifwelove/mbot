@@ -34,7 +34,7 @@ class TelegramService
         // 1. 判斷當前日期是否已過 3/1
         $now = Carbon::now();
         // 假設您的截止日期是 2025-03-01
-        $cutoff = Carbon::createFromFormat('Y-m-d', '2025-03-01');
+        $cutoff = Carbon::createFromFormat('Y-m-d', '2025-03-29');
 
         // 2. 從 Redis 拿看看是否有客戶綁定的 Telegram chat_id
         $chatId = Redis::get("token:{$lineToken}:chat_id");
