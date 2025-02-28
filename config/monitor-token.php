@@ -708,4 +708,10 @@ return [
         'amount' => '1',
         'pay'    => false
     ],
+    '1CZ5Wentjt7dGHGtx0crykGQfYdI4mWw4HuvLWlU5ES'  => [
+        'name'   => '小御',
+        'date'   => '2026-03-01',
+        'amount' => '1',
+        'pay'    => false
+    ],
 ];
