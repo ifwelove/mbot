@@ -17,7 +17,7 @@ return [
     '1EW9dRJOANPRwZYvS0gZblhxGPZvJ9ZNEBdpLlvARUu'  => [
         'name'   => '井底之蛙',
         'date'   => '2025-01-01',
-        'amount' => '50',
+        'amount' => '60',
         'pay'    => true
     ],
     'u64MrAsdoyRHXZMN1wThRo9NVniGTwGop6czMVjyqUC'  => [
@@ -497,12 +497,12 @@ return [
         'amount' => '1',
         'pay'    => true
     ],
-    'yDgRMaL1uOJI6Dy3hT3XozDIZyCSi1XrZ1pK3JOyH8v'  => [
-        'name'   => '青蛙姐夫',
-        'date'   => '2025-12-20',
-        'amount' => '8',
-        'pay'    => true
-    ],
+//    'yDgRMaL1uOJI6Dy3hT3XozDIZyCSi1XrZ1pK3JOyH8v'  => [
+//        'name'   => '青蛙姐夫',
+//        'date'   => '2025-12-20',
+//        'amount' => '8',
+//        'pay'    => true
+//    ],
     'MPJOmuV77B3Av5YcdslrvlR0mdugTr9X8pbjSQYlJzw'  => [
         'name'   => 'biao',
         'date'   => '2025-06-23',
