@@ -724,6 +724,12 @@ return [
         'name'   => '王思佳',
         'date'   => '2025-09-01',
         'amount' => '1',
+        'pay'    => true
+    ],
+    'fBF9gOxfCRXKSNQOXTtFGkTBXQX01Nsjtwm5SadPA1i'  => [
+        'name'   => '逸',
+        'date'   => '2025-09-01',
+        'amount' => '4',
         'pay'    => false
     ],
 ];
