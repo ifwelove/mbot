@@ -578,15 +578,9 @@ return [
 //    ],
     'BVZ63in2ntQj6YIlRX5rx7bezIhIb1DYq3MwSU5dRv6'  => [
         'name'   => 'Sam',
-        'date'   => '2026-03-01',
+        'date'   => '2026-03-03',
         'amount' => '3',
-        'pay'    => false
-    ],
-    'W37mmEDhKQZhijk6NzX33TUkublV10nzap9Qpa1eUeo'  => [
-        'name'   => 'Sam',
-        'date'   => '2026-03-01',
-        'amount' => '3',
-        'pay'    => false
+        'pay'    => true
     ],
     '7gU6FFe5IpCxBJKSJGi9GoZkKU4fyUbZxfR2XY3W8DJ'  => [
         'name'   => '李宗益',
@@ -626,9 +620,9 @@ return [
 //    ],
     'HSWnw7BiNETSFnZ4eAk0PRHdqwuGNByM8vCitTTnZqc'  => [
         'name'   => '朋格 Roy',
-        'date'   => '2026-03-01',
+        'date'   => '2026-03-03',
         'amount' => '4',
-        'pay'    => false
+        'pay'    => true
     ],
     'ceFZslNAXKLV2ud2KIwmpIT5YADyvD5r9PoSZGcEAOZ'  => [
         'name'   => 'Iverson Guo',
@@ -652,7 +646,7 @@ return [
         'name'   => '小顧',
         'date'   => '2026-03-01',
         'amount' => '5',
-        'pay'    => false
+        'pay'    => true
     ],
     'mNPUL3NPfL2QkdhHIr4j8enAO7FPFl2562w7r6pgJSI'  => [
         'name'   => '賴明志',
