@@ -678,11 +678,11 @@ return [
         'amount' => '10',
         'pay'    => false
     ],
-    'LrE3M77ktdqcDSt1LfhSIWpvC3IL4oiVC69K'  => [
+    'LrE3M77ktdqcDSt1LfhSIWpvC3IL4oiVC69KryqPaV4'  => [
         'name'   => '盧小迪',
-        'date'   => '2026-03-01',
-        'amount' => '3',
-        'pay'    => false
+        'date'   => '2026-03-03',
+        'amount' => '2',
+        'pay'    => true
     ],
     'GwH94OjbnwjTjg6UvidlZktXLhOcKnQLQzAf7e3Q4NM'  => [
         'name'   => '銘哲',
