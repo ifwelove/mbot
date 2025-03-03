@@ -628,7 +628,7 @@ return [
         'name'   => 'Iverson Guo',
         'date'   => '2026-03-01',
         'amount' => '2',
-        'pay'    => false
+        'pay'    => true
     ],
     '5KvhcmzoApi5dz7Zq0yQPQ3N8id9gtSi1FpPtM4EIBM'  => [
         'name'   => 'ㄚ峰',
@@ -728,6 +728,12 @@ return [
     ],
     'TI5URUW94mDMi0NiE9z5j0Ps36o2VRrKLrvPEN9474s'  => [
         'name'   => '胤',
+        'date'   => '2025-09-01',
+        'amount' => '2',
+        'pay'    => false
+    ],
+    'IuY4VKTn150wyM5SpimwelLCa4t4BsDHKEXsR1EmDXR'  => [
+        'name'   => '陳建宇',
         'date'   => '2025-09-01',
         'amount' => '2',
         'pay'    => false
