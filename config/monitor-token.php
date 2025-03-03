@@ -680,9 +680,9 @@ return [
     ],
     'GwH94OjbnwjTjg6UvidlZktXLhOcKnQLQzAf7e3Q4NM'  => [
         'name'   => '銘哲',
-        'date'   => '2026-03-01',
+        'date'   => '2026-03-04',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     '8ezBxQguPrjWj9poLwhWgf0VNCC850Z9QxKUxFrjEaG'  => [
         'name'   => 'DDflyingboy',
