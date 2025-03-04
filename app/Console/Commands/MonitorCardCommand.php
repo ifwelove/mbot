@@ -96,6 +96,9 @@ class MonitorCardCommand extends Command
 //                        dump($machine['pro_version']);
 //                    }
 //dump($machine);
+                    $fieldsToHSet = [];
+                    $setexToCall  = [];
+
                     $rows   = [];
                     $role_gg   = 0;
                     $dead_gg   = 0;
@@ -126,7 +129,12 @@ class MonitorCardCommand extends Command
                                         ->addHours()) && $card_alert_total <= 3) {
 //                                    dump($card_alert_total);
                                     //                                    echo "發送通知";
-                                    Redis::hSet($key, 'card_alert_total', (string) $card_alert_total);
+//                                    Redis::hSet($key, 'card_alert_total', (string) $card_alert_total);
+                                    $fieldsToHSet[] = [
+                                        'key'   => $key,
+                                        'field' => 'card_alert_total',
+                                        'value' => (string) $card_alert_total
+                                    ];
                                     $breakLine = "\n";
                                     $message   = $breakLine;
                                     $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
@@ -139,7 +147,12 @@ class MonitorCardCommand extends Command
 
                                     Telegram::sendAlertMessage($token, $message);
                                 } else {
-                                    Redis::hSet($key, 'card_alert_total', '1');
+//                                    Redis::hSet($key, 'card_alert_total', '1');
+                                    $fieldsToHSet[] = [
+                                        'key'   => $key,
+                                        'field' => 'card_alert_total',
+                                        'value' => '1'
+                                    ];
                                     //                                    echo "不需要發送通知";
                                 }
                             } else {
@@ -177,7 +190,14 @@ class MonitorCardCommand extends Command
                             // 如果当前计数小于 2，则增加计数，否则执行通知逻辑
                             if ($currentCount < 4) {
                                 // 增加计数并设置过期时间为 2 天
-                                Redis::setex($counterKey, 86400, $currentCount + 1); // 使用 setex 来同时设置值和 TTL
+                                $newCount      = $currentCount + 1;
+//                                Redis::setex($counterKey, 86400, $newCount); // 使用 setex 来同时设置值和 TTL
+                                $setexToCall[] = [
+                                    'key'   => $counterKey,  // "token:$token:mac:{$mac}:role:{$role[1]}:count"
+                                    'ttl'   => 86400,        // 一天或兩天，視你原本的需求
+                                    'value' => $newCount
+                                ];
+
                             } else {
 //                                dump($role);
                                 // 执行通知逻辑
@@ -185,7 +205,12 @@ class MonitorCardCommand extends Command
                                 $bag_gg_items[] = $role[1];
 
                                 // 重置计数器并设置过期时间
-                                Redis::setex($counterKey, 86400, 0);
+//                                Redis::setex($counterKey, 86400, 0);
+                                $setexToCall[] = [
+                                    'key'   => $counterKey,
+                                    'ttl'   => 86400,
+                                    'value' => 0
+                                ];
                             }
                         }
                     }
@@ -220,15 +245,30 @@ class MonitorCardCommand extends Command
                     }
                     if (count($time_counts) > 1) {
                         $m_pro_gg_count++;
-                        Redis::hSet($key, 'm_pro_gg_count', (string) $m_pro_gg_count);
+//                        Redis::hSet($key, 'm_pro_gg_count', (string) $m_pro_gg_count);
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'm_pro_gg_count',
+                            'value' => (string) $m_pro_gg_count
+                        ];
                     } else {
-                        Redis::hSet($key, 'm_pro_gg_count', '1');
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'm_pro_gg_count',
+                            'value' => '1'
+                        ];
+//                        Redis::hSet($key, 'm_pro_gg_count', '1');
                         $m_pro_gg_count = 1;
                     }
 
 //                    if ($m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
                     if (in_array($token, $extra) && $m_pro_gg_count > 6 && $m_pro_gg_alert_total <= 3) {
-                        Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
+//                        Redis::hSet($key, 'm_pro_gg_alert_total', (string) $m_pro_gg_alert_total);
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'm_pro_gg_alert_total',
+                            'value' => (string) $m_pro_gg_alert_total
+                        ];
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
@@ -239,15 +279,30 @@ class MonitorCardCommand extends Command
                         Telegram::sendAlertMessage($token, $message);
                     } else {
                         if ($m_pro_gg_alert_total > 3){
-                            Redis::hSet($key, 'm_pro_gg_count', '1');
-                            Redis::hSet($key, 'm_pro_gg_alert_total', '1');
+//                            Redis::hSet($key, 'm_pro_gg_count', '1');
+//                            Redis::hSet($key, 'm_pro_gg_alert_total', '1');
+                            $fieldsToHSet[] = [
+                                'key'   => $key,
+                                'field' => 'm_pro_gg_count',
+                                'value' => '1'
+                            ];
+                            $fieldsToHSet[] = [
+                                'key'   => $key,
+                                'field' => 'm_pro_gg_alert_total',
+                                'value' => '1'
+                            ];
                         }
                     }
 
 //                    角色死亡,
                     // 結束工具
                     if (isset($machine['role_gg_alert']) && $machine['role_gg_alert'] === 'yes' && $role_gg === 1 && $role_gg_alert_total <= 3) {
-                        Redis::hSet($key, 'role_gg_alert_total', (string) $role_gg_alert_total);
+//                        Redis::hSet($key, 'role_gg_alert_total', (string) $role_gg_alert_total);
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'role_gg_alert_total',
+                            'value' => (string) $role_gg_alert_total
+                        ];
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
                             return sprintf('[%s]', $item);
@@ -265,11 +320,21 @@ class MonitorCardCommand extends Command
 
                         Telegram::sendAlertMessage($token, $message);
                     } else {
-                        Redis::hSet($key, 'role_gg_alert_total', '1');
+//                        Redis::hSet($key, 'role_gg_alert_total', '1');
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'role_gg_alert_total',
+                            'value' => '1'
+                        ];
                     }
 
                     if (isset($machine['dead_gg_alert']) && $machine['dead_gg_alert'] === 'yes' && $dead_gg === 1 && $dead_gg_alert_total <= 3) {
-                        Redis::hSet($key, 'dead_gg_alert_total', (string) $dead_gg_alert_total);
+//                        Redis::hSet($key, 'dead_gg_alert_total', (string) $dead_gg_alert_total);
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'dead_gg_alert_total',
+                            'value' => (string) $dead_gg_alert_total
+                        ];
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
                             return sprintf('[%s]', $item);
@@ -286,11 +351,21 @@ class MonitorCardCommand extends Command
 
                         Telegram::sendAlertMessage($token, $message);
                     } else {
-                        Redis::hSet($key, 'dead_gg_alert_total', '1');
+//                        Redis::hSet($key, 'dead_gg_alert_total', '1');
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'dead_gg_alert_total',
+                            'value' => '1'
+                        ];
                     }
 
                     if (isset($machine['bag_alert']) && $machine['bag_alert'] === 'yes' && $bag_gg === 1 && $bag_gg_alert_total <= 3) {
-                        Redis::hSet($key, 'bag_gg_alert_total', (string) $bag_gg_alert_total);
+//                        Redis::hSet($key, 'bag_gg_alert_total', (string) $bag_gg_alert_total);
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'bag_gg_alert_total',
+                            'value' => (string) $bag_gg_alert_total
+                        ];
                         // 將每個元素用方括號包圍
                         $wrappedItems = array_map(function($item) {
                             return sprintf('[%s]', $item);
@@ -308,8 +383,25 @@ class MonitorCardCommand extends Command
 
                         Telegram::sendAlertMessage($token, $message);
                     } else {
-                        Redis::hSet($key, 'bag_gg_alert_total', '1');
+//                        Redis::hSet($key, 'bag_gg_alert_total', '1');
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'bag_gg_alert_total',
+                            'value' => '1'
+                        ];
                     }
+
+                    Redis::pipeline(function ($pipe) use ($fieldsToHSet, $setexToCall) {
+                        // 針對所有要 hSet 的欄位
+                        foreach ($fieldsToHSet as $item) {
+                            $pipe->hSet($item['key'], $item['field'], $item['value']);
+                        }
+
+                        // 針對所有要 setex 的部分
+                        foreach ($setexToCall as $item) {
+                            $pipe->setex($item['key'], $item['ttl'], $item['value']);
+                        }
+                    });
                 }
             }
         } catch (\Exception $exception) {

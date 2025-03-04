@@ -72,6 +72,7 @@ class MonitorCrashCommand extends Command
 //                $macAddresses = Redis::sMembers("token:$token:machines");
 //                foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
+                    $fieldsToHSet = [];
 //                    $machine     = Redis::hGetAll($key);
 //                    dump($machine);
                     $lastUpdated = $machine['last_updated'] ?? 0;
@@ -91,7 +92,12 @@ class MonitorCrashCommand extends Command
 //                    dump($crash_alert_total);
                     //crash_alert_total 三次了不會再通知, 但沒有點選清除, 但後續電腦正常後, 晚上又當機了但因為沒有清除所以不會通知, 所以要有一個機制當電腦正常後 crash_alert_total 要 reset
                     if (now()->timestamp - $lastUpdated > 3600 && $crash_alert_total <= 3) {
-                        Redis::hSet($key, 'crash_alert_total', (string) $crash_alert_total);
+//                        Redis::hSet($key, 'crash_alert_total', (string) $crash_alert_total);
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'crash_alert_total',
+                            'value' => (string) $crash_alert_total
+                        ];
                         $breakLine = "\n";
                         $message   = $breakLine;
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
@@ -103,8 +109,20 @@ class MonitorCrashCommand extends Command
                         Telegram::sendAlertMessage($token, $message);
 
                     } else if (now()->timestamp - $lastUpdated <= 3600) {
-                        Redis::hSet($key, 'crash_alert_total', '1');
+//                        Redis::hSet($key, 'crash_alert_total', '1');
+                        $fieldsToHSet[] = [
+                            'key'   => $key,
+                            'field' => 'crash_alert_total',
+                            'value' => '1'
+                        ];
                     }
+
+                    Redis::pipeline(function ($pipe) use ($fieldsToHSet) {
+                        // 針對所有要 hSet 的欄位
+                        foreach ($fieldsToHSet as $item) {
+                            $pipe->hSet($item['key'], $item['field'], $item['value']);
+                        }
+                    });
                 }
             }
         } catch (\Exception $exception) {
