@@ -96,6 +96,9 @@ class TelegramController extends Controller
 
             // 直接轉換為陣列
             $update = $request->all();
+            if (isset($update['message']) && !empty($update['message']['from']['is_bot'])) {
+                return response('OK', 200);
+            }
             // 可能會有以下結構
             // [
             //   "update_id" => 123456789,
