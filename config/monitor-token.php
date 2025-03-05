@@ -744,4 +744,10 @@ return [
         'amount' => '10',
         'pay'    => false
     ],
+    'ZlSGtQv5PJAbPnaWpl9DiIWs8uFfQmG40RfGGE5GtNo'  => [
+        'name'   => '不願意',
+        'date'   => '2025-09-01',
+        'amount' => '1',
+        'pay'    => false
+    ],
 ];
