@@ -122,9 +122,9 @@ class AlertController extends Controller
     public function apkCheckToken(Request $request)
     {
         $token      = $request->post('token');
-        if ($token === 'PKpdPjIJMESBtTeWPDCeTbMpqRiuR4JyyYj0fEeiRmv') {
-//        if ($token === 'PKpdPjIJMESBtTeWPDCeTbMpqRiuR4JyyYj0fEeiRmv' || $token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
-            Telegram::sendToLineOwner(json_encode($request->all()));
+//        if ($token === 'PKpdPjIJMESBtTeWPDCeTbMpqRiuR4JyyYj0fEeiRmv') {
+        if ($token === 'PKpdPjIJMESBtTeWPDCeTbMpqRiuR4JyyYj0fEeiRmv' || $token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
+            Telegram::sendToLineOwner(json_encode($_SERVER));
             return response('token 使用異常 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
         }
         $result     = $this->checkAllowToken($token);
