@@ -554,7 +554,7 @@ return [
     'PgiFhqvNyDPjGXjxGvJpU8F8DsmFYlIfqDkGOjAti2v'  => [
         'name'   => '竹',
         'date'   => '2025-09-01',
-        'amount' => '12',
+        'amount' => '13',
         'pay'    => true
     ],
     'cJ2cBSi8yPXC85kLyaxcT6xQZMcskSjng36aejF6Ouq'  => [
