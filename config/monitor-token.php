@@ -528,10 +528,10 @@ return [
 //        'amount' => '1',
 //        'pay'    => false
 //    ],
-    'iOJ1dB0NlxdmaCAgIPJVqijK0FKu9xFH376bthsCs48'  => [
+    '39wE9CM4BjZG4xHxqBx0sIn3XZUzRcBslMPaNyAgj1l'  => [
         'name'   => 'yoyo',
         'date'   => '2026-01-01',
-        'amount' => '2',
+        'amount' => '1',
         'pay'    => false
     ],
     'DDs7eTEtRakMR4ZLrLkRdOUR1GWuTYPfddKNgxVP0OI'  => [
