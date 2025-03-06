@@ -591,9 +591,9 @@ return [
     ],
     'lWj2iKT7SEaIf0Ft2t49waq4287P8jMNtl2nli02ccE'  => [
         'name'   => 'Larry',
-        'date'   => '2026-03-01',
-        'amount' => '18',
-        'pay'    => false
+        'date'   => '2025-10-01',
+        'amount' => '18',//一次繳半年
+        'pay'    => true
     ],
     'qYG4UZdJ0OojF0cFU1F1qLQi9AYl9KqNTTjvHYYpyhx'  => [
         'name'   => '德鋼 江欽輝',
@@ -687,16 +687,16 @@ return [
     ],
     '8ezBxQguPrjWj9poLwhWgf0VNCC850Z9QxKUxFrjEaG'  => [
         'name'   => 'DDflyingboy',
-        'date'   => '2026-03-01',
+        'date'   => '2026-03-07',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
-    'JQ8yqVnpK5JPK7os36vz5wHR1mynNjdORRVi29dqWyk'  => [
-        'name'   => 'EdwardHsu',
-        'date'   => '2026-03-01',
-        'amount' => '1',
-        'pay'    => false
-    ],
+//    'JQ8yqVnpK5JPK7os36vz5wHR1mynNjdORRVi29dqWyk'  => [
+//        'name'   => 'EdwardHsu',
+//        'date'   => '2026-03-01',
+//        'amount' => '1',
+//        'pay'    => false
+//    ],
     'NZA0AJeCJ8Vs6MWwwFHbMOhR2S4fmOrWbeTWTWzBCbz'  => [
         'name'   => '福斯帕',
         'date'   => '2026-03-01',
@@ -705,9 +705,9 @@ return [
     ],
     '1CZ5Wentjt7dGHGtx0crykGQfYdI4mWw4HuvLWlU5ES'  => [
         'name'   => '小御',
-        'date'   => '2026-03-01',
+        'date'   => '2026-03-07',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     '7omGcgYKRuxRPphdlJhoptkDrlr7aGaBiOtwcOR2LkK'  => [
         'name'   => '炎輝祐宸其叡爸',
