@@ -668,10 +668,10 @@ return [
         'pay'    => true
     ],
     'zjq3B23EVgnWF63D3Z8ynrlbFXWnCQqjyXKb2EZaEWS'  => [
-        'name'   => '治',
-        'date'   => '2026-03-01',
+        'name'   => '治',//付七台半年
+        'date'   => '2025-09-06',
         'amount' => '10',
-        'pay'    => false
+        'pay'    => true
     ],
     'LrE3M77ktdqcDSt1LfhSIWpvC3IL4oiVC69KryqPaV4'  => [
         'name'   => '盧小迪',
