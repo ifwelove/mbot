@@ -36,7 +36,7 @@ class MonitorCrashCommand extends Command
 
         $tokens = config('monitor-token');
         try {
-
+            $fieldsToHSet = [];
             foreach ($tokens as $token => $name) {
                 // 获取所有 mac 地址
                 $macAddresses = Redis::sMembers("token:$token:machines");
@@ -72,7 +72,7 @@ class MonitorCrashCommand extends Command
 //                $macAddresses = Redis::sMembers("token:$token:machines");
 //                foreach ($macAddresses as $mac) {
                     $key         = "token:$token:mac:$mac";
-                    $fieldsToHSet = [];
+//                    $fieldsToHSet = [];
 //                    $machine     = Redis::hGetAll($key);
 //                    dump($machine);
                     $lastUpdated = $machine['last_updated'] ?? 0;
@@ -117,14 +117,20 @@ class MonitorCrashCommand extends Command
                         ];
                     }
 
-                    Redis::pipeline(function ($pipe) use ($fieldsToHSet) {
-                        // 針對所有要 hSet 的欄位
-                        foreach ($fieldsToHSet as $item) {
-                            $pipe->hSet($item['key'], $item['field'], $item['value']);
-                        }
-                    });
+//                    Redis::pipeline(function ($pipe) use ($fieldsToHSet) {
+//                        // 針對所有要 hSet 的欄位
+//                        foreach ($fieldsToHSet as $item) {
+//                            $pipe->hSet($item['key'], $item['field'], $item['value']);
+//                        }
+//                    });
                 }
             }
+            Redis::pipeline(function ($pipe) use ($fieldsToHSet) {
+                // 針對所有要 hSet 的欄位
+                foreach ($fieldsToHSet as $item) {
+                    $pipe->hSet($item['key'], $item['field'], $item['value']);
+                }
+            });
         } catch (\Exception $exception) {
             Telegram::sendToLineOwner(json_encode(['token'  => $token, 'message' => $exception->getMessage()]));
         }
