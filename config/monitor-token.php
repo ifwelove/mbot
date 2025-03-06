@@ -265,208 +265,209 @@ return [
 //        'amount' => '10',
 //    ],
     //歐林
-    'XgQrwCYKdIVLCIgCsaPmwt5HMWJFXJeQJivN4N5Yq98'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'FYejKXvj9Wycl2neiXo2RwhBzsb7iwi4cwvk2oqfXFp'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'LWUOGioYYiJWH6wOlrUVRyFJMyjrCURKwixpr7qqRcr'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'yB5K66IduBYjfAMbueFOQYIFWrQK9gWQQl0SbhDrbkc'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'c4KKTpP4xNPFNspKb7Usyqsxq3jtKMQxfIARRDkB8tp'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'hxh8RX8DBPNzfas8ZrByFv2zVdYB5DLmhahGb6kXwMt'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'Hsz3pVO4hqv1KiDMKsnjtZA7iOX5cwJGBCOhvcEZTJ4'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'wWZJD4bb235UPnMWSYUy79Vq0V6LDb5YQkksqzR8op0'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'iuZN1DywxloQYYbuiJuVq4GcxcC4Czfzb1thzezo8Xl'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'lQMPIR7e7RKeYZSYPI05GDOpTJPOTh0wJyhIgp7c7C3'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'GxBU85NoO2slh7C7Xk7ZNQPLjoLzyhIUYh1I7dKDSfP'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'hjFQrCgsH8P6n8PxrJW19JXUhEb0PypsVbss9bQ8JpL'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'Rqw4DrQ4rfRSRUKp8XPUOmSDJJKA0YCEOBjcuBh15rv'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'lPEJ3guR1hlfK3UTi8YJ2uaq1rAErwf7VdYi1BhYbAo'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'TsaxilEMTyS4O8EgBznPCkxOjYk6OoBvcNsUCav3CIW'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'NdvCQQ0TAZjUyJDB5sLtbnyOU4qflKFuA3XaxQUZTbS'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'Sz5DJTqtvNr3xEQCGsjvfGEgJcVRREGBoNH0G8O1Iwt'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'PaATcHhAXSgKEnoSMrPiTWudklKdXNm0IK07XrN8ExZ'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    '3mSoQoJUVwIigRO7wZjrlq3VEYFdy7B1b9Cl2P4PsGh'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    '3UIgRuJ9Zovi1DAWzPo6AILGKstb9UXg6P6vpU1XUzd'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'OcA4I9Vt48H4AL7EEuoiRJhAinyGmWFX6gIFl9QZjMw'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    '786B7WKsUWRX89mlXqUAKmzf7t32xEkrlby9OzhjnUW'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
+//    'XgQrwCYKdIVLCIgCsaPmwt5HMWJFXJeQJivN4N5Yq98'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'FYejKXvj9Wycl2neiXo2RwhBzsb7iwi4cwvk2oqfXFp'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'LWUOGioYYiJWH6wOlrUVRyFJMyjrCURKwixpr7qqRcr'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'yB5K66IduBYjfAMbueFOQYIFWrQK9gWQQl0SbhDrbkc'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'c4KKTpP4xNPFNspKb7Usyqsxq3jtKMQxfIARRDkB8tp'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'hxh8RX8DBPNzfas8ZrByFv2zVdYB5DLmhahGb6kXwMt'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'Hsz3pVO4hqv1KiDMKsnjtZA7iOX5cwJGBCOhvcEZTJ4'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'wWZJD4bb235UPnMWSYUy79Vq0V6LDb5YQkksqzR8op0'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'iuZN1DywxloQYYbuiJuVq4GcxcC4Czfzb1thzezo8Xl'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'lQMPIR7e7RKeYZSYPI05GDOpTJPOTh0wJyhIgp7c7C3'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'GxBU85NoO2slh7C7Xk7ZNQPLjoLzyhIUYh1I7dKDSfP'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'hjFQrCgsH8P6n8PxrJW19JXUhEb0PypsVbss9bQ8JpL'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'Rqw4DrQ4rfRSRUKp8XPUOmSDJJKA0YCEOBjcuBh15rv'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'lPEJ3guR1hlfK3UTi8YJ2uaq1rAErwf7VdYi1BhYbAo'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'TsaxilEMTyS4O8EgBznPCkxOjYk6OoBvcNsUCav3CIW'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'NdvCQQ0TAZjUyJDB5sLtbnyOU4qflKFuA3XaxQUZTbS'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'Sz5DJTqtvNr3xEQCGsjvfGEgJcVRREGBoNH0G8O1Iwt'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'PaATcHhAXSgKEnoSMrPiTWudklKdXNm0IK07XrN8ExZ'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    '3mSoQoJUVwIigRO7wZjrlq3VEYFdy7B1b9Cl2P4PsGh'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    '3UIgRuJ9Zovi1DAWzPo6AILGKstb9UXg6P6vpU1XUzd'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'OcA4I9Vt48H4AL7EEuoiRJhAinyGmWFX6gIFl9QZjMw'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    '786B7WKsUWRX89mlXqUAKmzf7t32xEkrlby9OzhjnUW'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
     '7mJZxLPB0dKYf69arest6jAUxIQ6be7lpGs7z4lmUX5'  => [
         'name'   => 'gary',
         'date'   => '2026-03-01',
         'amount' => '2',
         'pay'    => true,//目前只付款一台
     ],
-    'tFGVoQckHdtuqBdUgiRKYb5SwfLTzq5sLGUqa7ovAF8'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'a3SBwZl4j4AQ5xmRj2hpviA8SyybZuBtDSFGGM4foAa'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'zNbzeJudD0rvCRdzBWOkkT1eK6xDAxkoQWH6DEVt41P'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    '3XC9MyO8FwdaJ92c8ej8gsSjZQvAhIbmL0ND2ZXjKw9'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'xwCPx4EQwewZW7RMpmZcOfxLnAc4QhJeBTsOFzg0X7W'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '2',
-    ],
-    'LLYAQJCu7xAAauzQj9ne9FArdtyOcys8e1i4cypDd3h'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '2',
-    ],
-    'v3slJXSdNsSXUlsgPkFvJ3VXZNjIB5f3IRFpdNfVZ98'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'Ttm8FPO1iYuLZsjnJJ2PZDp0L7HcdxrNTQXOuv6Vpnk'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
-        'name'   => '咖啡',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-        'pay'    => true,
-    ],
+//    'tFGVoQckHdtuqBdUgiRKYb5SwfLTzq5sLGUqa7ovAF8'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'a3SBwZl4j4AQ5xmRj2hpviA8SyybZuBtDSFGGM4foAa'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'zNbzeJudD0rvCRdzBWOkkT1eK6xDAxkoQWH6DEVt41P'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    '3XC9MyO8FwdaJ92c8ej8gsSjZQvAhIbmL0ND2ZXjKw9'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'xwCPx4EQwewZW7RMpmZcOfxLnAc4QhJeBTsOFzg0X7W'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '2',
+//    ],
+//    'LLYAQJCu7xAAauzQj9ne9FArdtyOcys8e1i4cypDd3h'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '2',
+//    ],
+//    'v3slJXSdNsSXUlsgPkFvJ3VXZNjIB5f3IRFpdNfVZ98'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'Ttm8FPO1iYuLZsjnJJ2PZDp0L7HcdxrNTQXOuv6Vpnk'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
+//        'name'   => '咖啡',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//        'pay'    => true,
+//    ],
     'StYqtm0RD97Z6DuZoDDEWdiIeM8vWCMXdjt4vrHfhFP'  => [
         'name'   => '李家臣',
         'date'   => '2025-08-12',
         'amount' => '1',
         'pay'    => true
     ],
-    'krw5R3iNHMKduXi77B0l5L8gTVKDjvhRBQprUoKuRTN'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'NZH3hwMbK7y6nO3KuskLoYtzdwm89fSnhFavUXMCfis'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'caOybGjRHGlOYuXtPEbBtKvIFWq5HG8WBZhcqMCIAam'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
-    'pKMbEcBOfXOD0JKQm0TeuM0k3PgeyOrga4LN4g3GtaI'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
+//    'krw5R3iNHMKduXi77B0l5L8gTVKDjvhRBQprUoKuRTN'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'NZH3hwMbK7y6nO3KuskLoYtzdwm89fSnhFavUXMCfis'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'caOybGjRHGlOYuXtPEbBtKvIFWq5HG8WBZhcqMCIAam'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'pKMbEcBOfXOD0JKQm0TeuM0k3PgeyOrga4LN4g3GtaI'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
     'IRUmpd2tiZKIIUyqMWqcPunRyqHpPfzkljsbI2ApFbd'  => [
         'name'   => 'jason',
         'date'   => '2025-01-01',
         'amount' => '10',
-    ],'zBfatwI0GB3zF39uRhTReaAPREAq7ezHZHzu1MVbWDu'  => [
-        'name'   => '',
-        'date'   => '2025-01-01',
-        'amount' => '1',
     ],
-    'uHcHKJxUQfI6VKcnupchNCh3KRYvpO1B0pfNcH3mDNX'  => [
-        'name'   => '良',
-        'date'   => '2025-01-01',
-        'amount' => '1',
-    ],
+//    'zBfatwI0GB3zF39uRhTReaAPREAq7ezHZHzu1MVbWDu'  => [
+//        'name'   => '',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
+//    'uHcHKJxUQfI6VKcnupchNCh3KRYvpO1B0pfNcH3mDNX'  => [
+//        'name'   => '良',
+//        'date'   => '2025-01-01',
+//        'amount' => '1',
+//    ],
     'liZ5Wtf8IOP7KA9m8QDnGX4do8kiXM0naiNipbNBDsO'  => [
         'name'   => 'test朋友',
         'date'   => '2025-07-18',
@@ -751,6 +752,12 @@ return [
         'pay'    => false
     ],
     'xuxvSSqgdIFu4KbSPX9DhWBQ3SR3xSjscA0CaIedeQ5'  => [
+        'name'   => 'Hung',
+        'date'   => '2025-09-01',
+        'amount' => '1',
+        'pay'    => false
+    ],
+    'wemHdZUI7g0KVfw7YUMZRw8T9CJJczq6MI8RU0LdnXI'  => [
         'name'   => 'Hung',
         'date'   => '2025-09-01',
         'amount' => '1',
