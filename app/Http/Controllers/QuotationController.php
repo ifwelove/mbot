@@ -15,7 +15,7 @@ class QuotationController extends Controller
 
     public function create2()
     {
-        return view('quotation.form');
+        return view('quotation.form2');
     }
 
     public function store2(Request $request)
@@ -50,12 +50,12 @@ class QuotationController extends Controller
         Storage::disk('movepro')->put($pdfPath, $pdf->output());
 
         // 取得 R2 上的 URL
-//        $r2Url = Storage::disk('r2')->url($pdfPath);
+//        $r2Url = Storage::disk('movepro')->url($pdfPath);
 
         // 返回 PDF 下載，直接從 R2 讀取
-//        return response()->streamDownload(function () use ($pdf) {
-//            echo $pdf->output();
-//        }, $file);
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $file);
         return $pdf->download($file);
     }
 
