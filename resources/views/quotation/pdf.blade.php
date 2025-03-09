@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        /*body { font-family: 'NotoSansTC', 'DejaVu Sans', sans-serif; }*/
         body {
             font-family: 'Noto Sans SC', sans-serif;
             font-size: 12px;
@@ -14,7 +13,6 @@
         .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .table th, .table td { border: 1px solid black; padding: 8px; text-align: left; }
     </style>
-
 </head>
 <body>
 <div class="header">
@@ -33,22 +31,23 @@
 <table class="table">
     <thead>
     <tr>
-        <th>編號</th>
-        <th>搬運項目</th>
-        <th>金額</th>
+        <td>編號</td>
+        <td>搬運項目</td>
+        <td>金額</td>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1</td>
-        <td>{{ $data['items'] }}</td>
-        <td>{{ $data['amount'] }}</td>
-    </tr>
+    @foreach ($data['items'] as $index => $item)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $item['name'] }}</td>
+            <td>${{ number_format($item['amount']) }}</td>
+        </tr>
+    @endforeach
     </tbody>
 </table>
 
 <p>備註： {{ $data['note'] }}</p>
-<p><img src="{{ public_path('images/notice.png') }}" class="logo"></p>
-
+<img src="{{ public_path('images/notice.jpg') }}" class="notice" alt="樂遷搬家">
 </body>
 </html>
