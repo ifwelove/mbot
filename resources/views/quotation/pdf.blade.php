@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="header">
-    <img src="{{ public_path('images/movepro.png') }}" class="logo" alt="公司 Logo">
+    <img src="{{ public_path('images/movepro.png') }}" class="logo" alt="樂遷搬家">
     <h2>報價單</h2>
 </div>
 
