@@ -420,14 +420,14 @@ class MonitorCardCommand extends Command
 //                }
 //            });
             Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
-            foreach (array_chunk($fieldsToHSet, 100) as $batch) {
+            foreach (array_chunk($fieldsToHSet, 50) as $batch) {
                 Redis::pipeline(function ($pipe) use ($batch) {
                     foreach ($batch as $item) {
                         $pipe->hSet($item['key'], $item['field'], $item['value']);
                     }
                 });
             }
-            foreach (array_chunk($setexToCall, 100) as $batch) {
+            foreach (array_chunk($setexToCall, 50) as $batch) {
                 Redis::pipeline(function ($pipe) use ($batch) {
                     foreach ($batch as $item) {
                         $pipe->setex($item['key'], $item['ttl'], $item['value']);
