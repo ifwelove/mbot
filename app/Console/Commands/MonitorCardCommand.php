@@ -34,7 +34,7 @@ class MonitorCardCommand extends Command
 
     public function handle()
     {
-
+        $start_time = microtime(true); // 記錄開始時間
         $tokens = config('monitor-token');
         try {
             $not_check_role_status = [
@@ -419,7 +419,9 @@ class MonitorCardCommand extends Command
 //                    $pipe->setex($item['key'], $item['ttl'], $item['value']);
 //                }
 //            });
-            Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
+            $end_time = microtime(true);
+            $execution_time = round($end_time - $start_time, 4);
+            Telegram::sendToLineOwner(json_encode(['monitor:card'  => $execution_time, 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
             foreach (array_chunk($fieldsToHSet, 50) as $batch) {
                 Redis::pipeline(function ($pipe) use ($batch) {
                     foreach ($batch as $item) {
@@ -434,10 +436,14 @@ class MonitorCardCommand extends Command
                     }
                 });
             }
-            Telegram::sendToLineOwner(json_encode(['monitor:card finish'  => 'monitor:card finish']));
+            $end_time = microtime(true);
+            $execution_time = round($end_time - $start_time, 4);
+            Telegram::sendToLineOwner(json_encode(['monitor:card finish'  => $execution_time]));
 //            Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
         } catch (\Exception $exception) {
-            Telegram::sendToLineOwner(json_encode(['monitor:card Exception'  => 'monitor:card Exception', 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall),'message' => $exception->getMessage()]));
+            $end_time = microtime(true);
+            $execution_time = round($end_time - $start_time, 4);
+            Telegram::sendToLineOwner(json_encode(['monitor:card Exception'  => $execution_time, 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall),'message' => $exception->getMessage()]));
         }
     }
 }

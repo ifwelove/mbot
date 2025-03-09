@@ -34,6 +34,7 @@ class MonitorCrashCommand extends Command
     public function handle()
     {
         sleep(120);
+        $start_time = microtime(true);
         $tokens = config('monitor-token');
         try {
             $fieldsToHSet = [];
@@ -134,8 +135,12 @@ class MonitorCrashCommand extends Command
                     $pipe->hSet($item['key'], $item['field'], $item['value']);
                 }
             });
+            $end_time = microtime(true);
+            $execution_time = round($end_time - $start_time, 4);
             Telegram::sendToLineOwner(json_encode(['monitor:crash finish'  => 'monitor:crash finish']));
         } catch (\Exception $exception) {
+            $end_time = microtime(true);
+            $execution_time = round($end_time - $start_time, 4);
             Telegram::sendToLineOwner(json_encode(['monitor:crash'  => 'monitor:crash', 'fieldsToHSet' => count($fieldsToHSet), 'token'  => $token, 'message' => $exception->getMessage()]));
         }
     }
