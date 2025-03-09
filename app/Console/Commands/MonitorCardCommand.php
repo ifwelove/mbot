@@ -77,6 +77,7 @@ class MonitorCardCommand extends Command
                 }, $macAddresses);
 
                 // 使用 Pipeline 批量获取所有机器数据
+                Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'keys' => count($keys)]));
                 $machines = Redis::pipeline(function ($pipe) use ($keys) {
                     foreach ($keys as $key) {
                         $pipe->hGetAll($key);
