@@ -102,6 +102,9 @@ class AlertController extends Controller
     public function checkToken(Request $request)
     {
         $token      = $request->post('token');
+        if ($token === 'RooVtIldDVWJq08EH2WV5PK1D90HVqDXdUAo93yLQ2s') {
+            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
+        }
 //        if ($token === 'PKpdPjIJMESBtTeWPDCeTbMpqRiuR4JyyYj0fEeiRmv') {
 //            return response('token 使用異常 請聯繫作者開通Line ID: ifwelove', 200)->header('Content-Type', 'text/plain');
 //        }
@@ -162,8 +165,12 @@ class AlertController extends Controller
 //        }
 
         $token      = $request->post('token');
+        if ($token === 'RooVtIldDVWJq08EH2WV5PK1D90HVqDXdUAo93yLQ2s') {
+            return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
+        }
+
         $result     = $this->checkAllowToken($token);
-        if ($result === false || $token === 'RooVtIldDVWJq08EH2WV5PK1D90HVqDXdUAo93yLQ2s') {
+        if ($result === false) {
             Telegram::sendToLineOwner(json_encode($request->all()));
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
