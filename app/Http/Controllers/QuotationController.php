@@ -48,7 +48,7 @@ class QuotationController extends Controller
 
         // 直接上傳到 Cloudflare R2
         $pdfPath = date('Ymd') . '/' . $file;
-        Storage::disk('movepro')->put($pdfPath, $pdf->output());
+//        Storage::disk('movepro')->put($pdfPath, $pdf->output());
 
         // 取得 R2 上的 URL
 //        $r2Url = Storage::disk('movepro')->url($pdfPath);
