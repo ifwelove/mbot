@@ -79,14 +79,19 @@ class MonitorCardCommand extends Command
 
                 // 使用 Pipeline 批量获取所有机器数据
 //                Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'keys' => count($keys)]));
+//                $machines = Redis::pipeline(function ($pipe) use ($keys) {
+//                    foreach ($keys as $key) {
+//                        $pipe->hGetAll($key);
+//                    }
+//                });
+                $start_time2 = microtime(true);
                 $machines = Redis::pipeline(function ($pipe) use ($keys) {
                     foreach ($keys as $key) {
                         $pipe->hGetAll($key);
                     }
                 });
                 $end_time2 = microtime(true);
-                $execution_time_temp = round($end_time2 - $start_time, 4);
-                $execution_time2 = round($execution_time2,4) + round($execution_time_temp,4);
+                $execution_time2 += round($end_time2 - $start_time2, 4);
                 // 将结果与 MAC 地址对应
                 $result = [];
                 foreach ($macAddresses as $index => $mac) {
