@@ -103,7 +103,10 @@ class MonitorCrashCommand extends Command
                         $message   .= sprintf('自訂代號 : %s%s', isset($machine['pc_name']) ? $machine['pc_name'] : '', $breakLine);
                                             $message .= sprintf('電腦資訊 : %s%s', isset($machine['pc_info']) ? $machine['pc_info'] : '', $breakLine);
                         $message .= sprintf('大尾狀態 : %s%s', '當機, 半小時無訊號', $breakLine);
-                        $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['dnplayer']);
+                        if (isset($machine['dnplayer_running']) && isset($machine['dnplayer'])) {
+                            $message .= sprintf('模擬器數量 : %s/%s', $machine['dnplayer_running'], $machine['dnplayer']);
+                        }
+
                         $message .= sprintf('如已經處理請至網頁點選重置訊號 : https://lbs.a5963745.workers.dev/pro/%s', $token);
 //                        $message .= sprintf('已經處理點選清除通知 : https://lbs.a5963745.workers.dev/delete-machine?token=%s&mac=%s', $token, $mac);
                         Telegram::sendAlertMessage($token, $message);
