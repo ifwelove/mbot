@@ -434,6 +434,7 @@ class MonitorCardCommand extends Command
                     }
                 });
             }
+            Telegram::sendToLineOwner(json_encode(['monitor:card finish'  => 'monitor:card finish']));
 //            Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
         } catch (\Exception $exception) {
             Telegram::sendToLineOwner(json_encode(['monitor:card Exception'  => 'monitor:card Exception', 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall),'message' => $exception->getMessage()]));

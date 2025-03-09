@@ -134,6 +134,7 @@ class MonitorCrashCommand extends Command
                     $pipe->hSet($item['key'], $item['field'], $item['value']);
                 }
             });
+            Telegram::sendToLineOwner(json_encode(['monitor:crash finish'  => 'monitor:crash finish']));
         } catch (\Exception $exception) {
             Telegram::sendToLineOwner(json_encode(['monitor:crash'  => 'monitor:crash', 'fieldsToHSet' => count($fieldsToHSet), 'token'  => $token, 'message' => $exception->getMessage()]));
         }
