@@ -81,7 +81,7 @@ class AlertController extends Controller
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
 
-        Telegram::sendToLineOwner('checkOlinTap:' . $token);
+//        Telegram::sendToLineOwner('checkOlinTap:' . $token);
 
         return response('ok', 200)->header('Content-Type', 'text/plain');
     }
