@@ -184,3 +184,6 @@ use App\Http\Controllers\QuotationController;
 
 Route::get('/quotation', [QuotationController::class, 'create']);
 Route::post('/quotation', [QuotationController::class, 'store']);
+
+Route::get('/pdf', [QuotationController::class, 'create2']);
+Route::post('/pdf', [QuotationController::class, 'store2']);
