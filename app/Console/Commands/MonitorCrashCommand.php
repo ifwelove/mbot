@@ -137,11 +137,11 @@ class MonitorCrashCommand extends Command
             });
             $end_time = microtime(true);
             $execution_time = round($end_time - $start_time, 4);
-            Telegram::sendToLineOwner(json_encode(['monitor:crash finish'  => 'monitor:crash finish']));
+            Telegram::sendToLineOwner(json_encode(['monitor:crash finish'  => $execution_time]));
         } catch (\Exception $exception) {
             $end_time = microtime(true);
             $execution_time = round($end_time - $start_time, 4);
-            Telegram::sendToLineOwner(json_encode(['monitor:crash'  => 'monitor:crash', 'fieldsToHSet' => count($fieldsToHSet), 'token'  => $token, 'message' => $exception->getMessage()]));
+            Telegram::sendToLineOwner(json_encode(['monitor:crash'  => $execution_time, 'fieldsToHSet' => count($fieldsToHSet), 'token'  => $token, 'message' => $exception->getMessage()]));
         }
     }
 }
