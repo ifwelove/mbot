@@ -407,17 +407,32 @@ class MonitorCardCommand extends Command
 //                    });
                 }
             }
-            Redis::pipeline(function ($pipe) use ($fieldsToHSet, $setexToCall) {
-                // 針對所有要 hSet 的欄位
-                foreach ($fieldsToHSet as $item) {
-                    $pipe->hSet($item['key'], $item['field'], $item['value']);
-                }
+//            Redis::pipeline(function ($pipe) use ($fieldsToHSet, $setexToCall) {
+//                // 針對所有要 hSet 的欄位
+//                foreach ($fieldsToHSet as $item) {
+//                    $pipe->hSet($item['key'], $item['field'], $item['value']);
+//                }
+//
+//                // 針對所有要 setex 的部分
+//                foreach ($setexToCall as $item) {
+//                    $pipe->setex($item['key'], $item['ttl'], $item['value']);
+//                }
+//            });
 
-                // 針對所有要 setex 的部分
-                foreach ($setexToCall as $item) {
-                    $pipe->setex($item['key'], $item['ttl'], $item['value']);
-                }
-            });
+            foreach (array_chunk($fieldsToHSet, 500) as $batch) {
+                Redis::pipeline(function ($pipe) use ($batch) {
+                    foreach ($batch as $item) {
+                        $pipe->hSet($item['key'], $item['field'], $item['value']);
+                    }
+                });
+            }
+            foreach (array_chunk($setexToCall, 500) as $batch) {
+                Redis::pipeline(function ($pipe) use ($batch) {
+                    foreach ($batch as $item) {
+                        $pipe->setex($item['key'], $item['ttl'], $item['value']);
+                    }
+                });
+            }
         } catch (\Exception $exception) {
             Telegram::sendToLineOwner(json_encode(['monitor:card'  => 'monitor:card', 'message' => $exception->getMessage()]));
         }
