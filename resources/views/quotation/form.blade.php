@@ -74,12 +74,12 @@
     <h2>報價單填寫</h2>
     <form action="{{ url('/quotation') }}" method="POST">
         @csrf
-        <label>客戶姓名: <input type="text" name="customer_name" value="宋雯婷" required></label>
-        <label>電話: <input type="text" name="phone" value="0988178992" required></label>
-        <label>訂單編號: <input type="text" name="order_no" value="20250307001" required></label>
-        <label>搬出地址: <input type="text" name="from_address" value="平鎮區環南路二段192巷1號" required></label>
-        <label>搬運日期: <input type="text" name="move_date" value="2025/03/21(五)13:00" required></label>
-        <label>搬入地址: <input type="text" name="to_address" value="桃園市大溪區大漢溪多功能草皮公園" required></label>
+        <label>客戶姓名: <input type="text" name="customer_name" value="" required></label>
+        <label>電話: <input type="text" name="phone" value="" required></label>
+        <label>訂單編號: <input type="text" name="order_no" value="" required></label>
+        <label>搬出地址: <input type="text" name="from_address" value="" required></label>
+        <label>搬運日期: <input type="text" name="move_date" value="" required></label>
+        <label>搬入地址: <input type="text" name="to_address" value="" required></label>
         <label>接洽人員: <input type="text" name="contact_person" value="浩" required></label>
 
         <label>搬運項目：</label>
@@ -92,8 +92,8 @@
             @endfor
         </div>
 
-        <label>備註: <textarea name="note" rows="3">財團法人心路社會福利基金會 00968326</textarea></label>
-        <button type="submit">產生 PDF</button>
+        <label>備註: <textarea name="note" rows="3"></textarea></label>
+        <button type="submit">產生報價單</button>
     </form>
 </div>
 </body>
