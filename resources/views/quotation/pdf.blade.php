@@ -9,7 +9,8 @@
             margin: 20px;
         }
         .header { text-align: center; }
-        .logo { width: 150px; height: auto; }
+        .logo { width: 300px; height: auto; }
+        .notice { text-align: center; width: 600px; height: auto; }
         .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .table th, .table td { border: 1px solid black; padding: 8px; text-align: left; }
     </style>
