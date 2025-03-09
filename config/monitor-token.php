@@ -424,7 +424,7 @@ return [
     'MigNOL8LqfgifO19Zu6mWo9DVLYi3fVkYoJG7oaTJZC'  => [
         'name'   => '咖啡',
         'date'   => '2025-07-25',
-        'amount' => '1',
+        'amount' => '8',
         'pay'    => true,
     ],
     'StYqtm0RD97Z6DuZoDDEWdiIeM8vWCMXdjt4vrHfhFP'  => [
