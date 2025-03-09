@@ -33,7 +33,7 @@ class MonitorCrashCommand extends Command
 
     public function handle()
     {
-
+        sleep(120);
         $tokens = config('monitor-token');
         try {
             $fieldsToHSet = [];
