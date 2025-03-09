@@ -48,5 +48,7 @@
 </table>
 
 <p>備註： {{ $data['note'] }}</p>
+<p><img src="{{ public_path('images/notice.png') }}" class="logo"></p>
+
 </body>
 </html>

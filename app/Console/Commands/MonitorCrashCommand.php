@@ -132,7 +132,7 @@ class MonitorCrashCommand extends Command
                 }
             });
         } catch (\Exception $exception) {
-            Telegram::sendToLineOwner(json_encode(['token'  => $token, 'message' => $exception->getMessage()]));
+            Telegram::sendToLineOwner(json_encode(['monitor:crash'  => 'monitor:crash', 'fieldsToHSet' => count($fieldsToHSet), 'token'  => $token, 'message' => $exception->getMessage()]));
         }
     }
 }
