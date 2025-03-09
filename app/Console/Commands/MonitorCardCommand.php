@@ -86,7 +86,7 @@ class MonitorCardCommand extends Command
                 });
                 $end_time2 = microtime(true);
                 $execution_time_temp = round($end_time2 - $start_time, 4);
-                $execution_time2 = $execution_time2 + $execution_time_temp;
+                $execution_time2 = round($execution_time2,4) + round($execution_time_temp,4);
                 // 将结果与 MAC 地址对应
                 $result = [];
                 foreach ($macAddresses as $index => $mac) {
