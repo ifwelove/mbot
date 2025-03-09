@@ -18,17 +18,17 @@
 </head>
 <body>
 <div class="header">
-    <img src="{{ public_path('images/logo.png') }}" class="logo" alt="公司 Logo">
+    <img src="{{ public_path('images/movepro.png') }}" class="logo" alt="公司 Logo">
     <h2>報價單</h2>
 </div>
 
-<p><strong>客戶姓名：</strong> {{ $data['customer_name'] }}</p>
-<p><strong>電話：</strong> {{ $data['phone'] }}</p>
-<p><strong>訂單編號：</strong> {{ $data['order_no'] }}</p>
-<p><strong>搬出地址：</strong> {{ $data['from_address'] }}</p>
-<p><strong>搬運日期：</strong> {{ $data['move_date'] }}</p>
-<p><strong>搬入地址：</strong> {{ $data['to_address'] }}</p>
-<p><strong>接洽人員：</strong> {{ $data['contact_person'] }}</p>
+<p>客戶姓名： {{ $data['customer_name'] }}</p>
+<p>電話： {{ $data['phone'] }}</p>
+<p>訂單編號： {{ $data['order_no'] }}</p>
+<p>搬出地址： {{ $data['from_address'] }}</p>
+<p>搬運日期： {{ $data['move_date'] }}</p>
+<p>搬入地址： {{ $data['to_address'] }}</p>
+<p>接洽人員： {{ $data['contact_person'] }}</p>
 
 <table class="table">
     <thead>
@@ -47,6 +47,6 @@
     </tbody>
 </table>
 
-<p><strong>備註：</strong> {{ $data['note'] }}</p>
+<p>備註： {{ $data['note'] }}</p>
 </body>
 </html>
