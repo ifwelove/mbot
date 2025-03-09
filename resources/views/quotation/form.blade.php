@@ -6,7 +6,7 @@
     <title>樂遷報價單</title>
     <style>
         body {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Noto Sans SC', sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
