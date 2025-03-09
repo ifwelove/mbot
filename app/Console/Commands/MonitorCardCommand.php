@@ -419,7 +419,7 @@ class MonitorCardCommand extends Command
 //                }
 //            });
 
-            foreach (array_chunk($fieldsToHSet, 500) as $batch) {
+            foreach (array_chunk($fieldsToHSet, 250) as $batch) {
                 Redis::pipeline(function ($pipe) use ($batch) {
                     foreach ($batch as $item) {
                         $pipe->hSet($item['key'], $item['field'], $item['value']);
