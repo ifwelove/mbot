@@ -765,9 +765,9 @@ return [
     ],
     'W2isXwIEjCtozHamMQAyxgXf5bfgFMah7HcV04ennxT'  => [
         'name'   => '阿哲',
-        'date'   => '2025-09-01',
+        'date'   => '2026-03-16',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     'NmzSma6LgFIrodPWjNHtrBEN5Ly00VpgWz4T8EZXIMg'  => [
         'name'   => '驊',
