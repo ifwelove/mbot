@@ -157,8 +157,8 @@ return [
 //            'options' => [
 //                'parameters' => ['persistent' => true], // 启用持久连接
 //            ],
-            'timeout'  => 15.0, // 连接超时时间（秒）
-            'read_write_timeout' => 30.0, // 读写超时时间（秒）
+            'timeout'  => 30.0, // 连接超时时间（秒）
+            'read_write_timeout' => 45.0, // 读写超时时间（秒）
         ],
 
         'cache' => [

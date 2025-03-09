@@ -59,7 +59,7 @@ return [
             'key' => env('R2_ACCESS_KEY'),
             'secret' => env('R2_SECRET_KEY'),
             'region' => 'auto', // R2 不需要明確設定區域
-            'bucket' => env('MPROR2_BUCKET', 'movepro'),
+            'bucket' => env('MOVEPROR2_BUCKET', 'movepro'),
             'endpoint' => env('R2_ENDPOINT'),
             'account_id' => env('R2_ACCOUNT_ID', '69036bf2096bfe2e72462cb59ff4366c'),
         ],
