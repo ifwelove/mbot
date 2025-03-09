@@ -36,7 +36,7 @@ class QuotationController extends Controller
         $data['items'] = array_filter($data['items'], function ($item) {
             return !empty($item['name']) && !empty($item['amount']);
         });
-        $file = 'movepro' . date('YmdHis') . '.pdf';
+        $file = '樂遷搬家報價單_' . date('YmdHi') . '.pdf';
         // 產生 PDF
         $pdf = Pdf::loadView('quotation.pdf', compact('data'));
 
@@ -48,9 +48,10 @@ class QuotationController extends Controller
 //        $r2Url = Storage::disk('r2')->url($pdfPath);
 
         // 返回 PDF 下載，直接從 R2 讀取
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->output();
-        }, $file);
+//        return response()->streamDownload(function () use ($pdf) {
+//            echo $pdf->output();
+//        }, $file);
+        return $pdf->download($file);
     }
 
 }
