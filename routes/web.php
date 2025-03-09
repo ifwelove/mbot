@@ -178,3 +178,9 @@ Route::get('/clear-url', function () {
 
     return response()->json(['message' => 'URL has been cleared.']);
 });
+
+
+use App\Http\Controllers\QuotationController;
+
+Route::get('/quotation', [QuotationController::class, 'create']);
+Route::post('/quotation', [QuotationController::class, 'store']);
