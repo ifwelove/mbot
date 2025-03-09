@@ -57,13 +57,13 @@ class QuotationController extends Controller
 //        return response()->streamDownload(function () use ($pdf) {
 //            echo $pdf->output();
 //        }, $file);
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->output();
-        }, $file, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
-        ]);
-//        return $pdf->download($file);
+//        return response()->streamDownload(function () use ($pdf) {
+//            echo $pdf->output();
+//        }, $file, [
+//            'Content-Type' => 'application/pdf',
+//            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
+//        ]);
+        return $pdf->download($file);
 //        return response()->make($pdf->output(), 200, [
 //            'Content-Type' => 'application/pdf',
 //            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
