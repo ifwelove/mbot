@@ -53,10 +53,20 @@ class QuotationController extends Controller
 //        $r2Url = Storage::disk('movepro')->url($pdfPath);
 
         // 返回 PDF 下載，直接從 R2 讀取
+//        return response()->streamDownload(function () use ($pdf) {
+//            echo $pdf->output();
+//        }, $file);
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();
-        }, $file);
-        return $pdf->download($file);
+        }, $file, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
+        ]);
+//        return $pdf->download($file);
+//        return response()->make($pdf->output(), 200, [
+//            'Content-Type' => 'application/pdf',
+//            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
+//        ]);
     }
 
 }
