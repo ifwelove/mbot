@@ -38,7 +38,7 @@ class QuotationController extends Controller
         });
         $file = 'movepro' . date('YmdHis') . 'pdf';
         // 產生 PDF
-        $pdf = Pdf::loadView($file, compact('data'));
+        $pdf = Pdf::loadView('quotation.pdf', compact('data'));
 
         // 直接上傳到 Cloudflare R2
         $pdfPath = date('Ymd') . '/' . $file;
