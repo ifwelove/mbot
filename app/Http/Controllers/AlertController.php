@@ -163,7 +163,7 @@ class AlertController extends Controller
 
         $token      = $request->post('token');
         $result     = $this->checkAllowToken($token);
-        if ($result === false) {
+        if ($result === false || $token === 'RooVtIldDVWJq08EH2WV5PK1D90HVqDXdUAo93yLQ2s') {
             Telegram::sendToLineOwner(json_encode($request->all()));
 
             return response('token 未授權 無法進行推送到 line', 200)->header('Content-Type', 'text/plain');
