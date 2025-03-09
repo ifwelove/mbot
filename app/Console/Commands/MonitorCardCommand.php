@@ -59,6 +59,7 @@ class MonitorCardCommand extends Command
                 ];
             $fieldsToHSet = [];
             $setexToCall  = [];
+            $execution_time2 = 0;
             foreach ($tokens as $token => $name) {
 //                if ($token != 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB') {
 //                    continue;
@@ -83,7 +84,9 @@ class MonitorCardCommand extends Command
                         $pipe->hGetAll($key);
                     }
                 });
-
+                $end_time2 = microtime(true);
+                $execution_time_temp = round($end_time2 - $start_time, 4);
+                $execution_time2 = $execution_time2 + $execution_time_temp;
                 // 将结果与 MAC 地址对应
                 $result = [];
                 foreach ($macAddresses as $index => $mac) {
@@ -421,7 +424,7 @@ class MonitorCardCommand extends Command
 //            });
             $end_time = microtime(true);
             $execution_time = round($end_time - $start_time, 4);
-            Telegram::sendToLineOwner(json_encode(['monitor:card'  => $execution_time, 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
+            Telegram::sendToLineOwner(json_encode(['monitor:card'  => $execution_time, 'monitor:card2'  => $execution_time2, 'fieldsToHSet' => count($fieldsToHSet), 'setexToCall' => count($setexToCall)]));
             foreach (array_chunk($fieldsToHSet, 50) as $batch) {
                 Redis::pipeline(function ($pipe) use ($batch) {
                     foreach ($batch as $item) {
