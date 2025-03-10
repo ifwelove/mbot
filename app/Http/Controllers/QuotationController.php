@@ -80,7 +80,7 @@ class QuotationController extends Controller
             return !empty($item['name']) && !empty($item['amount']);
         });
 
-        $file = date('YmdHi') . '.pdf';
+        $file = '樂遷搬家報價單_' . date('YmdHi') . '.pdf';
 
         // 產生 PDF
         $pdf = Pdf::loadView('quotation.pdf', compact('data'));
