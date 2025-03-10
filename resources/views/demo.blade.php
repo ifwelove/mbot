@@ -73,7 +73,7 @@
             <a target="_blank" href="https://line.me/ti/g2/5gBZGGhG_e3jylabmmkSQbpqW3PamjCxY490YQ" class="btn btn-success">歡迎加入 Line 群討論</a>
         </div>
     </div>
-    <p>大尾監控小程式 購買每台電腦每月50元等於每天不到兩元, 半年300, 一年600, 購買請洽 Line id: ifwelove
+    <p>大尾監控小程式 購買每台電腦每月50元等於每天不到兩元, 一年600, 購買請洽 Line id: ifwelove
         未來陸續開發更多功能也能跟作者建議：
         1.天堂Ｍ apk 檔案自動更新</p>
     <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
