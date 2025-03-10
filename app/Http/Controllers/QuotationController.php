@@ -33,7 +33,7 @@ class QuotationController extends Controller
         return $pdf->download('quotation.pdf');
     }
 
-    public function store(Request $request)
+    public function store4(Request $request)
     {
         $data = $request->all();
 
@@ -69,6 +69,32 @@ class QuotationController extends Controller
 //            'Content-Type' => 'application/pdf',
 //            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
 //        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+
+        // 過濾掉空白項目
+        $data['items'] = array_filter($data['items'], function ($item) {
+            return !empty($item['name']) && !empty($item['amount']);
+        });
+
+        $file = date('YmdHi') . '.pdf';
+
+        // 產生 PDF
+        $pdf = Pdf::loadView('quotation.pdf', compact('data'));
+        $pdfContent = $pdf->output();
+
+        // 直接上傳到 Cloudflare R2
+        $pdfPath = date('Ymd') . '/' . $file;
+        Storage::disk('movepro')->put($pdfPath, $pdfContent);
+
+        // 返回 PDF 下載（使用已儲存的內容）
+        return response()->make($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . rawurlencode($file) . '"',
+        ]);
     }
 
 }
