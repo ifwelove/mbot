@@ -41,8 +41,8 @@ class QuotationController extends Controller
         $data['items'] = array_filter($data['items'], function ($item) {
             return !empty($item['name']) && !empty($item['amount']);
         });
-        $file = 'quotation.pdf';
-//        $file = '' . date('YmdHi') . '.pdf';
+//        $file = 'quotation.pdf';
+        $file = '' . date('YmdHi') . '.pdf';
 //        $file = '樂遷搬家報價單_' . date('YmdHi') . '.pdf';
         // 產生 PDF
         $pdf = Pdf::loadView('quotation.pdf', compact('data'));
