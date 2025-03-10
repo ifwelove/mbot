@@ -735,9 +735,9 @@ return [
     ],
     'IuY4VKTn150wyM5SpimwelLCa4t4BsDHKEXsR1EmDXR'  => [
         'name'   => '陳建宇',
-        'date'   => '2025-09-01',
+        'date'   => '2026-03-12',
         'amount' => '2',
-        'pay'    => false
+        'pay'    => true
     ],
     'xesxThfMdcQ35MGFekUeApMXTR2DCfEHaG38vdVSSsq'  => [
         'name'   => 'Peter',
