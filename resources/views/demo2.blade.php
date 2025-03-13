@@ -266,22 +266,16 @@
                         {{ $machine['dnplayer_running'] }}/{{ $machine['dnplayer'] }}
                     </td>
                     <td>
-{{--                        @foreach ($machine['money_rows'] as $server => $items)--}}
-{{--                            <button--}}
-{{--                                class="btn btn-warning btn-sm mb-1"--}}
-{{--                                onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">--}}
-{{--                                {{ $server }}: {{ $items['total'] }}--}}
-{{--                            </button><br>--}}
-{{--                            <!-- 隱藏要複製的資料 -->--}}
-{{--                            <div id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none;">--}}
-{{--                                {!! $items['rows'] !!}--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
-                            @foreach ($machine['money_rows'] as $server => $items)
-                                <button class="btn btn-warning btn-block" onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">{{ $server }}:{{ $items['total'] }}</button><br>
-                                <div id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none">{!! $items['rows'] !!}</div>
-                                <br>
-                            @endforeach
+                        @foreach ($machine['money_rows'] as $server => $items)
+                            <button class="btn btn-warning btn-sm mb-2"
+                                    onclick="copyToClipboard('#server-data-{{ $machine['pc_name'] }}-{{ $server }}')">
+                                {{ $server }}: {{ $items['total'] }}
+                            </button>
+                            <!-- 隱藏要複製的資料 -->
+                            <div id="server-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display: none;">
+                                {!! $items['rows'] !!}
+                            </div>
+                        @endforeach
                     </td>
                     <td>{{ $machine['card'] }}</td>
                     <td>{{ $machine['data']['last_updated'] }}</td>
