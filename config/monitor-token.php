@@ -700,9 +700,9 @@ return [
 //    ],
     'NZA0AJeCJ8Vs6MWwwFHbMOhR2S4fmOrWbeTWTWzBCbz'  => [
         'name'   => '福斯帕',
-        'date'   => '2026-03-01',
+        'date'   => '2026-03-14',
         'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     '1CZ5Wentjt7dGHGtx0crykGQfYdI4mWw4HuvLWlU5ES'  => [
         'name'   => '小御',
