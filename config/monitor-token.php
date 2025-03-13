@@ -253,6 +253,7 @@ return [
         'name'   => 'Han',
         'date'   => '2025-01-01',
         'amount' => '1',
+        'pay'    => false,
     ],
     '6xe1p9KRkkHcsYaMVCIuhDm83uuwxhKeen4wO4oBwEu'  => [
         'name'   => 'fish',
@@ -753,15 +754,9 @@ return [
     ],
     'xuxvSSqgdIFu4KbSPX9DhWBQ3SR3xSjscA0CaIedeQ5'  => [
         'name'   => 'Hung',
-        'date'   => '2025-09-01',
+        'date'   => '2026-03-14',
         'amount' => '1',
-        'pay'    => false
-    ],
-    'wemHdZUI7g0KVfw7YUMZRw8T9CJJczq6MI8RU0LdnXI'  => [
-        'name'   => 'Hung',
-        'date'   => '2025-09-01',
-        'amount' => '1',
-        'pay'    => false
+        'pay'    => true
     ],
     'W2isXwIEjCtozHamMQAyxgXf5bfgFMah7HcV04ennxT'  => [
         'name'   => '阿哲',
