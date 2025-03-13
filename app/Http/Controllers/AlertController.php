@@ -740,7 +740,7 @@ class AlertController extends Controller
         $money_total = array_sum($currentData);
 //        dump($money_total);
         if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and is_null($admin)) {
-            return view('demo', [
+            return view('demo2', [
                 //                'macCount' => $macCount,
                 'user'                   => $user,
                 'machines'               => $machines,
