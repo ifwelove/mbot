@@ -14,8 +14,8 @@
     <title>Machines Status</title>
 
     <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
-
+{{--    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">--}}
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style>
         /* 狀態小圓點 */
         .status-icon {
