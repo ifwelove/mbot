@@ -742,9 +742,9 @@ return [
     ],
     'xesxThfMdcQ35MGFekUeApMXTR2DCfEHaG38vdVSSsq'  => [
         'name'   => 'Peter',
-        'date'   => '2025-09-01',
-        'amount' => '10',
-        'pay'    => false
+        'date'   => '2026-03-14',
+        'amount' => '1',
+        'pay'    => true
     ],
     'ZlSGtQv5PJAbPnaWpl9DiIWs8uFfQmG40RfGGE5GtNo'  => [
         'name'   => '不願意',
