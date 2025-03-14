@@ -131,10 +131,7 @@
             </div>
 
             <!-- 隱藏要複製的資料 -->
-            <div id="all-data" style="display:none;">
-                @foreach ($merges as $key => $value)
-                    {{ $key }}: {{ $value }}<br>
-                @endforeach
+            <div id="all-data" style="display:none;">@foreach ($merges as $key => $value){{ $key }}: {{ $value }}<br>@endforeach
             </div>
         </div>
     </div>
