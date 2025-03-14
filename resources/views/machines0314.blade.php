@@ -93,17 +93,12 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
             顯示資料
         </button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            顯示資料
-        </button>
         <button class="btn btn-warning btn-sm mb-2"
                 onclick="copyToClipboard('#all-data')">
             複製鑽石資訊
         </button><br>
         <div id="all-data" style="display:none;">
-        @foreach ($merges as $key => $value)
-            {{ $key }}: {{ $value }}
-        @endforeach
+            @foreach ($merges as $key => $value){{ $key }}:{{ $value }}@endforeach
         </div>
     </p>
 
