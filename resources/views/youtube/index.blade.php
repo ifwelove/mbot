@@ -41,7 +41,8 @@
             @foreach($channelsData as $channelId => $info)
                 <tr class="hover:bg-gray-100" id="channel-{{ $channelId }}">
                     <td class="py-2 px-4 border-b text-center font-semibold">
-                        {{ $loop->iteration }}
+{{--                        {{ $loop->iteration }}--}}
+                        {{ number_format($info['subscriberCount'] ?? 0) }}
                     </td>
                     <td class="py-2 px-4 border-b">
                         @php
@@ -55,7 +56,7 @@
                         @endif
                     </td>
                     <td class="py-2 px-4 border-b">
-                        {{ $info['title'] }} {{ number_format($info['subscriberCount'] ?? 0) }}
+                        {{ $info['title'] }}
                     </td>
 {{--                    <td class="py-2 px-4 border-b text-left">--}}
 {{--                        {{ number_format($info['subscriberCount'] ?? 0) }}--}}
