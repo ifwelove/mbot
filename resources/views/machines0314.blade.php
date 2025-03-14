@@ -119,6 +119,9 @@
 
             <!-- 按鈕區 -->
             <div class="d-flex align-items-center">
+                <button class="btn btn-warning mr-2" data-toggle="collapse" data-target="#batchCommands" aria-expanded="false" aria-controls="batchCommands">
+                    批次指令 ▼
+                </button>
                 <button class="btn btn-primary mr-2"
                         data-toggle="modal"
                         data-target="#dataModal">
@@ -133,6 +136,66 @@
             <!-- 隱藏要複製的資料 -->
             <div id="all-data" style="display:none;">@foreach ($merges as $key => $value){{ $key }}: {{ $value }}<br>@endforeach
             </div>
+
+            <div class="form-group">
+                <!-- 折疊內容 -->
+                <div id="batchCommands" class="collapse mt-2">
+                    <div class="batch-btn-group d-flex flex-wrap">
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_64_apk">一鍵關閉自動檢查64apk</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_64_apk">一鍵開啟自動檢查64apk</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一鍵關閉大尾</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一鍵開啟大尾</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一鍵重開大尾</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="sort_player">一鍵排列模擬器</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">一鍵重新開機</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="copy_to_local">一鍵雲端複製到本地</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_update_mpro">一鍵開啟自動更新</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_update_mpro">一鍵關閉自動更新</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="reopen_monitor">一鍵重開監視器程式</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="apk_install">一鍵安裝apk</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_exception_auto_reboot">一鍵開啟模擬器畫面異常自動重啟</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_exception_auto_reboot">一鍵關閉模擬器畫面異常自動重啟</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_all_player">一鍵關閉所有模擬器</button>
+                        <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_all_player">一鍵開啟所有模擬器</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- server 下拉 -->
+            <div class="form-group">
+                <span class="pr-2">
+                <label>選擇伺服器：</label>
+                <select name="server" class="form-control w-auto d-inline-block">
+                    @foreach ($merges as $server => $total)
+                        @php
+                            $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+                        @endphp
+                        <optgroup label="{{ $server }}">
+                            <option value="{{ $server }}" style="color: {{ $color }}">
+                                {{ $server }}: {{ $total }}
+                            </option>
+                        </optgroup>
+                    @endforeach
+                </select>
+                </span>
+
+                <span class="pl-2">
+                <label>顯示狀態：</label>
+                <select name="pc_status" class="form-control w-auto d-inline-block">
+                    @foreach ($machines as $index => $machine)
+                        @if ($machine['data']['status'] !== 'success')
+                            @php
+                                $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+                            @endphp
+                            <optgroup label="{{ $machine['pc_name'] }}">
+                                <option value="{{ $machine['pc_name'] }}" style="color: {{ $color }}">
+                                    {{ $machine['pc_name'] }} - {{ $machine['data']['status'] }}
+                                </option>
+                            </optgroup>
+                        @endif
+                    @endforeach
+                </select>
+            </span>
         </div>
     </div>
 
@@ -161,69 +224,6 @@
 {{--    </p>--}}
 
     <!-- 「批次指令」折疊按鈕 -->
-    <div class="mb-4">
-        <button class="btn btn-warning" data-toggle="collapse" data-target="#batchCommands" aria-expanded="false" aria-controls="batchCommands">
-            批次指令 ▼
-        </button>
-        <!-- 折疊內容 -->
-        <div id="batchCommands" class="collapse mt-2">
-            <div class="batch-btn-group d-flex flex-wrap">
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_64_apk">一鍵關閉自動檢查64apk</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_64_apk">一鍵開啟自動檢查64apk</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_mpro">一鍵關閉大尾</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_mpro">一鍵開啟大尾</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="reopen_mpro">一鍵重開大尾</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="sort_player">一鍵排列模擬器</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="reboot_pc">一鍵重新開機</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="copy_to_local">一鍵雲端複製到本地</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_update_mpro">一鍵開啟自動更新</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_update_mpro">一鍵關閉自動更新</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="reopen_monitor">一鍵重開監視器程式</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="apk_install">一鍵安裝apk</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_exception_auto_reboot">一鍵開啟模擬器畫面異常自動重啟</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_exception_auto_reboot">一鍵關閉模擬器畫面異常自動重啟</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="close_all_player">一鍵關閉所有模擬器</button>
-                <button class="command-btn-all-mac btn btn-danger" data-token="{{ $token }}" data-command="open_all_player">一鍵開啟所有模擬器</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- server 下拉 -->
-    <div class="form-group">
-        <label>選擇伺服器：</label>
-        <select name="server" class="form-control w-auto d-inline-block">
-            @foreach ($merges as $server => $total)
-                @php
-                    $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-                @endphp
-                <optgroup label="{{ $server }}">
-                    <option value="{{ $server }}" style="color: {{ $color }}">
-                        {{ $server }}: {{ $total }}
-                    </option>
-                </optgroup>
-            @endforeach
-        </select>
-    </div>
-
-    <!-- 狀態下拉 -->
-    <div class="form-group">
-        <label>顯示狀態：</label>
-        <select name="pc_status" class="form-control w-auto d-inline-block">
-            @foreach ($machines as $index => $machine)
-                @if ($machine['data']['status'] !== 'success')
-                    @php
-                        $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-                    @endphp
-                    <optgroup label="{{ $machine['pc_name'] }}">
-                        <option value="{{ $machine['pc_name'] }}" style="color: {{ $color }}">
-                            {{ $machine['pc_name'] }} - {{ $machine['data']['status'] }}
-                        </option>
-                    </optgroup>
-                @endif
-            @endforeach
-        </select>
-    </div>
-
 
     <!--
         ----------------------------------------------------------------
