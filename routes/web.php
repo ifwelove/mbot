@@ -191,11 +191,16 @@ Route::post('/pdf', [QuotationController::class, 'store2']);
 
 use App\Http\Controllers\YouTubeController;
 
+Route::get('/youtube/channels', [YouTubeController::class, 'index'])
+    ->name('youtube.channels.index');
 Route::get('/youtube/vs', [YouTubeController::class, 'vs']);
 Route::get('/youtube/faceoff', [YouTubeController::class, 'faceOff'])
     ->name('youtube.faceoff');
 Route::get('/youtube/channel-info/{handle}', [YouTubeController::class, 'getChannelInfoByHandle']);
 Route::get('/youtube/{handle}', [YouTubeController::class, 'showChannelInfo']);
+
+
+
 
 
 

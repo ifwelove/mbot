@@ -244,4 +244,28 @@ class YouTubeController extends Controller
             'channelB' => $channelB,
         ]);
     }
+
+    public function index()
+    {
+        // 1) 讀取快取檔
+        $cacheFile = storage_path('app/youtube_channels_cache.json');
+        if (!file_exists($cacheFile)) {
+            // 若檔案不存在，可以給個空或錯誤提示
+            // 這裡先簡單回傳空陣列
+            $channelsData = [];
+        } else {
+            $json = file_get_contents($cacheFile);
+            $cacheData = json_decode($json, true);
+            // "channels" 裡才是真正的頻道資料
+            // ex: $cacheData['channels'][channelId] = [...資訊...]
+            $channelsData = $cacheData['channels'] ?? [];
+        }
+
+        // 2) 將資料傳給 Blade
+        // 這裡也可以 sort() 訂閱數、頻道名稱等
+        // 先示範不排序，直接丟給前端
+        return view('youtube.index', [
+            'channelsData' => $channelsData,
+        ]);
+    }
 }
