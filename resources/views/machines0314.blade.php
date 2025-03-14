@@ -76,30 +76,92 @@
             歡迎加入 Line 群討論
         </a>
     </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <!-- 卡片標題 -->
+            <h5 class="card-title">系統說明</h5>
+
+            <!-- 簡介文字 -->
+            <p class="card-text mb-1">
+                大尾監控小程式 購買每台電腦每月50元等於每天不到兩元, 一年600,
+                購買請洽 <strong>Line id: ifwelove</strong>
+            </p>
+            <p class="card-text mb-1">
+                資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次,
+                遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用
+            </p>
+            <p class="card-text mb-1">
+                綠燈 <span class="text-success">正常運作</span>,
+                黃燈 <span class="text-warning">大尾沒開</span>,
+                紅燈 <span class="text-danger">大尾沒回應</span>,
+                灰燈 <span class="text-muted">主機沒訊號</span>
+            </p>
+
+            <!-- 使用狀況 / 統計資訊 -->
+            <hr>
+            <p class="card-text mb-1">
+                使用期限：<strong>{{ $user['date'] }}</strong> ，
+                可使用台數：<strong>{{ $user['amount'] }}</strong>
+            </p>
+            <p class="card-text mb-1">
+                共有礦場 {{ $machines_total }} 座，
+                有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }}
+            </p>
+            <p class="card-text mb-1">
+                全伺服器統計：<strong>{{ $money_total }}</strong>
+                @if ($money_total != 0 && $dnplayer_total != 0)
+                    ，平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}
+                @endif
+            </p>
+            <p class="card-text mb-2">
+                各伺服器鑽石統計：
+            </p>
+
+            <!-- 按鈕區 -->
+            <div class="d-flex align-items-center">
+                <button class="btn btn-primary mr-2"
+                        data-toggle="modal"
+                        data-target="#dataModal">
+                    顯示資料
+                </button>
+                <button class="btn btn-warning"
+                        onclick="copyToClipboard('#all-data')">
+                    複製全服鑽石資訊
+                </button>
+            </div>
+
+            <!-- 隱藏要複製的資料 -->
+            <div id="all-data" style="display:none;">
+                @foreach ($merges as $key => $value)
+                    {{ $key }}: {{ $value }}<br>
+                @endforeach
+            </div>
+        </div>
+    </div>
 
     <!-- 簡介與說明 -->
-    <p>大尾監控小程式 購買每台電腦每月50元等於每天不到兩元, 一年600, 購買請洽 Line id: ifwelove</p>
-    <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
-    <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
-    <p>使用期限：{{ $user['date'] }} ，可使用台數：{{ $user['amount'] }}</p>
-    <p>
-        共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }} <br>
-        全伺服器統計：{{ $money_total }}
-        @if ($money_total!=0 && $dnplayer_total!=0)
-            ，平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}
-        @endif
-        ，各伺服器鑽石統計：
-        <!-- 「顯示資料」按鈕，點擊開啟 dataModal -->
-        <button class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
-            顯示資料
-        </button>
-        <button class="btn btn-warning"
-                onclick="copyToClipboard('#all-data')">
-            複製全服鑽石資訊
-        </button><br>
-        <div id="all-data" style="display:none;">@foreach ($merges as $key => $value){{ $key }}: {{ $value }}<br>@endforeach
-        </div>
-    </p>
+{{--    <p>大尾監控小程式 購買每台電腦每月50元等於每天不到兩元, 一年600, 購買請洽 Line id: ifwelove</p>--}}
+{{--    <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>--}}
+{{--    <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>--}}
+{{--    <p>使用期限：{{ $user['date'] }} ，可使用台數：{{ $user['amount'] }}</p>--}}
+{{--    <p>--}}
+{{--        共有礦場 {{ $machines_total }} 座, 有打幣機正在挖礦中 {{ $dnplayer_running_total }} / {{ $dnplayer_total }} <br>--}}
+{{--        全伺服器統計：{{ $money_total }}--}}
+{{--        @if ($money_total!=0 && $dnplayer_total!=0)--}}
+{{--            ，平均帳號打鑽數：{{ round($money_total / $dnplayer_total, 0) }}--}}
+{{--        @endif--}}
+{{--        ，各伺服器鑽石統計：--}}
+{{--        <!-- 「顯示資料」按鈕，點擊開啟 dataModal -->--}}
+{{--        <button class="btn btn-primary" data-toggle="modal" data-target="#dataModal">--}}
+{{--            顯示資料--}}
+{{--        </button>--}}
+{{--        <button class="btn btn-warning"--}}
+{{--                onclick="copyToClipboard('#all-data')">--}}
+{{--            複製全服鑽石資訊--}}
+{{--        </button><br>--}}
+{{--        <div id="all-data" style="display:none;">@foreach ($merges as $key => $value){{ $key }}: {{ $value }}<br>@endforeach--}}
+{{--        </div>--}}
+{{--    </p>--}}
 
     <!-- 「批次指令」折疊按鈕 -->
     <div class="mb-4">
