@@ -752,7 +752,8 @@ class AlertController extends Controller
                 'money_total'         => $money_total,
             ]);
         } else {
-            return view('machines0314', [
+            return view('machines4', [
+//            return view('machines0314', [
                 //                'macCount' => $macCount,
                 'user'                   => $user,
                 'machines'               => $machines,
