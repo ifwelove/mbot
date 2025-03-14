@@ -34,15 +34,15 @@
                 <th class="py-2 px-4 border-b text-center"></th>
                 <th class="py-2 px-4 border-b text-left">縮圖</th>
                 <th class="py-2 px-4 border-b text-left">頻道名稱</th>
-{{--                <th class="py-2 px-4 border-b text-left">訂閱數</th>--}}
+                <th class="py-2 px-4 border-b text-left">訂閱數</th>
             </tr>
             </thead>
             <tbody>
             @foreach($channelsData as $channelId => $info)
                 <tr class="hover:bg-gray-100" id="channel-{{ $channelId }}">
                     <td class="py-2 px-4 border-b text-center font-semibold">
-{{--                        {{ $loop->iteration }}--}}
-                        {{ number_format($info['subscriberCount'] ?? 0) }}
+                        {{ $loop->iteration }}
+{{--                        {{ number_format($info['subscriberCount'] ?? 0) }}--}}
                     </td>
                     <td class="py-2 px-4 border-b">
                         @php
@@ -58,9 +58,9 @@
                     <td class="py-2 px-4 border-b">
                         {{ $info['title'] }}
                     </td>
-{{--                    <td class="py-2 px-4 border-b text-left">--}}
-{{--                        {{ number_format($info['subscriberCount'] ?? 0) }}--}}
-{{--                    </td>--}}
+                    <td class="py-2 px-4 border-b text-left">
+                        {{ number_format($info['subscriberCount'] ?? 0) }}
+                    </td>
                 </tr>
             @endforeach
             </tbody>
