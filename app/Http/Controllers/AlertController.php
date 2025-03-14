@@ -781,7 +781,7 @@ class AlertController extends Controller
                 'merges'         => $currentData,
                 'money_total'         => $money_total,
                 'm_pro_version'         => $m_pro_version,
-                'apk_version'         => $apk_version,
+                'apk_version'         => $apk_version
             ]);
         }
 

@@ -100,7 +100,7 @@
             <!-- 使用狀況 / 統計資訊 -->
             <hr>
             <p class="card-text mb-1">
-                目前V大雲端-提供大尾最新版本：<strong>{{ $m_pro_version }}</strong> ，
+                目前V大雲端-提供大尾最新版本：<strong>{{ $m_pro_version }}</strong>
                 目前V大雲端-提供APK最新版本：<strong>{{ $apk_version }}</strong>
             </p>
             m_pro_version
