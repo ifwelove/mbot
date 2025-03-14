@@ -471,7 +471,7 @@
     </div>
 @endforeach
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- jQuery + Bootstrap JS (4.x) -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <!-- 需要 AJAX POST 或其他功能時，可以換更高版本 (3.5.1) -->
