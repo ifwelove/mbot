@@ -738,6 +738,9 @@ class AlertController extends Controller
             return $aWorldNo <=> $bWorldNo;
         });
         $money_total = array_sum($currentData);
+        $fileService = resolve(FileService::class);
+        $m_pro_version = $fileService->getLatestFileNameByR2();
+        $apk_version = $fileService->getApkLatestFileName();
 //        dump($money_total);
         if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and is_null($admin)) {
 //            return view('demo2', [
@@ -777,6 +780,8 @@ class AlertController extends Controller
                 'machines_total'         => $machines_total,
                 'merges'         => $currentData,
                 'money_total'         => $money_total,
+                'm_pro_version'         => $m_pro_version,
+                'apk_version'         => $apk_version,
             ]);
         }
 

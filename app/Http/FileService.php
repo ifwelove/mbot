@@ -62,7 +62,7 @@ class FileService
 
             // 生成下载 URL
             $temporaryUrl = Storage::disk('mpror2')
-                ->temporaryUrl($latestFile, now()->addMinutes(60), // 设置 URL 的有效期
+                ->temporaryUrl($latestFile, now()->addMinutes(60*24), // 设置 URL 的有效期
                     [
                         'ResponseContentType'        => 'application/x-rar-compressed',
                         'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
@@ -80,7 +80,7 @@ class FileService
     public function getApkLatestFileName()
     {
         // 从 Redis 缓存中获取最新文件名，如果不存在或已过期则执行回调
-        $latestFileName = Cache::remember('apk_latest_file_name', 300, function () {
+        $latestFileName = Cache::remember('apk_latest_file_name', 300*6, function () {
             // 向文件服务器发送请求获取最新文件名
             $response = Http::get($this->apkLatestFilename);
 

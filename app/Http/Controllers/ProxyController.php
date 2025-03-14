@@ -60,7 +60,7 @@ class ProxyController extends Controller
 
     public function getApkLatestFileNameByR2(Request $request)
     {
-        $data = Cache::remember('apk_latest_file_name_r2', 300 * 6, function () {
+        $data = Cache::remember('apk_latest_file_name_r2', 600 * 6, function () {
             $files = collect(Storage::disk('r2')
                 ->files('/'))
                 ->filter(function ($file) {
@@ -85,7 +85,7 @@ class ProxyController extends Controller
 
             // 生成下载 URL
             $temporaryUrl = Storage::disk('r2')
-                ->temporaryUrl($latestFile, now()->addMinutes(60), // 设置 URL 的有效期
+                ->temporaryUrl($latestFile, now()->addMinutes(60*24), // 设置 URL 的有效期
                     [
                         'ResponseContentType'        => 'application/vnd.android.package-archive',
                         'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
@@ -112,7 +112,7 @@ class ProxyController extends Controller
 
     public function getApk64LatestFileNameByR2(Request $request)
     {
-        $data = Cache::remember('apk_64_latest_file_name_r2', 300 * 6, function () {
+        $data = Cache::remember('apk_64_latest_file_name_r2', 600 * 6, function () {
             $files = collect(Storage::disk('64r2')
                 ->files('/'))
                 ->filter(function ($file) {
@@ -137,7 +137,7 @@ class ProxyController extends Controller
 
             // 生成下载 URL
             $temporaryUrl = Storage::disk('64r2')
-                ->temporaryUrl($latestFile, now()->addMinutes(60), // 设置 URL 的有效期
+                ->temporaryUrl($latestFile, now()->addMinutes(60*24), // 设置 URL 的有效期
                     [
                         'ResponseContentType'        => 'application/vnd.android.package-archive',
                         'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
@@ -201,6 +201,7 @@ class ProxyController extends Controller
 
     public function getMproLatestFileNameByR2(Request $request)
     {
+        // 2.5 day
         $data = Cache::remember('mpro_latest_file_name_r2', 600 * 6, function () {
             $files = collect(Storage::disk('mpror2')
                 ->files('/'))
@@ -226,7 +227,7 @@ class ProxyController extends Controller
 
             // 生成下载 URL
             $temporaryUrl = Storage::disk('mpror2')
-                ->temporaryUrl($latestFile, now()->addMinutes(60), // 设置 URL 的有效期
+                ->temporaryUrl($latestFile, now()->addMinutes(60*24), // 设置 URL 的有效期
                     [
                         'ResponseContentType'        => 'application/x-rar-compressed',
                         'ResponseContentDisposition' => 'attachment; filename="' . basename($latestFile) . '"',
