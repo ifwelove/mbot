@@ -98,7 +98,7 @@
             複製鑽石資訊
         </button><br>
         <div id="all-data" style="display:none;">
-            @foreach ($merges as $key => $value){{ $key }}:{{ $value }}@endforeach
+        @foreach ($merges as $key => $value){{ $key }}: {{ $value }}@endforeach
         </div>
     </p>
 
