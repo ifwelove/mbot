@@ -7,6 +7,125 @@ use Illuminate\Support\Facades\Http;
 
 class YouTubeController extends Controller
 {
+    protected $cacheFileName = 'youtube_channels_cache.json';
+    protected $cacheTtl = 86400; // 1天(秒) = 24*60*60
+
+    public function index()
+    {
+        $cachePath = storage_path('app/' . $this->cacheFileName);
+
+        // 1) 檢查檔案是否存在且未過期
+        $channelsData = [];
+        if ($this->isCacheValid($cachePath)) {
+            // 直接讀取快取
+            $channelsData = $this->readCache($cachePath);
+        } else {
+            // 找不到快取 或 過期 → 重新查 API + 存入檔案
+            $channelsData = $this->fetchAndCache($cachePath);
+        }
+
+        // 2) 將資料丟給 Blade
+        return view('youtube.index', [
+            'channelsData' => $channelsData,
+        ]);
+    }
+
+    /**
+     * 檢查檔案是否存在 & 是否在有效時間內
+     */
+    private function isCacheValid(string $path): bool
+    {
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        $json = file_get_contents($path);
+        $data = json_decode($json, true);
+        if (empty($data['updated_at'])) {
+            return false;
+        }
+
+        $updatedAt = $data['updated_at'];
+        $now = time();
+
+        // 若還在 1 天之內
+        return (($now - $updatedAt) < $this->cacheTtl);
+    }
+
+    /**
+     * 讀取快取檔案, 回傳 channels 陣列
+     */
+    private function readCache(string $path): array
+    {
+        $json = file_get_contents($path);
+        $data = json_decode($json, true);
+
+        return $data['channels'] ?? [];
+    }
+
+    /**
+     * 呼叫 YouTube Data API, 抓 snippet & statistics, 寫入 cache,
+     * 然後回傳 channels 陣列
+     */
+    private function fetchAndCache(string $path): array
+    {
+        $apiKey = config('services.youtube.api_key');
+        if (!$apiKey) {
+            // 沒有 API key 時, 就回傳空
+            return [];
+        }
+
+        // 從 config 拿到 channels_map
+        $allChannelIds = array_keys(config('youtube.channels_map'));
+
+        // 分批 (每次最多50個)
+        $chunks = array_chunk($allChannelIds, 50);
+        $fetchedData = [];
+
+        foreach ($chunks as $channelBatch) {
+            $idString = implode(',', $channelBatch);
+
+            $url = "https://www.googleapis.com/youtube/v3/channels"
+                . "?part=snippet,statistics"
+                . "&id={$idString}"
+                . "&key={$apiKey}";
+
+            $response = Http::get($url);
+            if (!$response->successful()) {
+                // 若失敗可自行處理
+                continue;
+            }
+
+            $json = $response->json();
+            $items = $json['items'] ?? [];
+
+            foreach ($items as $item) {
+                $cid = $item['id'];
+                $snippet = $item['snippet'] ?? [];
+                $stats   = $item['statistics'] ?? [];
+                $thumbs  = $snippet['thumbnails'] ?? [];
+
+                $fetchedData[$cid] = [
+                    'title'           => $snippet['title'] ?? config('youtube.channels_map')[$cid] ?? '未知頻道',
+                    'description'     => $snippet['description'] ?? '',
+                    'publishedAt'     => $snippet['publishedAt'] ?? '',
+                    'subscriberCount' => $stats['subscriberCount'] ?? '',
+                    'viewCount'       => $stats['viewCount'] ?? '',
+                    'videoCount'      => $stats['videoCount'] ?? '',
+                    'thumbnails'      => $thumbs,
+                ];
+            }
+        }
+
+        // 寫入檔案
+        $cacheToSave = [
+            'updated_at' => time(),
+            'channels'   => $fetchedData,
+        ];
+        file_put_contents($path, json_encode($cacheToSave, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+        return $fetchedData;
+    }
     /**
      * 從 @handle 查詢頻道資訊 (頻道ID、訂閱數、標題...)
      */
@@ -242,30 +361,6 @@ class YouTubeController extends Controller
         return view('youtube.faceoff', [
             'channelA' => $channelA,
             'channelB' => $channelB,
-        ]);
-    }
-
-    public function index()
-    {
-        // 1) 讀取快取檔
-        $cacheFile = storage_path('app/youtube_channels_cache.json');
-        if (!file_exists($cacheFile)) {
-            // 若檔案不存在，可以給個空或錯誤提示
-            // 這裡先簡單回傳空陣列
-            $channelsData = [];
-        } else {
-            $json = file_get_contents($cacheFile);
-            $cacheData = json_decode($json, true);
-            // "channels" 裡才是真正的頻道資料
-            // ex: $cacheData['channels'][channelId] = [...資訊...]
-            $channelsData = $cacheData['channels'] ?? [];
-        }
-
-        // 2) 將資料傳給 Blade
-        // 這裡也可以 sort() 訂閱數、頻道名稱等
-        // 先示範不排序，直接丟給前端
-        return view('youtube.index', [
-            'channelsData' => $channelsData,
         ]);
     }
 }
