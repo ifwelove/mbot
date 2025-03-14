@@ -105,7 +105,6 @@
             <p class="card-text mb-1">
                 目前V大雲端-提供APK最新版本：<strong>{{ $apk_version }}</strong>
             </p>
-            m_pro_version
             <p class="card-text mb-1">
                 使用期限：<strong>{{ $user['date'] }}</strong> ，
                 可使用台數：<strong>{{ $user['amount'] }}</strong>
