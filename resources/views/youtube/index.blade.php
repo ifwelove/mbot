@@ -57,7 +57,7 @@
                     <td class="py-2 px-4 border-b">
                         {{ $info['title'] }}
                     </td>
-                    <td class="py-2 px-4 border-b text-right">
+                    <td class="py-2 px-4 border-b text-left">
                         {{ number_format($info['subscriberCount'] ?? 0) }}
                     </td>
                 </tr>
