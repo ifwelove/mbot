@@ -754,6 +754,8 @@ class AlertController extends Controller
                 'machines_total'         => $machines_total,
                 'merges'         => $currentData,
                 'money_total'         => $money_total,
+                'm_pro_version'         => $m_pro_version,
+                'apk_version'         => $apk_version
             ]);
         } else if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and !is_null($admin)){
             return view('machines0314', [
@@ -767,6 +769,8 @@ class AlertController extends Controller
                 'machines_total'         => $machines_total,
                 'merges'         => $currentData,
                 'money_total'         => $money_total,
+                'm_pro_version'         => $m_pro_version,
+                'apk_version'         => $apk_version
             ]);
         }else {
 //            return view('machines4', [
