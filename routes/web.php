@@ -49,7 +49,7 @@ Route::post('/alert2', [AlertController::class, 'alert2']);
 Route::get('/machines/{token}', [AlertController::class, 'showMachines']);
 Route::get('/demo/{token}', [AlertController::class, 'showDemo']);
 Route::get('/test/{token}', [AlertController::class, 'showTest']);
-Route::get('/bill/{token}', [AlertController::class, 'showBill']);
+//Route::get('/bill/{token}', [AlertController::class, 'showBill']);
 Route::get('/pro/{token}', [AlertController::class, 'showDemo']);
 Route::get('/show/{token}', [AlertController::class, 'showToken']);
 Route::post('/check/token', [AlertController::class, 'checkToken']);
@@ -187,3 +187,8 @@ Route::post('/quotation', [QuotationController::class, 'store']);
 
 Route::get('/pdf', [QuotationController::class, 'create2']);
 Route::post('/pdf', [QuotationController::class, 'store2']);
+
+
+use App\Http\Controllers\YouTubeController;
+
+Route::get('/youtube/channel-info/{handle}', [YouTubeController::class, 'getChannelInfoByHandle']);
