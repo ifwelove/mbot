@@ -197,11 +197,11 @@
                                     onclick="copyToClipboard('#mobile-data-{{ $machine['pc_name'] }}-{{ $server }}')">
                                 {{ $server }}: {{ $items['total'] }}
                             </button>
-                    <div id="mobile-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display:none;">
-                        {!! $items['rows'] !!}
-                    </div>
-                    <br>
-                    @endforeach
+                            <div id="mobile-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display:none;">
+                                {!! $items['rows'] !!}
+                            </div>
+{{--                            <br>--}}
+                        @endforeach
                     </p>
                     <p class="card-text mb-1">
                         <strong>卡號到期：</strong> {{ $machine['card'] }} <br>
