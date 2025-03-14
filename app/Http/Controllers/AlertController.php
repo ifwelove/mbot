@@ -740,6 +740,7 @@ class AlertController extends Controller
         $money_total = array_sum($currentData);
 //        dump($money_total);
         if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and is_null($admin)) {
+//            return view('demo2', [
             return view('demo2', [
                 //                'macCount' => $macCount,
                 'user'                   => $user,
@@ -751,7 +752,20 @@ class AlertController extends Controller
                 'merges'         => $currentData,
                 'money_total'         => $money_total,
             ]);
-        } else {
+        } else if ($token === 'M7PMOK6orqUHedUCqMVwJSTUALCnMr8FQyyEQS6gyrB' and !is_null($admin)){
+            return view('machines0314', [
+                //            return view('machines0314', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total,
+                'merges'         => $currentData,
+                'money_total'         => $money_total,
+            ]);
+        }else {
             return view('machines4', [
 //            return view('machines0314', [
                 //                'macCount' => $macCount,
