@@ -101,6 +101,8 @@
             <hr>
             <p class="card-text mb-1">
                 目前V大雲端-提供大尾最新版本：<strong>{{ $m_pro_version }}</strong>
+            </p>
+            <p class="card-text mb-1">
                 目前V大雲端-提供APK最新版本：<strong>{{ $apk_version }}</strong>
             </p>
             m_pro_version
