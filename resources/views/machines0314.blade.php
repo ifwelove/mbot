@@ -93,7 +93,7 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#dataModal">
             顯示資料
         </button>
-        <button class="btn btn-warning mb-2"
+        <button class="btn btn-warning"
                 onclick="copyToClipboard('#all-data')">
             複製全服鑽石資訊
         </button><br>
