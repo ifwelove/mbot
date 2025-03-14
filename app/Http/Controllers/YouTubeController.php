@@ -214,7 +214,7 @@ class YouTubeController extends Controller
     {
         // 從 Query String 取得想對決的 handle（若沒帶，預設兩個頻道）
         $handle1 = $request->input('handle1', 'andy0623');
-        $handle2 = $request->input('handle2', 'pewdiepie');
+        $handle2 = $request->input('handle2', 'crowd1111');
 
         // 撈取兩個頻道資訊
         $channelA = $this->getChannelInfoByHandle($handle1);
