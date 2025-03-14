@@ -59,7 +59,7 @@
 <body class="bg-light">
 
 <div class="container py-4">
-    <h3 class="mb-3">Very6-大尾崩潰監視者</h3>
+    <h3 class="mb-3">Very6-大尾監視器</h3>
 
     <!-- 頂部按鈕列 -->
     <div class="mb-3">
@@ -166,7 +166,7 @@
         ----------------------------------------------------------------
     -->
     <div class="d-block d-md-none">
-{{--        <p class="text-info">（手機版卡片列表）</p>--}}
+        {{--        <p class="text-info">（手機版卡片列表）</p>--}}
         @foreach ($machines as $mIndex => $machine)
             <div class="card mb-3">
                 <div class="card-body">
@@ -197,11 +197,11 @@
                                     onclick="copyToClipboard('#mobile-data-{{ $machine['pc_name'] }}-{{ $server }}')">
                                 {{ $server }}: {{ $items['total'] }}
                             </button>
-                            <div id="mobile-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display:none;">
-                                {!! $items['rows'] !!}
-                            </div>
-{{--                            <br>--}}
-                        @endforeach
+                    <div id="mobile-data-{{ $machine['pc_name'] }}-{{ $server }}" style="display:none;">
+                        {!! $items['rows'] !!}
+                    </div>
+                    {{--                            <br>--}}
+                    @endforeach
                     </p>
                     <p class="card-text mb-1">
                         <strong>卡號到期：</strong> {{ $machine['card'] }} <br>
@@ -267,7 +267,7 @@
         ----------------------------------------------------------------
     -->
     <div class="d-none d-md-block">
-{{--        <p class="text-info">（桌面版表格）</p>--}}
+        {{--        <p class="text-info">（桌面版表格）</p>--}}
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
@@ -513,52 +513,19 @@
         $(this).text(isPaused ? '恢復倒數' : '暫停倒數');
     });
 
-    // AJAX (單台)
     $('.command-btn').click(function() {
         var token = $(this).data('token');
         var mac = $(this).data('mac');
         var command = $(this).data('command');
 
-        $.ajax({
-            url: '/store-command',
-            method: 'POST',
-            data: {
-                _token: "{{ csrf_token() }}",
-                token: token,
-                mac: mac,
-                command: command,
-            },
-            success: function(response) {
-                alert(response.message);
-                location.reload();
-            },
-            error: function(response) {
-                alert("Error: " + response.responseText);
-            }
-        });
+        alert('Demo 無法操作');
     });
 
-    // AJAX (所有機器)
     $('.command-btn-all-mac').click(function() {
         var token = $(this).data('token');
         var command = $(this).data('command');
 
-        $.ajax({
-            url: '/store-all-mac-command',
-            method: 'POST',
-            data: {
-                _token: "{{ csrf_token() }}",
-                token: token,
-                command: command,
-            },
-            success: function(response) {
-                alert(response.message);
-                location.reload();
-            },
-            error: function(response) {
-                alert("Error: " + response.responseText);
-            }
-        });
+        alert('Demo 無法操作');
     });
 
     // 重置網頁資料
