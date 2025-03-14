@@ -751,6 +751,18 @@ class AlertController extends Controller
                 'merges'         => $currentData,
                 'money_total'         => $money_total,
             ]);
+        } else if ($token === 'XVM0o2lTbVUd6IBv9JDQGiTz1fm96QN9bRS02gGmY5x' and !is_null($admin)){
+            return view('demo2', [
+                //                'macCount' => $macCount,
+                'user'                   => $user,
+                'machines'               => $machines,
+                'token'                  => $token,
+                'dnplayer_running_total' => $dnplayer_running_total,
+                'dnplayer_total'         => $dnplayer_total,
+                'machines_total'         => $machines_total,
+                'merges'         => $currentData,
+                'money_total'         => $money_total,
+            ]);
         } else {
             return view('machines4', [
                 //                'macCount' => $macCount,

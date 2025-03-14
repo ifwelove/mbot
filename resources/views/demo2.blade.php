@@ -78,8 +78,8 @@
     </div>
 
     <!-- 簡介與說明 -->
-    <p>大尾監控小程式 購買每台電腦每月50元...（此處省略原文案）。</p>
-    <p>資料每10分鐘, 主機沒訊號監測30分鐘...（此處省略原文案）。</p>
+    <p>大尾監控小程式 購買每台電腦每月50元等於每天不到兩元, 一年600, 購買請洽 Line id: ifwelove</p>
+    <p>資料每10分鐘, 主機沒訊號監測30分鐘, 更新一次, 遊戲維修時間不推播, 私人 line token 請勿外流避免被不當使用</p>
     <p>綠燈 正常運作, 黃燈 大尾沒開, 紅燈 大尾沒回應, 灰色 主機沒訊號</p>
     <p>使用期限：{{ $user['date'] }} ，可使用台數：{{ $user['amount'] }}</p>
     <p>
@@ -166,7 +166,7 @@
         ----------------------------------------------------------------
     -->
     <div class="d-block d-md-none">
-        <p class="text-info">（手機版卡片列表）</p>
+{{--        <p class="text-info">（手機版卡片列表）</p>--}}
         @foreach ($machines as $mIndex => $machine)
             <div class="card mb-3">
                 <div class="card-body">
@@ -267,7 +267,7 @@
         ----------------------------------------------------------------
     -->
     <div class="d-none d-md-block">
-        <p class="text-info">（桌面版表格）</p>
+{{--        <p class="text-info">（桌面版表格）</p>--}}
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
