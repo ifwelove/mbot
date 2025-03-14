@@ -15,16 +15,25 @@ class YouTubeController extends Controller
         $cachePath = storage_path('app/' . $this->cacheFileName);
 
         // 1) 檢查檔案是否存在且未過期
-        $channelsData = [];
         if ($this->isCacheValid($cachePath)) {
-            // 直接讀取快取
             $channelsData = $this->readCache($cachePath);
         } else {
-            // 找不到快取 或 過期 → 重新查 API + 存入檔案
+            // Cache 無效 → 呼叫 API + 寫入檔案
             $channelsData = $this->fetchAndCache($cachePath);
         }
 
-        // 2) 將資料丟給 Blade
+        // 2) 排序：訂閱數由大到小
+        // uasort可以保留原本的key (channelId)
+        uasort($channelsData, function ($a, $b) {
+            // 轉成 int 避免字串比較
+            $subA = (int)($a['subscriberCount'] ?? 0);
+            $subB = (int)($b['subscriberCount'] ?? 0);
+
+            // 回傳 >0 表示要交換，這裡用 ($subB - $subA) 就是由大到小
+            return $subB - $subA;
+        });
+
+        // 3) 丟給Blade
         return view('youtube.index', [
             'channelsData' => $channelsData,
         ]);

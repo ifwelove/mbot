@@ -15,20 +15,15 @@
         <table class="min-w-full bg-white">
             <thead>
             <tr class="bg-gray-200">
-                <th class="py-2 px-4 border-b text-left">Channel ID</th>
+                <th class="py-2 px-4 border-b text-left">縮圖</th>
+{{--                <th class="py-2 px-4 border-b text-left">Channel ID</th>--}}
                 <th class="py-2 px-4 border-b text-left">頻道名稱</th>
                 <th class="py-2 px-4 border-b text-right">訂閱數</th>
-                <th class="py-2 px-4 border-b text-left">縮圖</th>
             </tr>
             </thead>
             <tbody>
             @foreach($channelsData as $channelId => $info)
                 <tr class="hover:bg-gray-100">
-                    <td class="py-2 px-4 border-b">{{ $channelId }}</td>
-                    <td class="py-2 px-4 border-b">{{ $info['title'] }}</td>
-                    <td class="py-2 px-4 border-b text-right">
-                        {{ number_format($info['subscriberCount'] ?? 0) }}
-                    </td>
                     <td class="py-2 px-4 border-b">
                         @php
                             $thumbs = $info['thumbnails'] ?? [];
@@ -39,6 +34,11 @@
                         @else
                             <span class="text-gray-400">No Thumbnail</span>
                         @endif
+                    </td>
+{{--                    <td class="py-2 px-4 border-b">{{ $channelId }}</td>--}}
+                    <td class="py-2 px-4 border-b">{{ $info['title'] }}</td>
+                    <td class="py-2 px-4 border-b text-right">
+                        {{ number_format($info['subscriberCount'] ?? 0) }}
                     </td>
                 </tr>
             @endforeach
